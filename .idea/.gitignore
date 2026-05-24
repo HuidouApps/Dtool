@@ -1,0 +1,9 @@
+# 默认忽略的文件
+/shelf/
+/workspace.xml
+gradle.xml
+misc.xml
+runConfigurations.xml
+AndroidProjectSystem.xml
+Project.xml
+codeStyles
