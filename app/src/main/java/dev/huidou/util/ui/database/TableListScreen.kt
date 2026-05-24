@@ -246,7 +246,7 @@ fun CreateTableDialog(
         title = { Text("创建数据表") },
         text = {
             Column(
-                verticalArrangement = Arrangement.spacedBy(12.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
                 // 表名输入
@@ -264,13 +264,14 @@ fun CreateTableDialog(
                     style = MaterialTheme.typography.titleSmall
                 )
                 
-                // 字段列表
-                LazyColumn(
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.heightIn(max = 300.dp)
+                // 字段列表 - 每个字段占据完整宽度,纵向排列属性
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(max = 300.dp)
                 ) {
-                    items(columns.size) { index ->
-                        val column = columns[index]
+                    columns.forEachIndexed { index, column ->
                         Card(
                             modifier = Modifier.fillMaxWidth()
                         ) {
@@ -278,11 +279,12 @@ fun CreateTableDialog(
                                 modifier = Modifier.padding(12.dp),
                                 verticalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
+                                // 字段名和删除按钮
                                 Row(
                                     horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                    verticalAlignment = Alignment.CenterVertically
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    modifier = Modifier.fillMaxWidth()
                                 ) {
-                                    // 字段名
                                     OutlinedTextField(
                                         value = column.name,
                                         onValueChange = {
@@ -291,18 +293,19 @@ fun CreateTableDialog(
                                             }
                                         },
                                         label = { Text("字段名") },
-                                        placeholder = { Text("name") },
+                                        placeholder = { Text("例如: username") },
                                         singleLine = true,
                                         modifier = Modifier.weight(1f)
                                     )
                                     
-                                    // 删除按钮(至少保留一个字段)
                                     if (columns.size > 1) {
-                                        IconButton(onClick = {
-                                            columns = columns.toMutableList().apply {
-                                                removeAt(index)
+                                        IconButton(
+                                            onClick = {
+                                                columns = columns.toMutableList().apply {
+                                                    removeAt(index)
+                                                }
                                             }
-                                        }) {
+                                        ) {
                                             Icon(
                                                 Icons.Default.Delete,
                                                 contentDescription = "删除字段",
@@ -312,9 +315,11 @@ fun CreateTableDialog(
                                     }
                                 }
                                 
+                                // 长度、类型、主键分两行排列
                                 Row(
                                     horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                    verticalAlignment = Alignment.CenterVertically
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    modifier = Modifier.fillMaxWidth()
                                 ) {
                                     // 字段长度
                                     OutlinedTextField(
@@ -331,60 +336,55 @@ fun CreateTableDialog(
                                     )
                                     
                                     // 数据类型
+                                    var typeExpanded by remember { mutableStateOf(false) }
+                                    
                                     ExposedDropdownMenuBox(
-                                        expanded = false,
-                                        onExpandedChange = { }
+                                        expanded = typeExpanded,
+                                        onExpandedChange = { typeExpanded = !typeExpanded },
+                                        modifier = Modifier.weight(1f)
                                     ) {
-                                        var expanded by remember { mutableStateOf(false) }
+                                        OutlinedTextField(
+                                            value = column.type,
+                                            onValueChange = {},
+                                            readOnly = true,
+                                            label = { Text("类型") },
+                                            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = typeExpanded) },
+                                            modifier = Modifier.menuAnchor()
+                                        )
                                         
-                                        ExposedDropdownMenuBox(
-                                            expanded = expanded,
-                                            onExpandedChange = { expanded = !expanded }
+                                        ExposedDropdownMenu(
+                                            expanded = typeExpanded,
+                                            onDismissRequest = { typeExpanded = false }
                                         ) {
-                                            OutlinedTextField(
-                                                value = column.type,
-                                                onValueChange = {},
-                                                readOnly = true,
-                                                label = { Text("类型") },
-                                                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-                                                modifier = Modifier
-                                                    .menuAnchor()
-                                                    .weight(1f)
-                                            )
-                                            
-                                            ExposedDropdownMenu(
-                                                expanded = expanded,
-                                                onDismissRequest = { expanded = false }
-                                            ) {
-                                                sqlTypes.forEach { type ->
-                                                    DropdownMenuItem(
-                                                        text = { Text(type) },
-                                                        onClick = {
-                                                            columns = columns.toMutableList().apply {
-                                                                this[index] = column.copy(type = type)
-                                                            }
-                                                            expanded = false
+                                            sqlTypes.forEach { type ->
+                                                DropdownMenuItem(
+                                                    text = { Text(type) },
+                                                    onClick = {
+                                                        columns = columns.toMutableList().apply {
+                                                            this[index] = column.copy(type = type)
                                                         }
-                                                    )
-                                                }
+                                                        typeExpanded = false
+                                                    }
+                                                )
                                             }
                                         }
                                     }
-                                    
-                                    // 主键复选框
-                                    Row(
-                                        verticalAlignment = Alignment.CenterVertically
-                                    ) {
-                                        Checkbox(
-                                            checked = column.isPrimaryKey,
-                                            onCheckedChange = {
-                                                columns = columns.toMutableList().apply {
-                                                    this[index] = column.copy(isPrimaryKey = it)
-                                                }
+                                }
+                                
+                                // 主键复选框单独一行
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                                ) {
+                                    Checkbox(
+                                        checked = column.isPrimaryKey,
+                                        onCheckedChange = {
+                                            columns = columns.toMutableList().apply {
+                                                this[index] = column.copy(isPrimaryKey = it)
                                             }
-                                        )
-                                        Text("主键", style = MaterialTheme.typography.bodySmall)
-                                    }
+                                        }
+                                    )
+                                    Text("主键", style = MaterialTheme.typography.bodyMedium)
                                 }
                             }
                         }
@@ -392,7 +392,7 @@ fun CreateTableDialog(
                 }
                 
                 // 添加字段按钮
-                Button(
+                OutlinedButton(
                     onClick = {
                         columns = columns + ColumnDef()
                     },
