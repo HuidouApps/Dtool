@@ -19,6 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <!-- ContentProvider for cross-app database access -->
+        <provider
+            android:name=".provider.DatabaseContentProvider"
+            android:authorities="dev.huidou.db.provider"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>
