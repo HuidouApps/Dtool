@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import dev.huidou.db.ui.DatabaseAppScreen
+import dev.huidou.db.ui.DatabaseBrowserScreen
 import dev.huidou.db.ui.theme.DtoolTheme
 
 class MainActivity : ComponentActivity() {
@@ -13,7 +13,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             DtoolTheme {
-                DatabaseAppScreen()
+                DatabaseBrowserScreen()
             }
         }
     }

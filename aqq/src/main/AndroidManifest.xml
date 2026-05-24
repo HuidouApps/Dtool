@@ -26,6 +26,23 @@
             android:authorities="dev.huidou.db.provider"
             android:enabled="true"
             android:exported="true" />
+        
+        <!-- Universal Database Provider for full database management -->
+        <provider
+            android:name=".provider.UniversalDatabaseProvider"
+            android:authorities="dev.huidou.db.universal"
+            android:enabled="true"
+            android:exported="true" />
+        
+        <!-- AIDL Database Service for cross-app communication -->
+        <service
+            android:name=".service.DatabaseService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="dev.huidou.db.action.BIND_DATABASE_SERVICE" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
