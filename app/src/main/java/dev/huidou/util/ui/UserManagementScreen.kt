@@ -32,6 +32,8 @@ fun UserManagementScreen() {
     var isLoading by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
     var showDeleteConfirm by remember { mutableStateOf<Map<String, Any?>?>(null) }
+    var selectedUserIndex by remember { mutableStateOf<Int?>(null) }
+    var showActionDialog by remember { mutableStateOf(false) }
     
     // 加载用户数据函数
     fun loadUsers() {
@@ -151,30 +153,23 @@ fun UserManagementScreen() {
                     }
                 }
             } else {
-                val headers = listOf("ID", "姓名", "邮箱", "年龄", "城市", "操作")
+                val headers = listOf("ID", "姓名", "邮箱", "年龄", "城市")
                 val rows = users.map { user ->
                     listOf(
                         user["id"].toString(),
                         user["name"].toString(),
                         user["email"].toString(),
                         user["age"].toString(),
-                        user["city"].toString(),
-                        "" // 操作列占位
+                        user["city"].toString()
                     )
                 }
                 
                 DataTable(
                     headers = headers,
                     rows = rows,
-                    onRowClick = { index ->
-                        // 点击行时编辑
-                        editingUser = users[index]
-                    },
-                    onActionClick = { index, action ->
-                        when (action) {
-                            "edit" -> editingUser = users[index]
-                            "delete" -> showDeleteConfirm = users[index]
-                        }
+                    onRowLongClick = { index ->
+                        selectedUserIndex = index
+                        showActionDialog = true
                     },
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -244,9 +239,9 @@ fun UserManagementScreen() {
         AlertDialog(
             onDismissRequest = { showDeleteConfirm = null },
             title = { Text("确认删除") },
-            text = { Text("确定要删除用户 \"${user["name"]}\" 吗？") },
+            text = { Text("确定要删除用户 \"${user["name"]}\" 吗?") },
             confirmButton = {
-                Button(
+                OutlinedButton(
                     onClick = {
                         scope.launch {
                             val success = databaseClient.deleteUser(user["id"] as Int)
@@ -259,17 +254,72 @@ fun UserManagementScreen() {
                             }
                         }
                         showDeleteConfirm = null
-                    },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.error
-                    )
+                    }
                 ) {
-                    Text("删除")
+                    Text("取消")
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showDeleteConfirm = null }) {
+                TextButton(onClick = {
+                    scope.launch {
+                        val success = databaseClient.deleteUser(user["id"] as Int)
+                        if (success) {
+                            loadUsers()
+                            snackbarHostState.showSnackbar("删除成功")
+                        } else {
+                            errorMessage = "删除失败"
+                            snackbarHostState.showSnackbar("删除失败，请重试")
+                        }
+                    }
+                    showDeleteConfirm = null
+                }) {
+                    Text("删除")
+                }
+            }
+        )
+    }
+    
+    // 长按操作选择对话框
+    if (showActionDialog && selectedUserIndex != null) {
+        AlertDialog(
+            onDismissRequest = { 
+                showActionDialog = false
+                selectedUserIndex = null
+            },
+            title = { Text("选择操作") },
+            text = { Text("您想对这个用户执行什么操作?") },
+            confirmButton = {
+                OutlinedButton(
+                    onClick = {
+                        showActionDialog = false
+                        selectedUserIndex = null
+                    }
+                ) {
                     Text("取消")
+                }
+            },
+            dismissButton = {
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    TextButton(
+                        onClick = {
+                            showDeleteConfirm = users[selectedUserIndex!!]
+                            showActionDialog = false
+                            selectedUserIndex = null
+                        }
+                    ) {
+                        Text("删除")
+                    }
+                    Button(
+                        onClick = {
+                            editingUser = users[selectedUserIndex!!]
+                            showActionDialog = false
+                            selectedUserIndex = null
+                        }
+                    ) {
+                        Icon(Icons.Default.Edit, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text("编辑")
+                    }
                 }
             }
         )

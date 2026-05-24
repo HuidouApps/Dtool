@@ -4,8 +4,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
@@ -32,15 +32,22 @@ fun DataBrowserScreen(
     
     var data by remember { mutableStateOf<List<Map<String, Any?>>>(emptyList()) }
     var columns by remember { mutableStateOf<List<String>>(emptyList()) }
+    var columnTypes by remember { mutableStateOf<Map<String, String>>(emptyMap()) }  // 字段名 -> 类型
     var showAddDialog by remember { mutableStateOf(false) }
     var editingRow by remember { mutableStateOf<Map<String, Any?>?>(null) }
     var deletingRow by remember { mutableStateOf<Map<String, Any?>?>(null) }
+    var selectedRowIndex by remember { mutableStateOf<Int?>(null) }
+    var showActionDialog by remember { mutableStateOf(false) }
     
     fun loadData() {
         scope.launch {
             // 先获取表结构
             val structure = dbClient.getTableStructure(dbName, tableName)
             columns = structure.map { it["name"] as String }
+            // 保存字段类型信息
+            columnTypes = structure.associate { 
+                (it["name"] as String) to (it["type"] as? String ?: "TEXT")
+            }
             
             // 再获取数据
             data = dbClient.queryData(dbName, tableName)
@@ -57,7 +64,7 @@ fun DataBrowserScreen(
             TopAppBar(
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "返回")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "返回")
                     }
                 },
                 title = { 
@@ -100,23 +107,16 @@ fun DataBrowserScreen(
                     }
                 }
             } else {
-                // 添加操作列
-                val headers = columns + "操作"
-                val rows = data.map { row ->
-                    val values = columns.map { col ->
-                        row[col]?.toString() ?: ""
-                    }
-                    values + "" // 操作列占位
-                }
-                
                 DataTable(
-                    headers = headers,
-                    rows = rows,
-                    onActionClick = { index, action ->
-                        when (action) {
-                            "edit" -> editingRow = data[index]
-                            "delete" -> deletingRow = data[index]
+                    headers = columns,
+                    rows = data.map { row ->
+                        columns.map { col ->
+                            row[col]?.toString() ?: ""
                         }
+                    },
+                    onRowLongClick = { index ->
+                        selectedRowIndex = index
+                        showActionDialog = true
                     },
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -130,6 +130,7 @@ fun DataBrowserScreen(
             dbName = dbName,
             tableName = tableName,
             columns = columns,
+            columnTypes = columnTypes,
             dbClient = dbClient,
             isEdit = false,
             onDismiss = { showAddDialog = false },
@@ -148,6 +149,7 @@ fun DataBrowserScreen(
             dbName = dbName,
             tableName = tableName,
             columns = columns,
+            columnTypes = columnTypes,
             dbClient = dbClient,
             isEdit = true,
             initialData = row,
@@ -166,9 +168,9 @@ fun DataBrowserScreen(
         AlertDialog(
             onDismissRequest = { deletingRow = null },
             title = { Text("确认删除") },
-            text = { Text("确定要删除这条记录吗？") },
+            text = { Text("确定要删除这条记录吗?") },
             confirmButton = {
-                Button(
+                OutlinedButton(
                     onClick = {
                         scope.launch {
                             // 假设有 id 字段
@@ -189,17 +191,80 @@ fun DataBrowserScreen(
                             }
                         }
                         deletingRow = null
-                    },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.error
-                    )
+                    }
                 ) {
-                    Text("删除")
+                    Text("取消")
                 }
             },
             dismissButton = {
-                TextButton(onClick = { deletingRow = null }) {
+                TextButton(onClick = {
+                    scope.launch {
+                        // 假设有 id 字段
+                        val id = row["id"]
+                        if (id != null) {
+                            val success = dbClient.deleteData(
+                                dbName,
+                                tableName,
+                                "id = ?",
+                                arrayOf(id.toString())
+                            )
+                            if (success) {
+                                loadData()
+                                snackbarHostState.showSnackbar("数据已删除")
+                            } else {
+                                snackbarHostState.showSnackbar("删除失败")
+                            }
+                        }
+                    }
+                    deletingRow = null
+                }) {
+                    Text("删除")
+                }
+            }
+        )
+    }
+    
+    // 长按操作选择对话框
+    if (showActionDialog && selectedRowIndex != null) {
+        AlertDialog(
+            onDismissRequest = { 
+                showActionDialog = false
+                selectedRowIndex = null
+            },
+            title = { Text("选择操作") },
+            text = { Text("您想对这条记录执行什么操作?") },
+            confirmButton = {
+                OutlinedButton(
+                    onClick = {
+                        showActionDialog = false
+                        selectedRowIndex = null
+                    }
+                ) {
                     Text("取消")
+                }
+            },
+            dismissButton = {
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    TextButton(
+                        onClick = {
+                            deletingRow = data[selectedRowIndex!!]
+                            showActionDialog = false
+                            selectedRowIndex = null
+                        }
+                    ) {
+                        Text("删除")
+                    }
+                    Button(
+                        onClick = {
+                            editingRow = data[selectedRowIndex!!]
+                            showActionDialog = false
+                            selectedRowIndex = null
+                        }
+                    ) {
+                        Icon(Icons.Default.Edit, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text("编辑")
+                    }
                 }
             }
         )
@@ -211,6 +276,7 @@ fun AddEditDataDialog(
     dbName: String,
     tableName: String,
     columns: List<String>,
+    columnTypes: Map<String, String>,  // 字段名 -> 类型
     dbClient: UniversalDatabaseClient,
     isEdit: Boolean,
     initialData: Map<String, Any?> = emptyMap(),
@@ -254,8 +320,23 @@ fun AddEditDataDialog(
                     columns.forEach { col ->
                         val value = columnValues[col]
                         if (!value.isNullOrBlank()) {
-                            // 尝试转换为数字
-                            values[col] = value.toIntOrNull() ?: value.toDoubleOrNull() ?: value
+                            // 根据字段类型来转换数据
+                            val columnType = columnTypes[col]?.uppercase() ?: "TEXT"
+                            values[col] = when {
+                                // 如果是 TEXT 类型，保持字符串
+                                columnType.contains("TEXT") || columnType.contains("CHAR") || columnType.contains("CLOB") -> value
+                                // 如果是 INTEGER 类型，转换为整数
+                                columnType.contains("INTEGER") || columnType.contains("INT") -> value.toLongOrNull() ?: value
+                                // 如果是 REAL/FLOAT/DOUBLE 类型，转换为浮点数
+                                columnType.contains("REAL") || columnType.contains("FLOAT") || columnType.contains("DOUBLE") || columnType.contains("NUMERIC") -> value.toDoubleOrNull() ?: value
+                                // 如果是 BLOB 类型，保持原样
+                                columnType.contains("BLOB") -> value
+                                // 默认保持字符串
+                                else -> value
+                            }
+                        } else {
+                            // 空值处理
+                            values[col] = null
                         }
                     }
                     

@@ -1,5 +1,6 @@
 package dev.huidou.util.ui
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.*
 import dev.huidou.util.ui.database.DataBrowserScreen
 import dev.huidou.util.ui.database.DatabaseListScreen
@@ -14,6 +15,23 @@ sealed class DatabaseNavigation {
 @Composable
 fun DatabaseManagementScreen() {
     var navigation by remember { mutableStateOf<DatabaseNavigation>(DatabaseNavigation.DatabaseList) }
+    
+    // 处理系统返回按钮
+    when (val currentNav = navigation) {
+        is DatabaseNavigation.TableList -> {
+            BackHandler {
+                navigation = DatabaseNavigation.DatabaseList
+            }
+        }
+        is DatabaseNavigation.DataBrowser -> {
+            BackHandler {
+                navigation = DatabaseNavigation.TableList(currentNav.dbName)
+            }
+        }
+        else -> {
+            // DatabaseList 是根页面,不需要特殊处理返回
+        }
+    }
     
     when (val currentNav = navigation) {
         is DatabaseNavigation.DatabaseList -> {

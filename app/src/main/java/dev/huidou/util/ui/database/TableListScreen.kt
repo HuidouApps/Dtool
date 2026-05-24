@@ -1,11 +1,13 @@
 package dev.huidou.util.ui.database
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
@@ -39,6 +41,8 @@ fun TableListScreen(
     var isLoading by remember { mutableStateOf(true) }
     var showCreateDialog by remember { mutableStateOf(false) }
     var tableToDelete by remember { mutableStateOf<String?>(null) }
+    var selectedTableIndex by remember { mutableStateOf<Int?>(null) }
+    var showActionDialog by remember { mutableStateOf(false) }
     
     fun loadTables(showLoading: Boolean = true) {
         scope.launch {
@@ -135,11 +139,17 @@ fun TableListScreen(
                 }
             } else {
                 LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    items(tables) { tableName ->
+                    itemsIndexed(tables) { index, tableName ->
                         Card(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .clickable { onTableSelected(tableName) }
+                                .combinedClickable(
+                                    onClick = { onTableSelected(tableName) },
+                                    onLongClick = {
+                                        selectedTableIndex = index
+                                        showActionDialog = true
+                                    }
+                                )
                         ) {
                             Row(
                                 modifier = Modifier
@@ -153,14 +163,6 @@ fun TableListScreen(
                                     style = MaterialTheme.typography.titleMedium,
                                     modifier = Modifier.weight(1f)
                                 )
-                                
-                                IconButton(onClick = { tableToDelete = tableName }) {
-                                    Icon(
-                                        Icons.Default.Delete,
-                                        contentDescription = "删除",
-                                        tint = MaterialTheme.colorScheme.error
-                                    )
-                                }
                             }
                         }
                     }
@@ -189,9 +191,9 @@ fun TableListScreen(
         AlertDialog(
             onDismissRequest = { tableToDelete = null },
             title = { Text("确认删除") },
-            text = { Text("确定要删除表 \"$tableName\" 吗？此操作不可恢复！") },
+            text = { Text("确定要删除表 \"$tableName\" 吗?此操作不可恢复!") },
             confirmButton = {
-                Button(
+                OutlinedButton(
                     onClick = {
                         scope.launch {
                             val success = dbClient.dropTable(dbName, tableName)
@@ -203,17 +205,58 @@ fun TableListScreen(
                             }
                         }
                         tableToDelete = null
-                    },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.error
-                    )
+                    }
                 ) {
-                    Text("删除")
+                    Text("取消")
                 }
             },
             dismissButton = {
-                TextButton(onClick = { tableToDelete = null }) {
+                TextButton(onClick = {
+                    scope.launch {
+                        val success = dbClient.dropTable(dbName, tableName)
+                        if (success) {
+                            loadTables()
+                            snackbarHostState.showSnackbar("表已删除")
+                        } else {
+                            snackbarHostState.showSnackbar("删除失败")
+                        }
+                    }
+                    tableToDelete = null
+                }) {
+                    Text("删除")
+                }
+            }
+        )
+    }
+    
+    // 长按操作选择对话框
+    if (showActionDialog && selectedTableIndex != null) {
+        AlertDialog(
+            onDismissRequest = { 
+                showActionDialog = false
+                selectedTableIndex = null
+            },
+            title = { Text("选择操作") },
+            text = { Text("您想对这个表执行什么操作?") },
+            confirmButton = {
+                OutlinedButton(
+                    onClick = {
+                        showActionDialog = false
+                        selectedTableIndex = null
+                    }
+                ) {
                     Text("取消")
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        tableToDelete = tables[selectedTableIndex!!]
+                        showActionDialog = false
+                        selectedTableIndex = null
+                    }
+                ) {
+                    Text("删除")
                 }
             }
         )

@@ -2,9 +2,11 @@ package dev.huidou.util.ui.database
 
 import android.util.Log
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
@@ -44,6 +46,8 @@ fun DatabaseListScreen(
     var isServiceConnected by remember { mutableStateOf(false) }
     var showCreateDialog by remember { mutableStateOf(false) }
     var databaseToDelete by remember { mutableStateOf<String?>(null) }
+    var selectedDatabaseIndex by remember { mutableStateOf<Int?>(null) }
+    var showActionDialog by remember { mutableStateOf(false) }
     var retryCount by remember { mutableStateOf(0) }
     
     fun loadDatabases(showLoading: Boolean = true) {
@@ -166,7 +170,7 @@ fun DatabaseListScreen(
                 }
             } else {
                 LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    items(databases) { db ->
+                    itemsIndexed(databases) { index, db ->
                         val dbName = db["name"] as String
                         val dbSize = db["size"] as Long
                         val lastModified = db["last_modified"] as Long
@@ -174,7 +178,13 @@ fun DatabaseListScreen(
                         Card(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .clickable { onDatabaseSelected(dbName) }
+                                .combinedClickable(
+                                    onClick = { onDatabaseSelected(dbName) },
+                                    onLongClick = {
+                                        selectedDatabaseIndex = index
+                                        showActionDialog = true
+                                    }
+                                )
                         ) {
                             Row(
                                 modifier = Modifier
@@ -192,14 +202,6 @@ fun DatabaseListScreen(
                                     Text(
                                         text = "大小: ${formatFileSize(dbSize)} | 修改时间: ${formatDate(lastModified)}",
                                         style = MaterialTheme.typography.bodySmall
-                                    )
-                                }
-                                
-                                IconButton(onClick = { databaseToDelete = dbName }) {
-                                    Icon(
-                                        Icons.Default.Delete,
-                                        contentDescription = "删除",
-                                        tint = MaterialTheme.colorScheme.error
                                     )
                                 }
                             }
@@ -234,9 +236,9 @@ fun DatabaseListScreen(
         AlertDialog(
             onDismissRequest = { databaseToDelete = null },
             title = { Text("确认删除") },
-            text = { Text("确定要删除数据库 \"$dbName\" 吗？此操作不可恢复！") },
+            text = { Text("确定要删除数据库 \"$dbName\" 吗?此操作不可恢复!") },
             confirmButton = {
-                Button(
+                OutlinedButton(
                     onClick = {
                         scope.launch {
                             val success = dbClient.deleteDatabase(dbName)
@@ -248,17 +250,58 @@ fun DatabaseListScreen(
                             }
                         }
                         databaseToDelete = null
-                    },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.error
-                    )
+                    }
                 ) {
-                    Text("删除")
+                    Text("取消")
                 }
             },
             dismissButton = {
-                TextButton(onClick = { databaseToDelete = null }) {
+                TextButton(onClick = {
+                    scope.launch {
+                        val success = dbClient.deleteDatabase(dbName)
+                        if (success) {
+                            loadDatabases()
+                            snackbarHostState.showSnackbar("数据库已删除")
+                        } else {
+                            snackbarHostState.showSnackbar("删除失败")
+                        }
+                    }
+                    databaseToDelete = null
+                }) {
+                    Text("删除")
+                }
+            }
+        )
+    }
+    
+    // 长按操作选择对话框
+    if (showActionDialog && selectedDatabaseIndex != null) {
+        AlertDialog(
+            onDismissRequest = { 
+                showActionDialog = false
+                selectedDatabaseIndex = null
+            },
+            title = { Text("选择操作") },
+            text = { Text("您想对这个数据库执行什么操作?") },
+            confirmButton = {
+                OutlinedButton(
+                    onClick = {
+                        showActionDialog = false
+                        selectedDatabaseIndex = null
+                    }
+                ) {
                     Text("取消")
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        databaseToDelete = databases[selectedDatabaseIndex!!]["name"] as String
+                        showActionDialog = false
+                        selectedDatabaseIndex = null
+                    }
+                ) {
+                    Text("删除")
                 }
             }
         )
