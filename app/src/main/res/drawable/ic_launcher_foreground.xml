@@ -57,47 +57,37 @@
             android:fillColor="#00000000"
             android:pathData="M38,74h32" />
 
-        <!-- 笔符号（右下角）- SQLite 风格 -->
-        <!-- 笔身主体 - 斜向放置的长方形 -->
+        <!-- 铅笔（右下角） -->
+        <!-- 铅笔笔身主体 -->
         <path
-            android:strokeColor="#FF9800"
-            android:strokeWidth="1.2"
-            android:strokeLineCap="round"
+            android:fillColor="#FF9800"
+            android:strokeColor="#E65100"
+            android:strokeWidth="0.8"
             android:strokeLineJoin="round"
-            android:fillColor="#00000000"
-            android:pathData="M74,54 L62,66 L64,68 L76,56 Z" />
+            android:pathData="M71,61 L67,59 L63,67 L67,69 Z" />
 
-        <!-- 笔帽（顶部） -->
+        <!-- 铅笔尖端（削尖部分） -->
         <path
-            android:strokeColor="#FF9800"
-            android:strokeWidth="1.2"
-            android:strokeLineCap="round"
+            android:fillColor="#FFCC80"
+            android:strokeColor="#E65100"
+            android:strokeWidth="0.8"
             android:strokeLineJoin="round"
-            android:fillColor="#00000000"
-            android:pathData="M73,52 L70,55 L72,57 L75,54 Z" />
+            android:pathData="M63,67 L62,74 L67,69 Z" />
 
-        <!-- 笔尖（斜向左下的线条，带尖端） -->
+        <!-- 铅笔金属箍 -->
         <path
-            android:strokeColor="#FF9800"
-            android:strokeWidth="1.2"
-            android:strokeLineCap="round"
-            android:fillColor="#00000000"
-            android:pathData="M62,66 L57,71 L54,74" />
+            android:fillColor="#BDBDBD"
+            android:strokeColor="#757575"
+            android:strokeWidth="0.5"
+            android:strokeLineJoin="round"
+            android:pathData="M71,61 L67,59 L68,57 L72,59 Z" />
 
-        <!-- 笔尖末端小点 -->
+        <!-- 铅笔橡皮擦 -->
         <path
-            android:strokeColor="#FF9800"
-            android:strokeWidth="0.9"
-            android:strokeLineCap="round"
-            android:fillColor="#00000000"
-            android:pathData="M54,74 L53,75" />
-
-        <!-- 笔身装饰线 -->
-        <path
-            android:strokeColor="#FF9800"
-            android:strokeWidth="0.9"
-            android:strokeLineCap="round"
-            android:fillColor="#00000000"
-            android:pathData="M72,56 L66,62" />
+            android:fillColor="#EF5350"
+            android:strokeColor="#C62828"
+            android:strokeWidth="0.8"
+            android:strokeLineJoin="round"
+            android:pathData="M68,57 L70,53 L74,55 L72,59 Z" />
     </group>
 </vector>
