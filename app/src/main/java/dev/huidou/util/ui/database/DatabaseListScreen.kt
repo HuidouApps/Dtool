@@ -17,7 +17,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import dev.huidou.util.R
 import dev.huidou.util.provider.UniversalDatabaseClient
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -91,9 +93,9 @@ fun DatabaseListScreen(
             TopAppBar(
                 title = { 
                     Column {
-                        Text("数据库管理")
+                        Text(stringResource(R.string.title_database_management))
                         Text(
-                            text = if (isLoading) "加载中..." else "共 ${databases.size} 个数据库",
+                            text = if (isLoading) stringResource(R.string.label_loading) else stringResource(R.string.label_database_count, databases.size),
                             style = MaterialTheme.typography.bodySmall
                         )
                     }
@@ -105,12 +107,12 @@ fun DatabaseListScreen(
                     ) {
                         Icon(
                             Icons.Default.Refresh,
-                            contentDescription = "刷新",
+                            contentDescription = stringResource(R.string.cd_refresh),
                             modifier = if (isLoading) Modifier else Modifier
                         )
                     }
                     IconButton(onClick = { showCreateDialog = true }) {
-                        Icon(Icons.Default.Add, contentDescription = "创建数据库")
+                        Icon(Icons.Default.Add, contentDescription = stringResource(R.string.cd_create_database))
                     }
                 }
             )
@@ -131,11 +133,11 @@ fun DatabaseListScreen(
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         CircularProgressIndicator()
                         Spacer(modifier = Modifier.height(16.dp))
-                        Text("正在加载数据库列表...")
+                        Text(stringResource(R.string.label_loading_database_list))
                         if (!isServiceConnected) {
                             Spacer(modifier = Modifier.height(8.dp))
                             Text(
-                                text = "等待服务连接...",
+                                text = stringResource(R.string.label_waiting_service),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.secondary
                             )
@@ -156,15 +158,15 @@ fun DatabaseListScreen(
                             tint = MaterialTheme.colorScheme.primary
                         )
                         Spacer(modifier = Modifier.height(16.dp))
-                        Text("暂无数据库")
-                        Text("点击右上角 + 创建数据库", style = MaterialTheme.typography.bodySmall)
+                        Text(stringResource(R.string.label_no_database))
+                        Text(stringResource(R.string.hint_create_database), style = MaterialTheme.typography.bodySmall)
                         
                         // 刷新按钮
                         Spacer(modifier = Modifier.height(16.dp))
                         Button(onClick = { loadDatabases() }) {
                             Icon(Icons.Default.Refresh, contentDescription = null, modifier = Modifier.size(18.dp))
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text("刷新")
+                            Text(stringResource(R.string.action_refresh))
                         }
                     }
                 }
@@ -200,7 +202,7 @@ fun DatabaseListScreen(
                                     )
                                     Spacer(modifier = Modifier.height(4.dp))
                                     Text(
-                                        text = "大小: ${formatFileSize(dbSize)} | 修改时间: ${formatDate(lastModified)}",
+                                        text = stringResource(R.string.label_db_size_and_date, formatFileSize(dbSize), formatDate(lastModified)),
                                         style = MaterialTheme.typography.bodySmall
                                     )
                                 }
@@ -221,9 +223,9 @@ fun DatabaseListScreen(
                     val success = dbClient.createDatabase(name)
                     if (success) {
                         loadDatabases()
-                        snackbarHostState.showSnackbar("数据库创建成功")
+                        snackbarHostState.showSnackbar(context.getString(R.string.msg_database_created))
                     } else {
-                        snackbarHostState.showSnackbar("数据库创建失败")
+                        snackbarHostState.showSnackbar(context.getString(R.string.msg_database_create_failed))
                     }
                 }
                 showCreateDialog = false
@@ -235,24 +237,11 @@ fun DatabaseListScreen(
     databaseToDelete?.let { dbName ->
         AlertDialog(
             onDismissRequest = { databaseToDelete = null },
-            title = { Text("确认删除") },
-            text = { Text("确定要删除数据库 \"$dbName\" 吗?此操作不可恢复!") },
+            title = { Text(stringResource(R.string.title_confirm_delete)) },
+            text = { Text(stringResource(R.string.msg_confirm_delete_database, dbName)) },
             confirmButton = {
-                OutlinedButton(
-                    onClick = {
-                        scope.launch {
-                            val success = dbClient.deleteDatabase(dbName)
-                            if (success) {
-                                loadDatabases()
-                                snackbarHostState.showSnackbar("数据库已删除")
-                            } else {
-                                snackbarHostState.showSnackbar("删除失败")
-                            }
-                        }
-                        databaseToDelete = null
-                    }
-                ) {
-                    Text("取消")
+                OutlinedButton(onClick = { databaseToDelete = null }) {
+                    Text(stringResource(R.string.action_cancel))
                 }
             },
             dismissButton = {
@@ -261,14 +250,14 @@ fun DatabaseListScreen(
                         val success = dbClient.deleteDatabase(dbName)
                         if (success) {
                             loadDatabases()
-                            snackbarHostState.showSnackbar("数据库已删除")
+                            snackbarHostState.showSnackbar(context.getString(R.string.msg_database_deleted))
                         } else {
-                            snackbarHostState.showSnackbar("删除失败")
+                            snackbarHostState.showSnackbar(context.getString(R.string.msg_delete_failed))
                         }
                     }
                     databaseToDelete = null
                 }) {
-                    Text("删除")
+                    Text(stringResource(R.string.action_delete))
                 }
             }
         )
@@ -281,8 +270,8 @@ fun DatabaseListScreen(
                 showActionDialog = false
                 selectedDatabaseIndex = null
             },
-            title = { Text("选择操作") },
-            text = { Text("您想对这个数据库执行什么操作?") },
+            title = { Text(stringResource(R.string.title_select_action)) },
+            text = { Text(stringResource(R.string.msg_select_database_action)) },
             confirmButton = {
                 OutlinedButton(
                     onClick = {
@@ -290,7 +279,7 @@ fun DatabaseListScreen(
                         selectedDatabaseIndex = null
                     }
                 ) {
-                    Text("取消")
+                    Text(stringResource(R.string.action_cancel))
                 }
             },
             dismissButton = {
@@ -301,7 +290,7 @@ fun DatabaseListScreen(
                         selectedDatabaseIndex = null
                     }
                 ) {
-                    Text("删除")
+                    Text(stringResource(R.string.action_delete))
                 }
             }
         )
@@ -317,13 +306,13 @@ fun CreateDatabaseDialog(
     
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("创建数据库") },
+        title = { Text(stringResource(R.string.title_create_database)) },
         text = {
             OutlinedTextField(
                 value = dbName,
                 onValueChange = { dbName = it },
-                label = { Text("数据库名称") },
-                placeholder = { Text("例如: my_database.db") },
+                label = { Text(stringResource(R.string.label_database_name)) },
+                placeholder = { Text(stringResource(R.string.placeholder_database_name)) },
                 singleLine = true
             )
         },
@@ -332,12 +321,12 @@ fun CreateDatabaseDialog(
                 onClick = { onConfirm(dbName) },
                 enabled = dbName.isNotBlank()
             ) {
-                Text("创建")
+                Text(stringResource(R.string.action_create))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(stringResource(R.string.action_cancel))
             }
         }
     )

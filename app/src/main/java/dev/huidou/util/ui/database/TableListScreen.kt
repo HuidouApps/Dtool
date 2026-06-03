@@ -20,7 +20,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import dev.huidou.util.R
 import dev.huidou.util.provider.UniversalDatabaseClient
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -70,14 +72,14 @@ fun TableListScreen(
             TopAppBar(
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "返回")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.action_back))
                     }
                 },
                 title = { 
                     Column {
-                        Text("数据表管理")
+                        Text(stringResource(R.string.title_table_management))
                         Text(
-                            text = if (isLoading) "加载中..." else "数据库: $dbName",
+                            text = if (isLoading) stringResource(R.string.label_loading) else stringResource(R.string.label_database_name_prefix, dbName),
                             style = MaterialTheme.typography.bodySmall
                         )
                     }
@@ -87,10 +89,10 @@ fun TableListScreen(
                         onClick = { loadTables() },
                         enabled = !isLoading
                     ) {
-                        Icon(Icons.Default.Refresh, contentDescription = "刷新")
+                        Icon(Icons.Default.Refresh, contentDescription = stringResource(R.string.cd_refresh))
                     }
                     IconButton(onClick = { showCreateDialog = true }) {
-                        Icon(Icons.Default.Add, contentDescription = "创建表")
+                        Icon(Icons.Default.Add, contentDescription = stringResource(R.string.cd_create_table))
                     }
                 }
             )
@@ -110,7 +112,7 @@ fun TableListScreen(
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         CircularProgressIndicator()
                         Spacer(modifier = Modifier.height(16.dp))
-                        Text("正在加载表列表...")
+                        Text(stringResource(R.string.label_loading_table_list))
                     }
                 }
             } else if (tables.isEmpty()) {
@@ -126,14 +128,14 @@ fun TableListScreen(
                             tint = MaterialTheme.colorScheme.primary
                         )
                         Spacer(modifier = Modifier.height(16.dp))
-                        Text("暂无数据表")
-                        Text("点击右上角 + 创建表", style = MaterialTheme.typography.bodySmall)
+                        Text(stringResource(R.string.label_no_table))
+                        Text(stringResource(R.string.hint_create_table), style = MaterialTheme.typography.bodySmall)
                         
                         Spacer(modifier = Modifier.height(16.dp))
                         Button(onClick = { loadTables() }) {
                             Icon(Icons.Default.Refresh, contentDescription = null, modifier = Modifier.size(18.dp))
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text("刷新")
+                            Text(stringResource(R.string.action_refresh))
                         }
                     }
                 }
@@ -180,7 +182,7 @@ fun TableListScreen(
             onSuccess = {
                 loadTables()
                 scope.launch {
-                    snackbarHostState.showSnackbar("表创建成功")
+                    snackbarHostState.showSnackbar(context.getString(R.string.msg_table_created))
                 }
             }
         )
@@ -190,24 +192,11 @@ fun TableListScreen(
     tableToDelete?.let { tableName ->
         AlertDialog(
             onDismissRequest = { tableToDelete = null },
-            title = { Text("确认删除") },
-            text = { Text("确定要删除表 \"$tableName\" 吗?此操作不可恢复!") },
+            title = { Text(stringResource(R.string.title_confirm_delete)) },
+            text = { Text(stringResource(R.string.msg_confirm_delete_table, tableName)) },
             confirmButton = {
-                OutlinedButton(
-                    onClick = {
-                        scope.launch {
-                            val success = dbClient.dropTable(dbName, tableName)
-                            if (success) {
-                                loadTables()
-                                snackbarHostState.showSnackbar("表已删除")
-                            } else {
-                                snackbarHostState.showSnackbar("删除失败")
-                            }
-                        }
-                        tableToDelete = null
-                    }
-                ) {
-                    Text("取消")
+                OutlinedButton(onClick = { tableToDelete = null }) {
+                    Text(stringResource(R.string.action_cancel))
                 }
             },
             dismissButton = {
@@ -216,14 +205,14 @@ fun TableListScreen(
                         val success = dbClient.dropTable(dbName, tableName)
                         if (success) {
                             loadTables()
-                            snackbarHostState.showSnackbar("表已删除")
+                            snackbarHostState.showSnackbar(context.getString(R.string.msg_table_deleted))
                         } else {
-                            snackbarHostState.showSnackbar("删除失败")
+                            snackbarHostState.showSnackbar(context.getString(R.string.msg_delete_failed))
                         }
                     }
                     tableToDelete = null
                 }) {
-                    Text("删除")
+                    Text(stringResource(R.string.action_delete))
                 }
             }
         )
@@ -236,8 +225,8 @@ fun TableListScreen(
                 showActionDialog = false
                 selectedTableIndex = null
             },
-            title = { Text("选择操作") },
-            text = { Text("您想对这个表执行什么操作?") },
+            title = { Text(stringResource(R.string.title_select_action)) },
+            text = { Text(stringResource(R.string.msg_select_table_action)) },
             confirmButton = {
                 OutlinedButton(
                     onClick = {
@@ -245,7 +234,7 @@ fun TableListScreen(
                         selectedTableIndex = null
                     }
                 ) {
-                    Text("取消")
+                    Text(stringResource(R.string.action_cancel))
                 }
             },
             dismissButton = {
@@ -256,7 +245,7 @@ fun TableListScreen(
                         selectedTableIndex = null
                     }
                 ) {
-                    Text("删除")
+                    Text(stringResource(R.string.action_delete))
                 }
             }
         )
@@ -273,23 +262,24 @@ fun CreateTableDialog(
 ) {
     var tableName by remember { mutableStateOf("") }
     
-    // 字段列表: Pair<字段名, Pair<长度, Pair<类型, 是否主键>>>
+    // 字段列表
     data class ColumnDef(
         var name: String = "",
         var length: String = "",
         var type: String = "INTEGER",
-        var isPrimaryKey: Boolean = false
+        var isPrimaryKey: Boolean = false,
+        var isAutoIncrement: Boolean = false
     )
     
     var columns by remember { 
-        mutableStateOf(listOf(ColumnDef(name = "id", type = "INTEGER", isPrimaryKey = true))) 
+        mutableStateOf(listOf(ColumnDef(name = "id", type = "INTEGER", isPrimaryKey = true, isAutoIncrement = true))) 
     }
     
     val sqlTypes = listOf("INTEGER", "TEXT", "REAL", "BLOB", "NUMERIC")
     
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("创建数据表") },
+        title = { Text(stringResource(R.string.title_create_table)) },
         text = {
             Column(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -299,14 +289,14 @@ fun CreateTableDialog(
                 OutlinedTextField(
                     value = tableName,
                     onValueChange = { tableName = it },
-                    label = { Text("表名") },
-                    placeholder = { Text("例如: users") },
+                    label = { Text(stringResource(R.string.label_table_name)) },
+                    placeholder = { Text(stringResource(R.string.placeholder_table_name)) },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
                 )
                 
                 Text(
-                    text = "字段定义:",
+                    text = stringResource(R.string.label_column_definition),
                     style = MaterialTheme.typography.titleSmall
                 )
                 
@@ -339,8 +329,8 @@ fun CreateTableDialog(
                                                 this[index] = column.copy(name = it)
                                             }
                                         },
-                                        label = { Text("字段名") },
-                                        placeholder = { Text("例如: username") },
+                                        label = { Text(stringResource(R.string.label_column_name)) },
+                                        placeholder = { Text(stringResource(R.string.placeholder_column_name)) },
                                         singleLine = true,
                                         modifier = Modifier.weight(1f)
                                     )
@@ -355,7 +345,7 @@ fun CreateTableDialog(
                                         ) {
                                             Icon(
                                                 Icons.Default.Delete,
-                                                contentDescription = "删除字段",
+                                                contentDescription = stringResource(R.string.cd_delete_column),
                                                 tint = MaterialTheme.colorScheme.error
                                             )
                                         }
@@ -376,8 +366,8 @@ fun CreateTableDialog(
                                                 this[index] = column.copy(length = it)
                                             }
                                         },
-                                        label = { Text("长度") },
-                                        placeholder = { Text("可选") },
+                                        label = { Text(stringResource(R.string.label_length)) },
+                                        placeholder = { Text(stringResource(R.string.placeholder_length)) },
                                         singleLine = true,
                                         modifier = Modifier.weight(1f)
                                     )
@@ -394,7 +384,7 @@ fun CreateTableDialog(
                                             value = column.type,
                                             onValueChange = {},
                                             readOnly = true,
-                                            label = { Text("类型") },
+                                            label = { Text(stringResource(R.string.label_type)) },
                                             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = typeExpanded) },
                                             modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryEditable)
                                         )
@@ -418,20 +408,46 @@ fun CreateTableDialog(
                                     }
                                 }
                                 
-                                // 主键复选框单独一行
+                                // 主键、自增复选框
                                 Row(
                                     verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                                    horizontalArrangement = Arrangement.spacedBy(12.dp)
                                 ) {
-                                    Checkbox(
-                                        checked = column.isPrimaryKey,
-                                        onCheckedChange = {
-                                            columns = columns.toMutableList().apply {
-                                                this[index] = column.copy(isPrimaryKey = it)
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                                    ) {
+                                        Checkbox(
+                                            checked = column.isPrimaryKey,
+                                            onCheckedChange = { checked ->
+                                                columns = columns.toMutableList().apply {
+                                                    this[index] = column.copy(
+                                                        isPrimaryKey = checked,
+                                                        isAutoIncrement = if (!checked) false else column.isAutoIncrement
+                                                    )
+                                                }
                                             }
+                                        )
+                                        Text(stringResource(R.string.label_primary_key), style = MaterialTheme.typography.bodyMedium)
+                                    }
+                                    
+                                    // 自增选项：仅 INTEGER 类型 + 主键时显示
+                                    if (column.isPrimaryKey && column.type == "INTEGER") {
+                                        Row(
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                                        ) {
+                                            Checkbox(
+                                                checked = column.isAutoIncrement,
+                                                onCheckedChange = {
+                                                    columns = columns.toMutableList().apply {
+                                                        this[index] = column.copy(isAutoIncrement = it)
+                                                    }
+                                                }
+                                            )
+                                            Text(stringResource(R.string.label_auto_increment), style = MaterialTheme.typography.bodyMedium)
                                         }
-                                    )
-                                    Text("主键", style = MaterialTheme.typography.bodyMedium)
+                                    }
                                 }
                             }
                         }
@@ -447,7 +463,7 @@ fun CreateTableDialog(
                 ) {
                     Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(18.dp))
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text("添加字段")
+                    Text(stringResource(R.string.action_add_column))
                 }
             }
         },
@@ -458,7 +474,8 @@ fun CreateTableDialog(
                     val columnDefs = columns.map { col ->
                         val lengthPart = if (col.length.isNotBlank()) "(${col.length})" else ""
                         val pkPart = if (col.isPrimaryKey) " PRIMARY KEY" else ""
-                        "${col.name} ${col.type}$lengthPart$pkPart"
+                        val autoIncPart = if (col.isAutoIncrement && col.isPrimaryKey && col.type == "INTEGER") " AUTOINCREMENT" else ""
+                        "${col.name} ${col.type}$lengthPart$pkPart$autoIncPart"
                     }.joinToString(", ")
                     
                     val success = dbClient.createTable(dbName, tableName, columnDefs)
@@ -469,12 +486,12 @@ fun CreateTableDialog(
                 },
                 enabled = tableName.isNotBlank() && columns.all { it.name.isNotBlank() }
             ) {
-                Text("创建")
+                Text(stringResource(R.string.action_create))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(stringResource(R.string.action_cancel))
             }
         }
     )

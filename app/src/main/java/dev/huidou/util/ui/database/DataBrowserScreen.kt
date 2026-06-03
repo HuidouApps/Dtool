@@ -1,19 +1,22 @@
 package dev.huidou.util.ui.database
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import dev.huidou.util.R
 import dev.huidou.util.components.DataTable
 import dev.huidou.util.provider.UniversalDatabaseClient
 import kotlinx.coroutines.launch
@@ -64,21 +67,21 @@ fun DataBrowserScreen(
             TopAppBar(
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "返回")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.action_back))
                     }
                 },
                 title = { 
                     Column {
-                        Text("数据浏览")
+                        Text(stringResource(R.string.title_data_browser))
                         Text("$dbName > $tableName", style = MaterialTheme.typography.bodySmall)
                     }
                 },
                 actions = {
                     IconButton(onClick = { loadData() }) {
-                        Icon(Icons.Default.Add, contentDescription = "刷新")
+                        Icon(Icons.Default.Refresh, contentDescription = stringResource(R.string.cd_refresh))
                     }
                     IconButton(onClick = { showAddDialog = true }) {
-                        Icon(Icons.Default.Add, contentDescription = "添加数据")
+                        Icon(Icons.Default.Add, contentDescription = stringResource(R.string.cd_add_data))
                     }
                 }
             )
@@ -91,7 +94,7 @@ fun DataBrowserScreen(
                 .padding(16.dp)
         ) {
             Text(
-                text = "共 ${data.size} 条记录",
+                text = stringResource(R.string.label_record_count, data.size),
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
@@ -102,8 +105,8 @@ fun DataBrowserScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("暂无数据")
-                        Text("点击右上角 + 添加数据", style = MaterialTheme.typography.bodySmall)
+                        Text(stringResource(R.string.label_no_data))
+                        Text(stringResource(R.string.hint_add_data), style = MaterialTheme.typography.bodySmall)
                     }
                 }
             } else {
@@ -137,7 +140,7 @@ fun DataBrowserScreen(
             onSuccess = {
                 scope.launch {
                     loadData()
-                    snackbarHostState.showSnackbar("数据添加成功")
+                    snackbarHostState.showSnackbar(context.getString(R.string.msg_data_add_success))
                 }
             }
         )
@@ -157,7 +160,7 @@ fun DataBrowserScreen(
             onSuccess = {
                 scope.launch {
                     loadData()
-                    snackbarHostState.showSnackbar("数据更新成功")
+                    snackbarHostState.showSnackbar(context.getString(R.string.msg_data_update_success))
                 }
             }
         )
@@ -167,39 +170,16 @@ fun DataBrowserScreen(
     deletingRow?.let { row ->
         AlertDialog(
             onDismissRequest = { deletingRow = null },
-            title = { Text("确认删除") },
-            text = { Text("确定要删除这条记录吗?") },
+            title = { Text(stringResource(R.string.title_confirm_delete)) },
+            text = { Text(stringResource(R.string.msg_confirm_delete_record)) },
             confirmButton = {
-                OutlinedButton(
-                    onClick = {
-                        scope.launch {
-                            // 假设有 id 字段
-                            val id = row["id"]
-                            if (id != null) {
-                                val success = dbClient.deleteData(
-                                    dbName,
-                                    tableName,
-                                    "id = ?",
-                                    arrayOf(id.toString())
-                                )
-                                if (success) {
-                                    loadData()
-                                    snackbarHostState.showSnackbar("数据已删除")
-                                } else {
-                                    snackbarHostState.showSnackbar("删除失败")
-                                }
-                            }
-                        }
-                        deletingRow = null
-                    }
-                ) {
-                    Text("取消")
+                OutlinedButton(onClick = { deletingRow = null }) {
+                    Text(stringResource(R.string.action_cancel))
                 }
             },
             dismissButton = {
                 TextButton(onClick = {
                     scope.launch {
-                        // 假设有 id 字段
                         val id = row["id"]
                         if (id != null) {
                             val success = dbClient.deleteData(
@@ -210,15 +190,15 @@ fun DataBrowserScreen(
                             )
                             if (success) {
                                 loadData()
-                                snackbarHostState.showSnackbar("数据已删除")
+                                snackbarHostState.showSnackbar(context.getString(R.string.msg_data_deleted))
                             } else {
-                                snackbarHostState.showSnackbar("删除失败")
+                                snackbarHostState.showSnackbar(context.getString(R.string.msg_delete_failed))
                             }
                         }
                     }
                     deletingRow = null
                 }) {
-                    Text("删除")
+                    Text(stringResource(R.string.action_delete))
                 }
             }
         )
@@ -231,8 +211,8 @@ fun DataBrowserScreen(
                 showActionDialog = false
                 selectedRowIndex = null
             },
-            title = { Text("选择操作") },
-            text = { Text("您想对这条记录执行什么操作?") },
+            title = { Text(stringResource(R.string.title_select_action)) },
+            text = { Text(stringResource(R.string.msg_select_record_action)) },
             confirmButton = {
                 OutlinedButton(
                     onClick = {
@@ -240,7 +220,7 @@ fun DataBrowserScreen(
                         selectedRowIndex = null
                     }
                 ) {
-                    Text("取消")
+                    Text(stringResource(R.string.action_cancel))
                 }
             },
             dismissButton = {
@@ -252,7 +232,7 @@ fun DataBrowserScreen(
                             selectedRowIndex = null
                         }
                     ) {
-                        Text("删除")
+                        Text(stringResource(R.string.action_delete))
                     }
                     Button(
                         onClick = {
@@ -263,7 +243,7 @@ fun DataBrowserScreen(
                     ) {
                         Icon(Icons.Default.Edit, contentDescription = null, modifier = Modifier.size(18.dp))
                         Spacer(modifier = Modifier.width(4.dp))
-                        Text("编辑")
+                        Text(stringResource(R.string.action_edit))
                     }
                 }
             }
@@ -286,7 +266,7 @@ fun AddEditDataDialog(
     val scope = rememberCoroutineScope()
     
     // 为每个列维护一个状态
-    val columnValues = remember {
+    val columnValues = remember(columns, initialData) {
         mutableStateMapOf<String, String>().apply {
             columns.forEach { col ->
                 put(col, initialData[col]?.toString() ?: "")
@@ -296,19 +276,23 @@ fun AddEditDataDialog(
     
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(if (isEdit) "编辑数据" else "添加数据") },
+        title = { Text(if (isEdit) stringResource(R.string.title_edit_data) else stringResource(R.string.title_add_data)) },
         text = {
-            LazyColumn(
+            Column(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.heightIn(max = 400.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(max = 400.dp)
+                    .verticalScroll(rememberScrollState())
             ) {
-                items(columns.filter { it != "id" || !isEdit }) { col ->
+                columns.filter { it != "id" || !isEdit }.forEach { col ->
                     OutlinedTextField(
                         value = columnValues[col] ?: "",
                         onValueChange = { columnValues[col] = it },
                         label = { Text(col) },
                         singleLine = true,
-                        enabled = !(isEdit && col == "id") // 编辑时不允许修改 id
+                        enabled = !(isEdit && col == "id"),
+                        modifier = Modifier.fillMaxWidth()
                     )
                 }
             }
@@ -320,22 +304,15 @@ fun AddEditDataDialog(
                     columns.forEach { col ->
                         val value = columnValues[col]
                         if (!value.isNullOrBlank()) {
-                            // 根据字段类型来转换数据
                             val columnType = columnTypes[col]?.uppercase() ?: "TEXT"
                             values[col] = when {
-                                // 如果是 TEXT 类型，保持字符串
                                 columnType.contains("TEXT") || columnType.contains("CHAR") || columnType.contains("CLOB") -> value
-                                // 如果是 INTEGER 类型，转换为整数
                                 columnType.contains("INTEGER") || columnType.contains("INT") -> value.toLongOrNull() ?: value
-                                // 如果是 REAL/FLOAT/DOUBLE 类型，转换为浮点数
                                 columnType.contains("REAL") || columnType.contains("FLOAT") || columnType.contains("DOUBLE") || columnType.contains("NUMERIC") -> value.toDoubleOrNull() ?: value
-                                // 如果是 BLOB 类型，保持原样
                                 columnType.contains("BLOB") -> value
-                                // 默认保持字符串
                                 else -> value
                             }
                         } else {
-                            // 空值处理
                             values[col] = null
                         }
                     }
@@ -369,12 +346,12 @@ fun AddEditDataDialog(
                 },
                 enabled = columns.any { col -> !(columnValues[col].isNullOrEmpty()) }
             ) {
-                Text(if (isEdit) "更新" else "添加")
+                Text(if (isEdit) stringResource(R.string.action_update) else stringResource(R.string.action_add))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(stringResource(R.string.action_cancel))
             }
         }
     )

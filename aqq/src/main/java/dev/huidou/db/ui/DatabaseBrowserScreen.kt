@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.painterResource
@@ -44,9 +45,9 @@ fun DatabaseBrowserScreen() {
             TopAppBar(
                 title = { 
                     Column {
-                        Text("数据库列表")
+                        Text(stringResource(R.string.title_database_list))
                         Text(
-                            text = if (selectedDatabase != null) "当前: $selectedDatabase" else "请选择数据库",
+                            text = if (selectedDatabase != null) stringResource(R.string.label_current_database, selectedDatabase!!) else stringResource(R.string.label_select_database),
                             style = MaterialTheme.typography.bodySmall
                         )
                     }
@@ -54,7 +55,7 @@ fun DatabaseBrowserScreen() {
                 navigationIcon = {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_db_24dp),
-                        contentDescription = "数据库",
+                        contentDescription = stringResource(R.string.cd_database),
                         modifier = Modifier.padding(start = 16.dp)
                     )
                 }
@@ -74,12 +75,12 @@ fun DatabaseBrowserScreen() {
                     .background(MaterialTheme.colorScheme.surfaceVariant)
             ) {
                 Text(
-                    text = "数据库",
+                    text = stringResource(R.string.label_database),
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(16.dp)
                 )
                 
-                Divider()
+                HorizontalDivider()
                 
                 LazyColumn {
                     items(databases) { dbName ->
@@ -119,7 +120,7 @@ fun DatabaseBrowserScreen() {
                     .padding(16.dp)
             ) {
                 Text(
-                    text = "数据表 (${tables.size})",
+                    text = stringResource(R.string.label_table_count, tables.size),
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
@@ -129,14 +130,14 @@ fun DatabaseBrowserScreen() {
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text("请从左侧选择一个数据库")
+                        Text(stringResource(R.string.hint_select_database))
                     }
                 } else if (tables.isEmpty()) {
                     Box(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text("该数据库中没有表")
+                        Text(stringResource(R.string.label_no_tables))
                     }
                 } else {
                     LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {

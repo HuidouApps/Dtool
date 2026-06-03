@@ -13,6 +13,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+import dev.huidou.util.R
 import dev.huidou.util.components.DataTable
 import dev.huidou.util.provider.DatabaseClient
 import kotlinx.coroutines.launch
@@ -46,7 +48,7 @@ fun UserManagementScreen() {
                 errorMessage = null
             } catch (e: Exception) {
                 isConnected = false
-                errorMessage = "连接失败: ${e.message}"
+                errorMessage = context.getString(R.string.error_connect_failed, e.message)
             } finally {
                 isLoading = false
             }
@@ -64,9 +66,9 @@ fun UserManagementScreen() {
             TopAppBar(
                 title = { 
                     Column {
-                        Text("数据库管理")
+                        Text(stringResource(R.string.title_database_management))
                         Text(
-                            text = if (isConnected) "已连接到 AQQ 数据库" else "未连接",
+                            text = if (isConnected) stringResource(R.string.status_connected_aqq) else stringResource(R.string.status_not_connected),
                             style = MaterialTheme.typography.bodySmall
                         )
                     }
@@ -75,13 +77,13 @@ fun UserManagementScreen() {
                     IconButton(onClick = { loadUsers() }) {
                         Icon(
                             imageVector = Icons.Default.Refresh,
-                            contentDescription = "刷新"
+                            contentDescription = stringResource(R.string.cd_refresh)
                         )
                     }
                     IconButton(onClick = { showAddDialog = true }) {
                         Icon(
                             imageVector = Icons.Default.Add,
-                            contentDescription = "添加用户"
+                            contentDescription = stringResource(R.string.cd_add_user)
                         )
                     }
                 }
@@ -100,7 +102,7 @@ fun UserManagementScreen() {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "用户列表 (${users.size} 条记录)",
+                    text = stringResource(R.string.label_user_list_count, users.size),
                     style = MaterialTheme.typography.titleMedium
                 )
                 
@@ -134,11 +136,11 @@ fun UserManagementScreen() {
                     contentAlignment = Alignment.Center
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("⚠️ 无法连接到 AQQ 数据库")
-                        Text("请确保 AQQ 应用已安装并运行", style = MaterialTheme.typography.bodySmall)
+                        Text(stringResource(R.string.error_cannot_connect_aqq))
+                        Text(stringResource(R.string.hint_ensure_aqq_running), style = MaterialTheme.typography.bodySmall)
                         Spacer(modifier = Modifier.height(16.dp))
                         Button(onClick = { loadUsers() }) {
-                            Text("重试")
+                            Text(stringResource(R.string.action_retry))
                         }
                     }
                 }
@@ -148,12 +150,18 @@ fun UserManagementScreen() {
                     contentAlignment = Alignment.Center
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("暂无数据")
-                        Text("点击右上角 + 按钮添加用户", style = MaterialTheme.typography.bodySmall)
+                        Text(stringResource(R.string.label_no_data))
+                        Text(stringResource(R.string.hint_add_user), style = MaterialTheme.typography.bodySmall)
                     }
                 }
             } else {
-                val headers = listOf("ID", "姓名", "邮箱", "年龄", "城市")
+                val headers = listOf(
+                    stringResource(R.string.header_id),
+                    stringResource(R.string.header_name),
+                    stringResource(R.string.header_email),
+                    stringResource(R.string.header_age),
+                    stringResource(R.string.header_city)
+                )
                 val rows = users.map { user ->
                     listOf(
                         user["id"].toString(),
@@ -180,7 +188,7 @@ fun UserManagementScreen() {
     // 添加用户对话框
     if (showAddDialog) {
         UserDialog(
-            title = "添加用户",
+            title = stringResource(R.string.title_add_user),
             onDismiss = { showAddDialog = false },
             onConfirm = { name, email, age, city ->
                 scope.launch {
@@ -192,10 +200,10 @@ fun UserManagementScreen() {
                     )
                     if (success) {
                         loadUsers()
-                        snackbarHostState.showSnackbar("添加成功")
+                        snackbarHostState.showSnackbar(context.getString(R.string.msg_add_success))
                     } else {
-                        errorMessage = "添加失败"
-                        snackbarHostState.showSnackbar("添加失败，请重试")
+                        errorMessage = context.getString(R.string.msg_add_failed)
+                        snackbarHostState.showSnackbar(context.getString(R.string.msg_add_failed_retry))
                     }
                 }
                 showAddDialog = false
@@ -206,7 +214,7 @@ fun UserManagementScreen() {
     // 编辑用户对话框
     editingUser?.let { user ->
         UserDialog(
-            title = "编辑用户",
+            title = stringResource(R.string.title_edit_user),
             initialName = user["name"].toString(),
             initialEmail = user["email"].toString(),
             initialAge = user["age"].toString(),
@@ -223,10 +231,10 @@ fun UserManagementScreen() {
                     )
                     if (success) {
                         loadUsers()
-                        snackbarHostState.showSnackbar("更新成功")
+                        snackbarHostState.showSnackbar(context.getString(R.string.msg_update_success))
                     } else {
-                        errorMessage = "更新失败"
-                        snackbarHostState.showSnackbar("更新失败，请重试")
+                        errorMessage = context.getString(R.string.msg_update_failed)
+                        snackbarHostState.showSnackbar(context.getString(R.string.msg_update_failed_retry))
                     }
                 }
                 editingUser = null
@@ -238,25 +246,11 @@ fun UserManagementScreen() {
     showDeleteConfirm?.let { user ->
         AlertDialog(
             onDismissRequest = { showDeleteConfirm = null },
-            title = { Text("确认删除") },
-            text = { Text("确定要删除用户 \"${user["name"]}\" 吗?") },
+            title = { Text(stringResource(R.string.title_confirm_delete)) },
+            text = { Text(stringResource(R.string.msg_confirm_delete_user, user["name"].toString())) },
             confirmButton = {
-                OutlinedButton(
-                    onClick = {
-                        scope.launch {
-                            val success = databaseClient.deleteUser(user["id"] as Int)
-                            if (success) {
-                                loadUsers()
-                                snackbarHostState.showSnackbar("删除成功")
-                            } else {
-                                errorMessage = "删除失败"
-                                snackbarHostState.showSnackbar("删除失败，请重试")
-                            }
-                        }
-                        showDeleteConfirm = null
-                    }
-                ) {
-                    Text("取消")
+                OutlinedButton(onClick = { showDeleteConfirm = null }) {
+                    Text(stringResource(R.string.action_cancel))
                 }
             },
             dismissButton = {
@@ -265,15 +259,15 @@ fun UserManagementScreen() {
                         val success = databaseClient.deleteUser(user["id"] as Int)
                         if (success) {
                             loadUsers()
-                            snackbarHostState.showSnackbar("删除成功")
+                            snackbarHostState.showSnackbar(context.getString(R.string.msg_delete_success))
                         } else {
-                            errorMessage = "删除失败"
-                            snackbarHostState.showSnackbar("删除失败，请重试")
+                            errorMessage = context.getString(R.string.msg_delete_failed)
+                            snackbarHostState.showSnackbar(context.getString(R.string.msg_delete_failed_retry))
                         }
                     }
                     showDeleteConfirm = null
                 }) {
-                    Text("删除")
+                    Text(stringResource(R.string.action_delete))
                 }
             }
         )
@@ -286,8 +280,8 @@ fun UserManagementScreen() {
                 showActionDialog = false
                 selectedUserIndex = null
             },
-            title = { Text("选择操作") },
-            text = { Text("您想对这个用户执行什么操作?") },
+            title = { Text(stringResource(R.string.title_select_action)) },
+            text = { Text(stringResource(R.string.msg_select_user_action)) },
             confirmButton = {
                 OutlinedButton(
                     onClick = {
@@ -295,7 +289,7 @@ fun UserManagementScreen() {
                         selectedUserIndex = null
                     }
                 ) {
-                    Text("取消")
+                    Text(stringResource(R.string.action_cancel))
                 }
             },
             dismissButton = {
@@ -307,7 +301,7 @@ fun UserManagementScreen() {
                             selectedUserIndex = null
                         }
                     ) {
-                        Text("删除")
+                        Text(stringResource(R.string.action_delete))
                     }
                     Button(
                         onClick = {
@@ -318,7 +312,7 @@ fun UserManagementScreen() {
                     ) {
                         Icon(Icons.Default.Edit, contentDescription = null, modifier = Modifier.size(18.dp))
                         Spacer(modifier = Modifier.width(4.dp))
-                        Text("编辑")
+                        Text(stringResource(R.string.action_edit))
                     }
                 }
             }
@@ -336,10 +330,10 @@ fun UserDialog(
     onDismiss: () -> Unit,
     onConfirm: (String, String, String, String) -> Unit
 ) {
-    var name by remember { mutableStateOf(initialName) }
-    var email by remember { mutableStateOf(initialEmail) }
-    var age by remember { mutableStateOf(initialAge) }
-    var city by remember { mutableStateOf(initialCity) }
+    var name by remember(initialName) { mutableStateOf(initialName) }
+    var email by remember(initialEmail) { mutableStateOf(initialEmail) }
+    var age by remember(initialAge) { mutableStateOf(initialAge) }
+    var city by remember(initialCity) { mutableStateOf(initialCity) }
     
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -349,25 +343,25 @@ fun UserDialog(
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
-                    label = { Text("姓名") },
+                    label = { Text(stringResource(R.string.header_name)) },
                     singleLine = true
                 )
                 OutlinedTextField(
                     value = email,
                     onValueChange = { email = it },
-                    label = { Text("邮箱") },
+                    label = { Text(stringResource(R.string.header_email)) },
                     singleLine = true
                 )
                 OutlinedTextField(
                     value = age,
                     onValueChange = { age = it },
-                    label = { Text("年龄") },
+                    label = { Text(stringResource(R.string.header_age)) },
                     singleLine = true
                 )
                 OutlinedTextField(
                     value = city,
                     onValueChange = { city = it },
-                    label = { Text("城市") },
+                    label = { Text(stringResource(R.string.header_city)) },
                     singleLine = true
                 )
             }
@@ -377,12 +371,12 @@ fun UserDialog(
                 onClick = { onConfirm(name, email, age, city) },
                 enabled = name.isNotBlank() && email.isNotBlank()
             ) {
-                Text("确定")
+                Text(stringResource(R.string.action_confirm))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(stringResource(R.string.action_cancel))
             }
         }
     )
