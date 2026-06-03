@@ -114,6 +114,9 @@
     <string name="section_about">حول</string>
     <string name="language_settings">اللغة</string>
     <string name="theme_settings">المظهر</string>
+    <string name="theme_mode_light">الوضع الفاتح</string>
+    <string name="theme_mode_dark">الوضع الداكن</string>
+    <string name="theme_mode_system">اتبع النظام</string>
     <string name="about_app">حول التطبيق</string>
     <string name="cd_open_settings">فتح الإعدادات</string>
     <string name="cd_close_drawer">إغلاق القائمة الجانبية</string>

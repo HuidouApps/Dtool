@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">DBTool</string>
 
-    <!-- Common -->
+    <!-- 全局操作 -->
     <string name="action_cancel">取消</string>
     <string name="action_delete">删除</string>
     <string name="action_edit">编辑</string>
@@ -20,7 +20,7 @@
     <string name="msg_delete_failed">删除失败</string>
     <string name="msg_delete_failed_retry">删除失败，请重试</string>
 
-    <!-- DatabaseManagementScreen / DatabaseListScreen -->
+    <!-- 数据库管理页 -->
     <string name="title_database_management">数据库管理</string>
     <string name="label_database_count">共 %d 个数据库</string>
     <string name="label_loading_database_list">正在加载数据库列表...</string>
@@ -36,12 +36,12 @@
     <string name="cd_create_database">创建数据库</string>
     <string name="label_db_size_and_date">大小: %s | 修改时间: %s</string>
 
-    <!-- CreateDatabaseDialog -->
+    <!-- 创建数据库对话框 -->
     <string name="title_create_database">创建数据库</string>
     <string name="label_database_name">数据库名称</string>
     <string name="placeholder_database_name">例如: my_database.db</string>
 
-    <!-- TableListScreen -->
+    <!-- 数据表视图 -->
     <string name="title_table_management">数据表管理</string>
     <string name="label_database_name_prefix">数据库: %s</string>
     <string name="label_loading_table_list">正在加载表列表...</string>
@@ -53,7 +53,7 @@
     <string name="msg_confirm_delete_table">确定要删除表 \"%s\" 吗?此操作不可恢复!</string>
     <string name="msg_select_table_action">您想对这个表执行什么操作?</string>
 
-    <!-- CreateTableDialog -->
+    <!-- 创建表格对话框 -->
     <string name="title_create_table">创建数据表</string>
     <string name="label_table_name">表名</string>
     <string name="placeholder_table_name">例如: users</string>
@@ -67,7 +67,7 @@
     <string name="action_add_column">添加字段</string>
     <string name="cd_delete_column">删除字段</string>
 
-    <!-- UserManagementScreen -->
+    <!-- 管理示例 -->
     <string name="status_connected_aqq">已连接到 AQQ 数据库</string>
     <string name="status_not_connected">未连接</string>
     <string name="cd_add_user">添加用户</string>
@@ -92,7 +92,7 @@
     <string name="msg_confirm_delete_user">确定要删除用户 \"%s\" 吗?</string>
     <string name="msg_select_user_action">您想对这个用户执行什么操作?</string>
 
-    <!-- DataBrowserScreen -->
+    <!-- 数据浏览页 -->
     <string name="title_data_browser">数据浏览</string>
     <string name="label_record_count">共 %d 条记录</string>
     <string name="hint_add_data">点击右上角 + 添加数据</string>
@@ -106,13 +106,16 @@
     <string name="cd_add_data">添加数据</string>
     <string name="label_auto_increment">自增</string>
 
-    <!-- SettingsScreen -->
+    <!-- 设置页 -->
     <string name="title_settings">设置</string>
     <string name="title_app_settings">应用设置</string>
     <string name="section_settings">设置</string>
     <string name="section_about">关于</string>
     <string name="language_settings">语言设置</string>
     <string name="theme_settings">主题设置</string>
+    <string name="theme_mode_light">浅色模式</string>
+    <string name="theme_mode_dark">深色模式</string>
+    <string name="theme_mode_system">跟随系统</string>
     <string name="about_app">关于应用</string>
     <string name="cd_open_settings">打开设置</string>
     <string name="cd_close_drawer">关闭侧边栏</string>
@@ -120,8 +123,9 @@
     <string name="drawer_subtitle">数据库管理工具</string>
     <string name="menu_database">数据库管理</string>
     <string name="menu_settings">设置</string>
+    <string name="do_not_change_language" translatable="false">暂不支持切换语言</string>
 
-    <!-- About Card -->
+    <!-- 关于 卡片 -->
     <string name="title_about">关于</string>
     <string name="visit_github">开发者页</string>
     <string name="about_app_btn">关于应用</string>
@@ -131,7 +135,7 @@
     <string name="about_contributor_2">2249807346（2249807346）</string>
     <string name="about_built_with">基于 Kotlin 构建</string>
 
-    <!-- About Me -->
+    <!-- 关于我 -->
     <string name="about_hello">Hello World</string>
     <string name="about_description">你保护世界，我保护你</string>
     <string name="about_developer">亻尔女子，我是 huidoudour（慧兜兜）</string>

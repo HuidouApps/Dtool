@@ -21,12 +21,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-
 import androidx.compose.ui.unit.dp
+import android.widget.Toast
 import dev.huidou.util.R
+import dev.huidou.util.ui.theme.ThemeMode
+import dev.huidou.util.ui.theme.ThemeViewModel
 
 /**
  * 设置页面
@@ -37,8 +39,12 @@ import dev.huidou.util.R
 fun SettingsScreen(
     onMenuClick: () -> Unit = {},
     onAboutClick: () -> Unit = {},
-    onAboutAppClick: () -> Unit = {}
+    onAboutAppClick: () -> Unit = {},
+    themeViewModel: ThemeViewModel
 ) {
+    var showThemeDialog by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val languageToastMsg = stringResource(R.string.do_not_change_language)
 
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing,
@@ -80,7 +86,9 @@ fun SettingsScreen(
                 iconBackgroundColor = MaterialTheme.colorScheme.primaryContainer,
                 iconTintColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 title = stringResource(R.string.language_settings),
-                onClick = { /* TODO */ }
+                onClick = {
+                    Toast.makeText(context, languageToastMsg, Toast.LENGTH_SHORT).show()
+                }
             )
 
             Spacer(modifier = Modifier.height(4.dp))
@@ -91,7 +99,7 @@ fun SettingsScreen(
                 iconBackgroundColor = MaterialTheme.colorScheme.primaryContainer,
                 iconTintColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 title = stringResource(R.string.theme_settings),
-                onClick = { /* TODO */ }
+                onClick = { showThemeDialog = true }
             )
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -121,6 +129,79 @@ fun SettingsScreen(
                 onClick = onAboutAppClick
             )
         }
+    }
+
+    // 主题切换对话框
+    if (showThemeDialog) {
+        ThemeSelectionDialog(
+            themeViewModel = themeViewModel,
+            onDismiss = { showThemeDialog = false }
+        )
+    }
+}
+
+/**
+ * 主题选择对话框
+ */
+@Composable
+private fun ThemeSelectionDialog(
+    themeViewModel: ThemeViewModel,
+    onDismiss: () -> Unit
+) {
+    val currentMode by themeViewModel.themeMode.collectAsState(initial = ThemeMode.SYSTEM)
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.theme_settings)) },
+        text = {
+            Column {
+                ThemeOptionRow(
+                    label = stringResource(R.string.theme_mode_light),
+                    selected = currentMode == ThemeMode.LIGHT,
+                    onClick = { themeViewModel.setThemeMode(ThemeMode.LIGHT) }
+                )
+                ThemeOptionRow(
+                    label = stringResource(R.string.theme_mode_dark),
+                    selected = currentMode == ThemeMode.DARK,
+                    onClick = { themeViewModel.setThemeMode(ThemeMode.DARK) }
+                )
+                ThemeOptionRow(
+                    label = stringResource(R.string.theme_mode_system),
+                    selected = currentMode == ThemeMode.SYSTEM,
+                    onClick = { themeViewModel.setThemeMode(ThemeMode.SYSTEM) }
+                )
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onDismiss) {
+                Text(stringResource(R.string.action_confirm))
+            }
+        }
+    )
+}
+
+@Composable
+private fun ThemeOptionRow(
+    label: String,
+    selected: Boolean,
+    onClick: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick)
+            .padding(vertical = 12.dp, horizontal = 4.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        RadioButton(
+            selected = selected,
+            onClick = onClick
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(
+            text = label,
+            style = MaterialTheme.typography.bodyLarge
+        )
     }
 }
 

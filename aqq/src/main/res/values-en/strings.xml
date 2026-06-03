@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DataBase</string>
+
+    <!-- DatabaseBrowserScreen -->
+    <string name="title_database_list">Database List</string>
+    <string name="label_current_database">Current: %s</string>
+    <string name="label_select_database">Select a database</string>
+    <string name="cd_database">Database</string>
+    <string name="label_database">Database</string>
+    <string name="label_table_count">Tables (%d)</string>
+    <string name="hint_select_database">Select a database from the left</string>
+    <string name="label_no_tables">No tables in this database</string>
+</resources>

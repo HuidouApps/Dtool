@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DataBase</string>
+
+    <!-- DatabaseBrowserScreen -->
+    <string name="title_database_list">数据库列表</string>
+    <string name="label_current_database">当前: %s</string>
+    <string name="label_select_database">请选择数据库</string>
+    <string name="cd_database">数据库</string>
+    <string name="label_database">数据库</string>
+    <string name="label_table_count">数据表 (%d)</string>
+    <string name="hint_select_database">请从左侧选择一个数据库</string>
+    <string name="label_no_tables">该数据库中没有表</string>
+</resources>

@@ -113,6 +113,9 @@
     <string name="section_about">关于</string>
     <string name="language_settings">语言设置</string>
     <string name="theme_settings">主题设置</string>
+    <string name="theme_mode_light">浅色模式</string>
+    <string name="theme_mode_dark">深色模式</string>
+    <string name="theme_mode_system">跟随系统</string>
     <string name="about_app">关于应用</string>
     <string name="cd_open_settings">打开设置</string>
     <string name="cd_close_drawer">关闭侧边栏</string>

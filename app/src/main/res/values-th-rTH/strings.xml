@@ -114,6 +114,9 @@
     <string name="section_about">เกี่ยวกับ</string>
     <string name="language_settings">ภาษา</string>
     <string name="theme_settings">ธีม</string>
+    <string name="theme_mode_light">โหมดสว่าง</string>
+    <string name="theme_mode_dark">โหมดมืด</string>
+    <string name="theme_mode_system">ตามระบบ</string>
     <string name="about_app">เกี่ยวกับแอป</string>
     <string name="cd_open_settings">เปิดการตั้งค่า</string>
     <string name="cd_close_drawer">ปิดเมนูด้านข้าง</string>

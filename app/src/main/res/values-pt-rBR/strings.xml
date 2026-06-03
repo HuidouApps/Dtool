@@ -114,6 +114,9 @@
     <string name="section_about">Sobre</string>
     <string name="language_settings">Idioma</string>
     <string name="theme_settings">Tema</string>
+    <string name="theme_mode_light">Modo claro</string>
+    <string name="theme_mode_dark">Modo escuro</string>
+    <string name="theme_mode_system">Seguir o sistema</string>
     <string name="about_app">Sobre o aplicativo</string>
     <string name="cd_open_settings">Abrir configurações</string>
     <string name="cd_close_drawer">Fechar menu lateral</string>

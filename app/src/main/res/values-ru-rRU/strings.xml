@@ -114,6 +114,9 @@
     <string name="section_about">О приложении</string>
     <string name="language_settings">Язык</string>
     <string name="theme_settings">Тема</string>
+    <string name="theme_mode_light">Светлый режим</string>
+    <string name="theme_mode_dark">Тёмный режим</string>
+    <string name="theme_mode_system">Системный</string>
     <string name="about_app">О приложении</string>
     <string name="cd_open_settings">Открыть настройки</string>
     <string name="cd_close_drawer">Закрыть боковое меню</string>

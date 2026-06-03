@@ -114,6 +114,9 @@
     <string name="section_about">Tentang</string>
     <string name="language_settings">Bahasa</string>
     <string name="theme_settings">Tema</string>
+    <string name="theme_mode_light">Mode Terang</string>
+    <string name="theme_mode_dark">Mode Gelap</string>
+    <string name="theme_mode_system">Ikuti Sistem</string>
     <string name="about_app">Tentang Aplikasi</string>
     <string name="cd_open_settings">Buka pengaturan</string>
     <string name="cd_close_drawer">Tutup menu samping</string>

@@ -114,6 +114,9 @@
     <string name="section_about">About</string>
     <string name="language_settings">Language</string>
     <string name="theme_settings">Theme</string>
+    <string name="theme_mode_light">Light Mode</string>
+    <string name="theme_mode_dark">Dark Mode</string>
+    <string name="theme_mode_system">Follow System</string>
     <string name="about_app">About App</string>
     <string name="cd_open_settings">Open settings</string>
     <string name="cd_close_drawer">Close drawer</string>

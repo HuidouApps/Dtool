@@ -18,6 +18,7 @@ import dev.huidou.util.R
 import dev.huidou.util.ui.database.DataBrowserScreen
 import dev.huidou.util.ui.database.DatabaseListScreen
 import dev.huidou.util.ui.database.TableListScreen
+import dev.huidou.util.ui.theme.ThemeViewModel
 import kotlinx.coroutines.launch
 
 sealed class DatabaseNavigation {
@@ -30,7 +31,9 @@ sealed class DatabaseNavigation {
 }
 
 @Composable
-fun DatabaseManagementScreen() {
+fun DatabaseManagementScreen(
+    themeViewModel: ThemeViewModel
+) {
     var navigation by remember { mutableStateOf<DatabaseNavigation>(DatabaseNavigation.DatabaseList) }
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -131,7 +134,8 @@ fun DatabaseManagementScreen() {
                     },
                     onAboutAppClick = {
                         navigation = DatabaseNavigation.AboutApp
-                    }
+                    },
+                    themeViewModel = themeViewModel
                 )
             }
             is DatabaseNavigation.About -> {

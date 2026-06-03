@@ -114,6 +114,9 @@
     <string name="section_about">정보</string>
     <string name="language_settings">언어 설정</string>
     <string name="theme_settings">테마 설정</string>
+    <string name="theme_mode_light">라이트 모드</string>
+    <string name="theme_mode_dark">다크 모드</string>
+    <string name="theme_mode_system">시스템 따르기</string>
     <string name="about_app">앱 정보</string>
     <string name="cd_open_settings">설정 열기</string>
     <string name="cd_close_drawer">서랍 메뉴 닫기</string>

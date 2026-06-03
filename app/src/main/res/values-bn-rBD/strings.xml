@@ -114,6 +114,9 @@
     <string name="section_about">সম্পর্কে</string>
     <string name="language_settings">ভাষা</string>
     <string name="theme_settings">থিম</string>
+    <string name="theme_mode_light">লাইট মোড</string>
+    <string name="theme_mode_dark">ডার্ক মোড</string>
+    <string name="theme_mode_system">সিস্টেম অনুসরণ</string>
     <string name="about_app">অ্যাপ সম্পর্কে</string>
     <string name="cd_open_settings">সেটিংস খুলুন</string>
     <string name="cd_close_drawer">ড্রয়ার বন্ধ করুন</string>

@@ -114,6 +114,9 @@
     <string name="section_about">アプリについて</string>
     <string name="language_settings">言語設定</string>
     <string name="theme_settings">テーマ設定</string>
+    <string name="theme_mode_light">ライトモード</string>
+    <string name="theme_mode_dark">ダークモード</string>
+    <string name="theme_mode_system">システムに従う</string>
     <string name="about_app">アプリについて</string>
     <string name="cd_open_settings">設定を開く</string>
     <string name="cd_close_drawer">ドロワーを閉じる</string>

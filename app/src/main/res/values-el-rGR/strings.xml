@@ -114,6 +114,9 @@
     <string name="section_about">Σχετικά</string>
     <string name="language_settings">Γλώσσα</string>
     <string name="theme_settings">Θέμα</string>
+    <string name="theme_mode_light">Φωτεινή λειτουργία</string>
+    <string name="theme_mode_dark">Σκοτεινή λειτουργία</string>
+    <string name="theme_mode_system">Ακολουθία συστήματος</string>
     <string name="about_app">Σχετικά με την εφαρμογή</string>
     <string name="cd_open_settings">Άνοιγμα ρυθμίσεων</string>
     <string name="cd_close_drawer">Κλείσιμο πλευρικού μενού</string>
