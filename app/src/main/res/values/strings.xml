@@ -105,4 +105,33 @@
     <string name="title_add_data">添加数据</string>
     <string name="cd_add_data">添加数据</string>
     <string name="label_auto_increment">自增</string>
+
+    <!-- SettingsScreen -->
+    <string name="title_settings">设置</string>
+    <string name="title_app_settings">应用设置</string>
+    <string name="section_settings">设置</string>
+    <string name="section_about">关于</string>
+    <string name="language_settings">语言设置</string>
+    <string name="theme_settings">主题设置</string>
+    <string name="about_app">关于应用</string>
+    <string name="cd_open_settings">打开设置</string>
+    <string name="cd_close_drawer">关闭侧边栏</string>
+    <string name="drawer_title">DBTool</string>
+    <string name="drawer_subtitle">数据库管理工具</string>
+    <string name="menu_database">数据库管理</string>
+    <string name="menu_settings">设置</string>
+
+    <!-- AboutScreen -->
+    <string name="title_about">关于</string>
+    <string name="about_hello">Hello World</string>
+    <string name="about_description">你保护世界，我保护你</string>
+    <string name="about_developer">亻尔女子，我是 huidoudour（慧兜兜）</string>
+    <string name="visit_github">开发者页</string>
+    <string name="about_app_btn">关于应用</string>
+    <string name="about_owner_label">所有者</string>
+    <string name="about_contributors_label">贡献者</string>
+    <string name="about_contributor_1">huidoudour（慧兜兜）</string>
+    <string name="about_contributor_2">2249807346（2249807346）</string>
+    <string name="about_built_with">基于 Kotlin 构建</string>
+    <string name="find_me">ω寻找我ω</string>
 </resources>

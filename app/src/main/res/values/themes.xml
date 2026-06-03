@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Dtool" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.Dtool" parent="android:Theme.Material.Light.NoActionBar">
+        <!-- Enable edge-to-edge display with status bar transparency -->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <!-- Ensure proper contrast for status bar icons -->
+        <item name="android:enforceStatusBarContrast">false</item>
+        <item name="android:enforceNavigationBarContrast">false</item>
+        <!-- Use dark status bar icons (black) on light background -->
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
 </resources>

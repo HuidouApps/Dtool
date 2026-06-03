@@ -17,6 +17,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import dev.huidou.util.R
@@ -29,7 +30,8 @@ import java.util.*
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DatabaseListScreen(
-    onDatabaseSelected: (String) -> Unit
+    onDatabaseSelected: (String) -> Unit,
+    onMenuClick: () -> Unit = {}
 ) {
     val context = LocalContext.current
     Log.d("DatabaseListScreen", "=== DatabaseListScreen Composable entered ===")
@@ -88,6 +90,7 @@ fun DatabaseListScreen(
     }
     
     Scaffold(
+        contentWindowInsets = WindowInsets.safeDrawing,
         snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
             TopAppBar(
@@ -97,6 +100,14 @@ fun DatabaseListScreen(
                         Text(
                             text = if (isLoading) stringResource(R.string.label_loading) else stringResource(R.string.label_database_count, databases.size),
                             style = MaterialTheme.typography.bodySmall
+                        )
+                    }
+                },
+                navigationIcon = {
+                    IconButton(onClick = onMenuClick) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_list),
+                            contentDescription = stringResource(R.string.cd_open_settings)
                         )
                     }
                 },
