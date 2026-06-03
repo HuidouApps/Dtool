@@ -12,7 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import dev.huidou.database.AppDatabase
+import androidx.compose.ui.res.painterResource
+import dev.huidou.db.R
 import java.io.File
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -43,12 +44,19 @@ fun DatabaseBrowserScreen() {
             TopAppBar(
                 title = { 
                     Column {
-                        Text("数据库浏览器")
+                        Text("数据库列表")
                         Text(
                             text = if (selectedDatabase != null) "当前: $selectedDatabase" else "请选择数据库",
                             style = MaterialTheme.typography.bodySmall
                         )
                     }
+                },
+                navigationIcon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_db_24dp),
+                        contentDescription = "数据库",
+                        modifier = Modifier.padding(start = 16.dp)
+                    )
                 }
             )
         }
