@@ -77,8 +77,8 @@ fun SettingsScreen(
             // 语言设置
             SettingsItemCard(
                 icon = Icons.Filled.Language,
-                iconBackgroundColor = MaterialTheme.colorScheme.tertiaryContainer,
-                iconTintColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                iconBackgroundColor = MaterialTheme.colorScheme.primaryContainer,
+                iconTintColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 title = stringResource(R.string.language_settings),
                 onClick = { /* TODO */ }
             )
@@ -88,8 +88,8 @@ fun SettingsScreen(
             // 主题设置
             SettingsItemCard(
                 icon = Icons.Filled.Palette,
-                iconBackgroundColor = MaterialTheme.colorScheme.tertiaryContainer,
-                iconTintColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                iconBackgroundColor = MaterialTheme.colorScheme.primaryContainer,
+                iconTintColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 title = stringResource(R.string.theme_settings),
                 onClick = { /* TODO */ }
             )
@@ -104,8 +104,8 @@ fun SettingsScreen(
             // 开发者页
             SettingsItemCard(
                 icon = Icons.Filled.Info,
-                iconBackgroundColor = MaterialTheme.colorScheme.tertiaryContainer,
-                iconTintColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                iconBackgroundColor = MaterialTheme.colorScheme.primaryContainer,
+                iconTintColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 title = stringResource(R.string.visit_github),
                 onClick = onAboutClick
             )
@@ -115,8 +115,8 @@ fun SettingsScreen(
             // 关于应用
             SettingsItemCard(
                 icon = Icons.Filled.Info,
-                iconBackgroundColor = MaterialTheme.colorScheme.tertiaryContainer,
-                iconTintColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                iconBackgroundColor = MaterialTheme.colorScheme.primaryContainer,
+                iconTintColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 title = stringResource(R.string.about_app_btn),
                 onClick = onAboutAppClick
             )
