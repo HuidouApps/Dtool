@@ -40,10 +40,15 @@ jobs:
       run: chmod +x gradlew
     
     - name: Decode Keystore
-      run: echo ${{ secrets.DEBUG_STORE }} | base64 --decode > app/debug.keystore
+      run: echo "${{ secrets.DEBUG_STORE }}" | base64 --decode > app/debug.keystore
     
     - name: Build Debug APK (app)
-      run: ./gradlew :app:assembleDebug -Pandroid.injected.signing.store.file=$(pwd)/app/debug.keystore -Pandroid.injected.signing.store.password=${{ secrets.DEBUG_PASSD }} -Pandroid.injected.signing.key.alias=${{ secrets.DEBUG_ALIAS }} -Pandroid.injected.signing.key.password=${{ secrets.DEBUG_PASSD }}
+      run: |
+        ./gradlew :app:assembleDebug \
+          -Pandroid.injected.signing.store.file=$(pwd)/app/debug.keystore \
+          -Pandroid.injected.signing.store.password=${{ secrets.DEBUG_PASSD }} \
+          -Pandroid.injected.signing.key.alias=${{ secrets.DEBUG_ALIAS }} \
+          -Pandroid.injected.signing.key.password=${{ secrets.DEBUG_PASSD }}
     
     - name: Rename APK to DBTool-Debug.apk
       run: mv app/build/outputs/apk/debug/*.apk app/build/outputs/apk/debug/DBTool-Debug.apk
@@ -56,7 +61,7 @@ jobs:
         retention-days: 7
 
   build-aqq:
-    name: Build AQQ Module
+    name: Build Aqq Module
     runs-on: ubuntu-latest
     
     steps:
@@ -79,10 +84,15 @@ jobs:
       run: chmod +x gradlew
     
     - name: Decode Keystore
-      run: echo ${{ secrets.DEBUG_STORE }} | base64 --decode > aqq/debug.keystore
+      run: echo "${{ secrets.DEBUG_STORE }}" | base64 --decode > aqq/debug.keystore
     
     - name: Build Debug APK (aqq)
-      run: ./gradlew :aqq:assembleDebug -Pandroid.injected.signing.store.file=$(pwd)/aqq/debug.keystore -Pandroid.injected.signing.store.password=${{ secrets.DEBUG_PASSD }} -Pandroid.injected.signing.key.alias=${{ secrets.DEBUG_ALIAS }} -Pandroid.injected.signing.key.password=${{ secrets.DEBUG_PASSD }}
+      run: |
+        ./gradlew :aqq:assembleDebug \
+          -Pandroid.injected.signing.store.file=$(pwd)/aqq/debug.keystore \
+          -Pandroid.injected.signing.store.password=${{ secrets.DEBUG_PASSD }} \
+          -Pandroid.injected.signing.key.alias=${{ secrets.DEBUG_ALIAS }} \
+          -Pandroid.injected.signing.key.password=${{ secrets.DEBUG_PASSD }}
     
     - name: Rename APK to DataBase-Debug.apk
       run: mv aqq/build/outputs/apk/debug/*.apk aqq/build/outputs/apk/debug/DataBase-Debug.apk
