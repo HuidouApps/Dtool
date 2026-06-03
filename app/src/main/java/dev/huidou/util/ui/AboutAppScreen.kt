@@ -1,19 +1,22 @@
 package dev.huidou.util.ui
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -29,6 +32,8 @@ import dev.huidou.util.R
 fun AboutAppScreen(
     onBack: () -> Unit
 ) {
+    val context = LocalContext.current
+    
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing,
         topBar = {
@@ -86,10 +91,22 @@ fun AboutAppScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             // 贡献者 1
-            ContributorRow(name = stringResource(R.string.about_contributor_1))
+            ContributorRow(
+                name = stringResource(R.string.about_contributor_1),
+                githubUrl = "https://github.com/huidoudour",
+                onGitHubClick = { url ->
+                    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                }
+            )
             Spacer(modifier = Modifier.height(12.dp))
             // 贡献者 2
-            ContributorRow(name = stringResource(R.string.about_contributor_2))
+            ContributorRow(
+                name = stringResource(R.string.about_contributor_2),
+                githubUrl = "https://github.com/2249807346",
+                onGitHubClick = { url ->
+                    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                }
+            )
 
             Spacer(modifier = Modifier.weight(1f))
             
@@ -103,14 +120,20 @@ fun AboutAppScreen(
  * 贡献者行
  */
 @Composable
-private fun ContributorRow(name: String) {
+private fun ContributorRow(
+    name: String,
+    githubUrl: String,
+    onGitHubClick: (String) -> Unit
+) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onGitHubClick(githubUrl) },
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
-            imageVector = Icons.Filled.Person,
-            contentDescription = null,
+            painter = painterResource(R.drawable.ic_github),
+            contentDescription = "GitHub",
             modifier = Modifier.size(24.dp),
             tint = MaterialTheme.colorScheme.onSurfaceVariant
         )

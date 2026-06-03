@@ -9,10 +9,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Language
-import androidx.compose.material.icons.filled.Palette
 
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -20,12 +16,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import android.widget.Toast
+import androidx.annotation.DrawableRes
 import dev.huidou.util.R
 import dev.huidou.util.ui.theme.ThemeMode
 import dev.huidou.util.ui.theme.ThemeViewModel
@@ -82,9 +79,9 @@ fun SettingsScreen(
 
             // 语言设置
             SettingsItemCard(
-                icon = Icons.Filled.Language,
-                iconBackgroundColor = MaterialTheme.colorScheme.primaryContainer,
-                iconTintColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                iconRes = R.drawable.ic_language,
+                iconBackgroundColor = colorResource(R.color.light_and_night).copy(alpha = 0.1f),
+                iconTintColor = colorResource(R.color.light_and_night),
                 title = stringResource(R.string.language_settings),
                 onClick = {
                     Toast.makeText(context, languageToastMsg, Toast.LENGTH_SHORT).show()
@@ -95,9 +92,9 @@ fun SettingsScreen(
 
             // 主题设置
             SettingsItemCard(
-                icon = Icons.Filled.Palette,
-                iconBackgroundColor = MaterialTheme.colorScheme.primaryContainer,
-                iconTintColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                iconRes = R.drawable.ic_palette,
+                iconBackgroundColor = colorResource(R.color.light_and_night).copy(alpha = 0.1f),
+                iconTintColor = colorResource(R.color.light_and_night),
                 title = stringResource(R.string.theme_settings),
                 onClick = { showThemeDialog = true }
             )
@@ -111,9 +108,9 @@ fun SettingsScreen(
 
             // 开发者页
             SettingsItemCard(
-                icon = Icons.Filled.Info,
-                iconBackgroundColor = MaterialTheme.colorScheme.primaryContainer,
-                iconTintColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                iconRes = R.drawable.ic_github,
+                iconBackgroundColor = colorResource(R.color.light_and_night).copy(alpha = 0.1f),
+                iconTintColor = colorResource(R.color.light_and_night),
                 title = stringResource(R.string.visit_github),
                 onClick = onAboutClick
             )
@@ -122,9 +119,9 @@ fun SettingsScreen(
 
             // 关于应用
             SettingsItemCard(
-                icon = Icons.Filled.Info,
-                iconBackgroundColor = MaterialTheme.colorScheme.primaryContainer,
-                iconTintColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                iconRes = R.drawable.ic_version,
+                iconBackgroundColor = colorResource(R.color.light_and_night).copy(alpha = 0.1f),
+                iconTintColor = colorResource(R.color.light_and_night),
                 title = stringResource(R.string.about_app_btn),
                 onClick = onAboutAppClick
             )
@@ -233,7 +230,7 @@ private fun SectionTitle(text: String) {
  */
 @Composable
 private fun SettingsItemCard(
-    icon: ImageVector,
+    @DrawableRes iconRes: Int,
     iconBackgroundColor: androidx.compose.ui.graphics.Color,
     iconTintColor: androidx.compose.ui.graphics.Color,
     title: String,
@@ -266,7 +263,7 @@ private fun SettingsItemCard(
             ) {
                 // 24dp 图标
                 Icon(
-                    imageVector = icon,
+                    painter = painterResource(iconRes),
                     contentDescription = null,
                     modifier = Modifier.size(24.dp),
                     tint = iconTintColor

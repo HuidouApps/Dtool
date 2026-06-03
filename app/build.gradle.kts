@@ -16,8 +16,8 @@ android {
         minSdk = 29
         //noinspection OldTargetApi
         targetSdk = 36
-        versionCode = 260006
-        versionName = "26.1.6"
+        versionCode = 260023
+        versionName = "26.1.23"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -32,6 +32,7 @@ android {
         debug {
             // applicationIdSuffix = ".debug"
             isDebuggable = true
+            extra["testOnly"] = true
         }
         release {
             isMinifyEnabled = false
