@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DBTool</string>
+
+    <!-- Common -->
+    <string name="action_cancel">إلغاء</string>
+    <string name="action_delete">حذف</string>
+    <string name="action_edit">تعديل</string>
+    <string name="action_retry">إعادة المحاولة</string>
+    <string name="action_confirm">موافق</string>
+    <string name="action_update">تحديث</string>
+    <string name="action_add">إضافة</string>
+    <string name="action_create">إنشاء</string>
+    <string name="action_refresh">تحديث</string>
+    <string name="action_back">رجوع</string>
+    <string name="title_confirm_delete">تأكيد الحذف</string>
+    <string name="title_select_action">اختر إجراء</string>
+    <string name="label_loading">جارٍ التحميل...</string>
+    <string name="label_no_data">لا توجد بيانات</string>
+    <string name="msg_delete_success">تم الحذف بنجاح</string>
+    <string name="msg_delete_failed">فشل الحذف</string>
+    <string name="msg_delete_failed_retry">فشل الحذف، يرجى إعادة المحاولة</string>
+
+    <!-- DatabaseManagementScreen / DatabaseListScreen -->
+    <string name="title_database_management">إدارة قواعد البيانات</string>
+    <string name="label_database_count">%d قواعد بيانات</string>
+    <string name="label_loading_database_list">جارٍ تحميل قواعد البيانات...</string>
+    <string name="label_waiting_service">في انتظار الاتصال بالخدمة...</string>
+    <string name="label_no_database">لا توجد قواعد بيانات</string>
+    <string name="hint_create_database">اضغط على + لإنشاء قاعدة بيانات</string>
+    <string name="msg_database_created">تم إنشاء قاعدة البيانات</string>
+    <string name="msg_database_create_failed">فشل إنشاء قاعدة البيانات</string>
+    <string name="msg_database_deleted">تم حذف قاعدة البيانات</string>
+    <string name="msg_confirm_delete_database">هل أنت متأكد من حذف قاعدة البيانات \"%s\"؟ لا يمكن التراجع عن هذا الإجراء!</string>
+    <string name="msg_select_database_action">ماذا تريد أن تفعل بقاعدة البيانات هذه؟</string>
+    <string name="cd_refresh">تحديث</string>
+    <string name="cd_create_database">إنشاء قاعدة بيانات</string>
+    <string name="label_db_size_and_date">الحجم: %s | التعديل: %s</string>
+
+    <!-- CreateDatabaseDialog -->
+    <string name="title_create_database">إنشاء قاعدة بيانات</string>
+    <string name="label_database_name">اسم قاعدة البيانات</string>
+    <string name="placeholder_database_name">مثال: my_database.db</string>
+
+    <!-- TableListScreen -->
+    <string name="title_table_management">إدارة الجداول</string>
+    <string name="label_database_name_prefix">قاعدة البيانات: %s</string>
+    <string name="label_loading_table_list">جارٍ تحميل الجداول...</string>
+    <string name="label_no_table">لا توجد جداول</string>
+    <string name="hint_create_table">اضغط على + لإنشاء جدول</string>
+    <string name="cd_create_table">إنشاء جدول</string>
+    <string name="msg_table_created">تم إنشاء الجدول</string>
+    <string name="msg_table_deleted">تم حذف الجدول</string>
+    <string name="msg_confirm_delete_table">هل أنت متأكد من حذف الجدول \"%s\"؟ لا يمكن التراجع عن هذا الإجراء!</string>
+    <string name="msg_select_table_action">ماذا تريد أن تفعل بهذا الجدول؟</string>
+
+    <!-- CreateTableDialog -->
+    <string name="title_create_table">إنشاء جدول</string>
+    <string name="label_table_name">اسم الجدول</string>
+    <string name="placeholder_table_name">مثال: users</string>
+    <string name="label_column_definition">تعريف الأعمدة:</string>
+    <string name="label_column_name">اسم العمود</string>
+    <string name="placeholder_column_name">مثال: username</string>
+    <string name="label_length">الطول</string>
+    <string name="placeholder_length">اختياري</string>
+    <string name="label_type">النوع</string>
+    <string name="label_primary_key">المفتاح الأساسي</string>
+    <string name="action_add_column">إضافة عمود</string>
+    <string name="cd_delete_column">حذف العمود</string>
+
+    <!-- UserManagementScreen -->
+    <string name="status_connected_aqq">متصل بقاعدة بيانات AQQ</string>
+    <string name="status_not_connected">غير متصل</string>
+    <string name="cd_add_user">إضافة مستخدم</string>
+    <string name="label_user_list_count">قائمة المستخدمين (%d سجل)</string>
+    <string name="error_cannot_connect_aqq">لا يمكن الاتصال بقاعدة بيانات التطبيق</string>
+    <string name="error_connect_failed">فشل الاتصال: %s</string>
+    <string name="hint_ensure_aqq_running">يرجى التأكد من تثبيت تطبيق AQQ وتشغيله</string>
+    <string name="hint_add_user">اضغط على + لإضافة مستخدم</string>
+    <string name="header_id">المعرف</string>
+    <string name="header_name">الاسم</string>
+    <string name="header_email">البريد الإلكتروني</string>
+    <string name="header_age">العمر</string>
+    <string name="header_city">المدينة</string>
+    <string name="title_add_user">إضافة مستخدم</string>
+    <string name="title_edit_user">تعديل مستخدم</string>
+    <string name="msg_add_success">تمت الإضافة بنجاح</string>
+    <string name="msg_add_failed">فشلت الإضافة</string>
+    <string name="msg_add_failed_retry">فشلت الإضافة، يرجى إعادة المحاولة</string>
+    <string name="msg_update_success">تم التحديث بنجاح</string>
+    <string name="msg_update_failed">فشل التحديث</string>
+    <string name="msg_update_failed_retry">فشل التحديث، يرجى إعادة المحاولة</string>
+    <string name="msg_confirm_delete_user">هل أنت متأكد من حذف المستخدم \"%s\"؟</string>
+    <string name="msg_select_user_action">ماذا تريد أن تفعل بهذا المستخدم؟</string>
+
+    <!-- DataBrowserScreen -->
+    <string name="title_data_browser">استعراض البيانات</string>
+    <string name="label_record_count">%d سجل</string>
+    <string name="hint_add_data">اضغط على + لإضافة بيانات</string>
+    <string name="msg_data_add_success">تمت إضافة البيانات بنجاح</string>
+    <string name="msg_data_update_success">تم تحديث البيانات بنجاح</string>
+    <string name="msg_data_deleted">تم حذف البيانات</string>
+    <string name="msg_confirm_delete_record">هل أنت متأكد من حذف هذا السجل؟</string>
+    <string name="msg_select_record_action">ماذا تريد أن تفعل بهذا السجل؟</string>
+    <string name="title_edit_data">تعديل البيانات</string>
+    <string name="title_add_data">إضافة بيانات</string>
+    <string name="cd_add_data">إضافة بيانات</string>
+    <string name="label_auto_increment">زيادة تلقائية</string>
+
+    <!-- SettingsScreen -->
+    <string name="title_settings">الإعدادات</string>
+    <string name="title_app_settings">إعدادات التطبيق</string>
+    <string name="section_settings">الإعدادات</string>
+    <string name="section_about">حول</string>
+    <string name="language_settings">اللغة</string>
+    <string name="theme_settings">المظهر</string>
+    <string name="about_app">حول التطبيق</string>
+    <string name="cd_open_settings">فتح الإعدادات</string>
+    <string name="cd_close_drawer">إغلاق القائمة الجانبية</string>
+    <string name="drawer_title">DBTool</string>
+    <string name="drawer_subtitle">أداة إدارة قواعد البيانات</string>
+    <string name="menu_database">إدارة قواعد البيانات</string>
+    <string name="menu_settings">الإعدادات</string>
+
+    <!-- About Card -->
+    <string name="title_about">حول</string>
+    <string name="visit_github">صفحة المطور</string>
+    <string name="about_app_btn">حول التطبيق</string>
+    <string name="about_owner_label">المالك</string>
+    <string name="about_contributors_label">المساهمون</string>
+    <string name="about_contributor_1">huidoudour</string>
+    <string name="about_contributor_2">2249807346</string>
+    <string name="about_built_with">مبني بـ Kotlin</string>
+
+    <!-- About Me -->
+    <string name="about_hello">Hello World</string>
+    <string name="about_description">你保护世界，我保护你</string>
+    <string name="about_developer">亻尔女子，我是 huidoudour（慧兜兜）</string>
+    <string name="find_me">ω寻找我ω</string>
+</resources>

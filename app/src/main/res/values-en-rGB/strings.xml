@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DBTool</string>
+
+    <!-- Common -->
+    <string name="action_cancel">Cancel</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_retry">Retry</string>
+    <string name="action_confirm">OK</string>
+    <string name="action_update">Update</string>
+    <string name="action_add">Add</string>
+    <string name="action_create">Create</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_back">Back</string>
+    <string name="title_confirm_delete">Confirm Delete</string>
+    <string name="title_select_action">Select Action</string>
+    <string name="label_loading">Loading...</string>
+    <string name="label_no_data">No data</string>
+    <string name="msg_delete_success">Deleted successfully</string>
+    <string name="msg_delete_failed">Delete failed</string>
+    <string name="msg_delete_failed_retry">Delete failed, please retry</string>
+
+    <!-- DatabaseManagementScreen / DatabaseListScreen -->
+    <string name="title_database_management">Database Management</string>
+    <string name="label_database_count">%d databases</string>
+    <string name="label_loading_database_list">Loading databases...</string>
+    <string name="label_waiting_service">Waiting for service...</string>
+    <string name="label_no_database">No databases</string>
+    <string name="hint_create_database">Tap + to create a database</string>
+    <string name="msg_database_created">Database created</string>
+    <string name="msg_database_create_failed">Failed to create database</string>
+    <string name="msg_database_deleted">Database deleted</string>
+    <string name="msg_confirm_delete_database">Are you sure you want to delete database \"%s\"? This action cannot be undone!</string>
+    <string name="msg_select_database_action">What would you like to do with this database?</string>
+    <string name="cd_refresh">Refresh</string>
+    <string name="cd_create_database">Create database</string>
+    <string name="label_db_size_and_date">Size: %s | Modified: %s</string>
+
+    <!-- CreateDatabaseDialog -->
+    <string name="title_create_database">Create Database</string>
+    <string name="label_database_name">Database Name</string>
+    <string name="placeholder_database_name">e.g. my_database.db</string>
+
+    <!-- TableListScreen -->
+    <string name="title_table_management">Table Management</string>
+    <string name="label_database_name_prefix">Database: %s</string>
+    <string name="label_loading_table_list">Loading tables...</string>
+    <string name="label_no_table">No tables</string>
+    <string name="hint_create_table">Tap + to create a table</string>
+    <string name="cd_create_table">Create table</string>
+    <string name="msg_table_created">Table created</string>
+    <string name="msg_table_deleted">Table deleted</string>
+    <string name="msg_confirm_delete_table">Are you sure you want to delete table \"%s\"? This action cannot be undone!</string>
+    <string name="msg_select_table_action">What would you like to do with this table?</string>
+
+    <!-- CreateTableDialog -->
+    <string name="title_create_table">Create Table</string>
+    <string name="label_table_name">Table Name</string>
+    <string name="placeholder_table_name">e.g. users</string>
+    <string name="label_column_definition">Column Definition:</string>
+    <string name="label_column_name">Column Name</string>
+    <string name="placeholder_column_name">e.g. username</string>
+    <string name="label_length">Length</string>
+    <string name="placeholder_length">Optional</string>
+    <string name="label_type">Type</string>
+    <string name="label_primary_key">Primary Key</string>
+    <string name="action_add_column">Add Column</string>
+    <string name="cd_delete_column">Delete column</string>
+
+    <!-- UserManagementScreen -->
+    <string name="status_connected_aqq">Connected to AQQ database</string>
+    <string name="status_not_connected">Not connected</string>
+    <string name="cd_add_user">Add user</string>
+    <string name="label_user_list_count">User List (%d records)</string>
+    <string name="error_cannot_connect_aqq">Cannot connect to app database</string>
+    <string name="error_connect_failed">Connection failed: %s</string>
+    <string name="hint_ensure_aqq_running">Please make sure AQQ app is installed and running</string>
+    <string name="hint_add_user">Tap + to add a user</string>
+    <string name="header_id">ID</string>
+    <string name="header_name">Name</string>
+    <string name="header_email">Email</string>
+    <string name="header_age">Age</string>
+    <string name="header_city">City</string>
+    <string name="title_add_user">Add User</string>
+    <string name="title_edit_user">Edit User</string>
+    <string name="msg_add_success">Added successfully</string>
+    <string name="msg_add_failed">Add failed</string>
+    <string name="msg_add_failed_retry">Add failed, please retry</string>
+    <string name="msg_update_success">Updated successfully</string>
+    <string name="msg_update_failed">Update failed</string>
+    <string name="msg_update_failed_retry">Update failed, please retry</string>
+    <string name="msg_confirm_delete_user">Are you sure you want to delete user \"%s\"?</string>
+    <string name="msg_select_user_action">What would you like to do with this user?</string>
+
+    <!-- DataBrowserScreen -->
+    <string name="title_data_browser">Data Browser</string>
+    <string name="label_record_count">%d records</string>
+    <string name="hint_add_data">Tap + to add data</string>
+    <string name="msg_data_add_success">Data added successfully</string>
+    <string name="msg_data_update_success">Data updated successfully</string>
+    <string name="msg_data_deleted">Data deleted</string>
+    <string name="msg_confirm_delete_record">Are you sure you want to delete this record?</string>
+    <string name="msg_select_record_action">What would you like to do with this record?</string>
+    <string name="title_edit_data">Edit Data</string>
+    <string name="title_add_data">Add Data</string>
+    <string name="cd_add_data">Add data</string>
+    <string name="label_auto_increment">Auto Increment</string>
+
+    <!-- SettingsScreen -->
+    <string name="title_settings">Settings</string>
+    <string name="title_app_settings">App Settings</string>
+    <string name="section_settings">Settings</string>
+    <string name="section_about">About</string>
+    <string name="language_settings">Language</string>
+    <string name="theme_settings">Theme</string>
+    <string name="about_app">About App</string>
+    <string name="cd_open_settings">Open settings</string>
+    <string name="cd_close_drawer">Close drawer</string>
+    <string name="drawer_title">DBTool</string>
+    <string name="drawer_subtitle">Database Management Tool</string>
+    <string name="menu_database">Database Management</string>
+    <string name="menu_settings">Settings</string>
+
+    <!-- About Card -->
+    <string name="title_about">About</string>
+    <string name="visit_github">Developer Page</string>
+    <string name="about_app_btn">About App</string>
+    <string name="about_owner_label">Owner</string>
+    <string name="about_contributors_label">Contributors</string>
+    <string name="about_contributor_1">huidoudour</string>
+    <string name="about_contributor_2">2249807346</string>
+    <string name="about_built_with">Built with Kotlin</string>
+
+    <!-- About Me -->
+    <string name="about_hello">Hello World</string>
+    <string name="about_description">你保护世界，我保护你</string>
+    <string name="about_developer">亻尔女子，我是 huidoudour（慧兜兜）</string>
+    <string name="find_me">ω寻找我ω</string>
+</resources>

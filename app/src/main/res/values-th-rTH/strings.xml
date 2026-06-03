@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DBTool</string>
+
+    <!-- Common -->
+    <string name="action_cancel">ยกเลิก</string>
+    <string name="action_delete">ลบ</string>
+    <string name="action_edit">แก้ไข</string>
+    <string name="action_retry">ลองอีกครั้ง</string>
+    <string name="action_confirm">ตกลง</string>
+    <string name="action_update">อัปเดต</string>
+    <string name="action_add">เพิ่ม</string>
+    <string name="action_create">สร้าง</string>
+    <string name="action_refresh">รีเฟรช</string>
+    <string name="action_back">ย้อนกลับ</string>
+    <string name="title_confirm_delete">ยืนยันการลบ</string>
+    <string name="title_select_action">เลือกการดำเนินการ</string>
+    <string name="label_loading">กำลังโหลด...</string>
+    <string name="label_no_data">ไม่มีข้อมูล</string>
+    <string name="msg_delete_success">ลบสำเร็จ</string>
+    <string name="msg_delete_failed">ลบไม่สำเร็จ</string>
+    <string name="msg_delete_failed_retry">ลบไม่สำเร็จ กรุณาลองอีกครั้ง</string>
+
+    <!-- DatabaseManagementScreen / DatabaseListScreen -->
+    <string name="title_database_management">จัดการฐานข้อมูล</string>
+    <string name="label_database_count">%d ฐานข้อมูล</string>
+    <string name="label_loading_database_list">กำลังโหลดรายการฐานข้อมูล...</string>
+    <string name="label_waiting_service">รอการเชื่อมต่อบริการ...</string>
+    <string name="label_no_database">ไม่มีฐานข้อมูล</string>
+    <string name="hint_create_database">แตะ + เพื่อสร้างฐานข้อมูล</string>
+    <string name="msg_database_created">สร้างฐานข้อมูลแล้ว</string>
+    <string name="msg_database_create_failed">สร้างฐานข้อมูลไม่สำเร็จ</string>
+    <string name="msg_database_deleted">ลบฐานข้อมูลแล้ว</string>
+    <string name="msg_confirm_delete_database">คุณแน่ใจหรือไม่ที่จะลบฐานข้อมูล \"%s\"? การดำเนินการนี้ไม่สามารถย้อนกลับได้!</string>
+    <string name="msg_select_database_action">คุณต้องการดำเนินการอะไรกับฐานข้อมูลนี้?</string>
+    <string name="cd_refresh">รีเฟรช</string>
+    <string name="cd_create_database">สร้างฐานข้อมูล</string>
+    <string name="label_db_size_and_date">ขนาด: %s | แก้ไขล่าสุด: %s</string>
+
+    <!-- CreateDatabaseDialog -->
+    <string name="title_create_database">สร้างฐานข้อมูล</string>
+    <string name="label_database_name">ชื่อฐานข้อมูล</string>
+    <string name="placeholder_database_name">ตัวอย่าง: my_database.db</string>
+
+    <!-- TableListScreen -->
+    <string name="title_table_management">จัดการตาราง</string>
+    <string name="label_database_name_prefix">ฐานข้อมูล: %s</string>
+    <string name="label_loading_table_list">กำลังโหลดรายการตาราง...</string>
+    <string name="label_no_table">ไม่มีตาราง</string>
+    <string name="hint_create_table">แตะ + เพื่อสร้างตาราง</string>
+    <string name="cd_create_table">สร้างตาราง</string>
+    <string name="msg_table_created">สร้างตารางแล้ว</string>
+    <string name="msg_table_deleted">ลบตารางแล้ว</string>
+    <string name="msg_confirm_delete_table">คุณแน่ใจหรือไม่ที่จะลบตาราง \"%s\"? การดำเนินการนี้ไม่สามารถย้อนกลับได้!</string>
+    <string name="msg_select_table_action">คุณต้องการดำเนินการอะไรกับตารางนี้?</string>
+
+    <!-- CreateTableDialog -->
+    <string name="title_create_table">สร้างตาราง</string>
+    <string name="label_table_name">ชื่อตาราง</string>
+    <string name="placeholder_table_name">ตัวอย่าง: users</string>
+    <string name="label_column_definition">นิยามคอลัมน์:</string>
+    <string name="label_column_name">ชื่อคอลัมน์</string>
+    <string name="placeholder_column_name">ตัวอย่าง: username</string>
+    <string name="label_length">ความยาว</string>
+    <string name="placeholder_length">ไม่จำเป็น</string>
+    <string name="label_type">ประเภท</string>
+    <string name="label_primary_key">คีย์หลัก</string>
+    <string name="action_add_column">เพิ่มคอลัมน์</string>
+    <string name="cd_delete_column">ลบคอลัมน์</string>
+
+    <!-- UserManagementScreen -->
+    <string name="status_connected_aqq">เชื่อมต่อฐานข้อมูล AQQ แล้ว</string>
+    <string name="status_not_connected">ไม่ได้เชื่อมต่อ</string>
+    <string name="cd_add_user">เพิ่มผู้ใช้</string>
+    <string name="label_user_list_count">รายการผู้ใช้ (%d ระเบียน)</string>
+    <string name="error_cannot_connect_aqq">ไม่สามารถเชื่อมต่อฐานข้อมูลแอปได้</string>
+    <string name="error_connect_failed">การเชื่อมต่อล้มเหลว: %s</string>
+    <string name="hint_ensure_aqq_running">กรุณาตรวจสอบว่าแอป AQQ ถูกติดตั้งและกำลังทำงาน</string>
+    <string name="hint_add_user">แตะปุ่ม + เพื่อเพิ่มผู้ใช้</string>
+    <string name="header_id">ID</string>
+    <string name="header_name">ชื่อ</string>
+    <string name="header_email">อีเมล</string>
+    <string name="header_age">อายุ</string>
+    <string name="header_city">เมือง</string>
+    <string name="title_add_user">เพิ่มผู้ใช้</string>
+    <string name="title_edit_user">แก้ไขผู้ใช้</string>
+    <string name="msg_add_success">เพิ่มสำเร็จ</string>
+    <string name="msg_add_failed">เพิ่มไม่สำเร็จ</string>
+    <string name="msg_add_failed_retry">เพิ่มไม่สำเร็จ กรุณาลองอีกครั้ง</string>
+    <string name="msg_update_success">อัปเดตสำเร็จ</string>
+    <string name="msg_update_failed">อัปเดตไม่สำเร็จ</string>
+    <string name="msg_update_failed_retry">อัปเดตไม่สำเร็จ กรุณาลองอีกครั้ง</string>
+    <string name="msg_confirm_delete_user">คุณแน่ใจหรือไม่ที่จะลบผู้ใช้ \"%s\"?</string>
+    <string name="msg_select_user_action">คุณต้องการดำเนินการอะไรกับผู้ใช้นี้?</string>
+
+    <!-- DataBrowserScreen -->
+    <string name="title_data_browser">เรียกดูข้อมูล</string>
+    <string name="label_record_count">%d ระเบียน</string>
+    <string name="hint_add_data">แตะ + เพื่อเพิ่มข้อมูล</string>
+    <string name="msg_data_add_success">เพิ่มข้อมูลสำเร็จ</string>
+    <string name="msg_data_update_success">อัปเดตข้อมูลสำเร็จ</string>
+    <string name="msg_data_deleted">ลบข้อมูลแล้ว</string>
+    <string name="msg_confirm_delete_record">คุณแน่ใจหรือไม่ที่จะลบระเบียนนี้?</string>
+    <string name="msg_select_record_action">คุณต้องการดำเนินการอะไรกับระเบียนนี้?</string>
+    <string name="title_edit_data">แก้ไขข้อมูล</string>
+    <string name="title_add_data">เพิ่มข้อมูล</string>
+    <string name="cd_add_data">เพิ่มข้อมูล</string>
+    <string name="label_auto_increment">เพิ่มอัตโนมัติ</string>
+
+    <!-- SettingsScreen -->
+    <string name="title_settings">การตั้งค่า</string>
+    <string name="title_app_settings">การตั้งค่าแอป</string>
+    <string name="section_settings">การตั้งค่า</string>
+    <string name="section_about">เกี่ยวกับ</string>
+    <string name="language_settings">ภาษา</string>
+    <string name="theme_settings">ธีม</string>
+    <string name="about_app">เกี่ยวกับแอป</string>
+    <string name="cd_open_settings">เปิดการตั้งค่า</string>
+    <string name="cd_close_drawer">ปิดเมนูด้านข้าง</string>
+    <string name="drawer_title">DBTool</string>
+    <string name="drawer_subtitle">เครื่องมือจัดการฐานข้อมูล</string>
+    <string name="menu_database">จัดการฐานข้อมูล</string>
+    <string name="menu_settings">การตั้งค่า</string>
+
+    <!-- About Card -->
+    <string name="title_about">เกี่ยวกับ</string>
+    <string name="visit_github">หน้าผู้พัฒนา</string>
+    <string name="about_app_btn">เกี่ยวกับแอป</string>
+    <string name="about_owner_label">เจ้าของ</string>
+    <string name="about_contributors_label">ผู้มีส่วนร่วม</string>
+    <string name="about_contributor_1">huidoudour</string>
+    <string name="about_contributor_2">2249807346</string>
+    <string name="about_built_with">สร้างด้วย Kotlin</string>
+
+    <!-- About Me -->
+    <string name="about_hello">Hello World</string>
+    <string name="about_description">你保护世界，我保护你</string>
+    <string name="about_developer">亻尔女子，我是 huidoudour（慧兜兜）</string>
+    <string name="find_me">ω寻找我ω</string>
+</resources>

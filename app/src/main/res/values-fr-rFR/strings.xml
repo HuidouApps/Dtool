@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DBTool</string>
+
+    <!-- Common -->
+    <string name="action_cancel">Annuler</string>
+    <string name="action_delete">Supprimer</string>
+    <string name="action_edit">Modifier</string>
+    <string name="action_retry">Réessayer</string>
+    <string name="action_confirm">OK</string>
+    <string name="action_update">Mettre à jour</string>
+    <string name="action_add">Ajouter</string>
+    <string name="action_create">Créer</string>
+    <string name="action_refresh">Actualiser</string>
+    <string name="action_back">Retour</string>
+    <string name="title_confirm_delete">Confirmer la suppression</string>
+    <string name="title_select_action">Sélectionner une action</string>
+    <string name="label_loading">Chargement...</string>
+    <string name="label_no_data">Aucune donnée</string>
+    <string name="msg_delete_success">Suppression réussie</string>
+    <string name="msg_delete_failed">Échec de la suppression</string>
+    <string name="msg_delete_failed_retry">Échec de la suppression, veuillez réessayer</string>
+
+    <!-- DatabaseManagementScreen / DatabaseListScreen -->
+    <string name="title_database_management">Gestion des bases de données</string>
+    <string name="label_database_count">%d bases de données</string>
+    <string name="label_loading_database_list">Chargement des bases de données...</string>
+    <string name="label_waiting_service">En attente du service...</string>
+    <string name="label_no_database">Aucune base de données</string>
+    <string name="hint_create_database">Appuyez sur + pour créer une base de données</string>
+    <string name="msg_database_created">Base de données créée</string>
+    <string name="msg_database_create_failed">Échec de la création de la base de données</string>
+    <string name="msg_database_deleted">Base de données supprimée</string>
+    <string name="msg_confirm_delete_database">Voulez-vous vraiment supprimer la base de données \"%s\" ? Cette action est irréversible !</string>
+    <string name="msg_select_database_action">Que souhaitez-vous faire avec cette base de données ?</string>
+    <string name="cd_refresh">Actualiser</string>
+    <string name="cd_create_database">Créer une base de données</string>
+    <string name="label_db_size_and_date">Taille : %s | Modifié : %s</string>
+
+    <!-- CreateDatabaseDialog -->
+    <string name="title_create_database">Créer une base de données</string>
+    <string name="label_database_name">Nom de la base de données</string>
+    <string name="placeholder_database_name">ex : ma_base.db</string>
+
+    <!-- TableListScreen -->
+    <string name="title_table_management">Gestion des tables</string>
+    <string name="label_database_name_prefix">Base de données : %s</string>
+    <string name="label_loading_table_list">Chargement des tables...</string>
+    <string name="label_no_table">Aucune table</string>
+    <string name="hint_create_table">Appuyez sur + pour créer une table</string>
+    <string name="cd_create_table">Créer une table</string>
+    <string name="msg_table_created">Table créée</string>
+    <string name="msg_table_deleted">Table supprimée</string>
+    <string name="msg_confirm_delete_table">Voulez-vous vraiment supprimer la table \"%s\" ? Cette action est irréversible !</string>
+    <string name="msg_select_table_action">Que souhaitez-vous faire avec cette table ?</string>
+
+    <!-- CreateTableDialog -->
+    <string name="title_create_table">Créer une table</string>
+    <string name="label_table_name">Nom de la table</string>
+    <string name="placeholder_table_name">ex : utilisateurs</string>
+    <string name="label_column_definition">Définition des colonnes :</string>
+    <string name="label_column_name">Nom de la colonne</string>
+    <string name="placeholder_column_name">ex : nom_utilisateur</string>
+    <string name="label_length">Longueur</string>
+    <string name="placeholder_length">Facultatif</string>
+    <string name="label_type">Type</string>
+    <string name="label_primary_key">Clé primaire</string>
+    <string name="action_add_column">Ajouter une colonne</string>
+    <string name="cd_delete_column">Supprimer la colonne</string>
+
+    <!-- UserManagementScreen -->
+    <string name="status_connected_aqq">Connecté à la base de données AQQ</string>
+    <string name="status_not_connected">Non connecté</string>
+    <string name="cd_add_user">Ajouter un utilisateur</string>
+    <string name="label_user_list_count">Liste des utilisateurs (%d enregistrements)</string>
+    <string name="error_cannot_connect_aqq">Impossible de se connecter à la base de données de l\'application</string>
+    <string name="error_connect_failed">Échec de la connexion : %s</string>
+    <string name="hint_ensure_aqq_running">Veuillez vous assurer que l\'application AQQ est installée et en cours d\'exécution</string>
+    <string name="hint_add_user">Appuyez sur + pour ajouter un utilisateur</string>
+    <string name="header_id">ID</string>
+    <string name="header_name">Nom</string>
+    <string name="header_email">E-mail</string>
+    <string name="header_age">Âge</string>
+    <string name="header_city">Ville</string>
+    <string name="title_add_user">Ajouter un utilisateur</string>
+    <string name="title_edit_user">Modifier l\'utilisateur</string>
+    <string name="msg_add_success">Ajout réussi</string>
+    <string name="msg_add_failed">Échec de l\'ajout</string>
+    <string name="msg_add_failed_retry">Échec de l\'ajout, veuillez réessayer</string>
+    <string name="msg_update_success">Mise à jour réussie</string>
+    <string name="msg_update_failed">Échec de la mise à jour</string>
+    <string name="msg_update_failed_retry">Échec de la mise à jour, veuillez réessayer</string>
+    <string name="msg_confirm_delete_user">Voulez-vous vraiment supprimer l\'utilisateur \"%s\" ?</string>
+    <string name="msg_select_user_action">Que souhaitez-vous faire avec cet utilisateur ?</string>
+
+    <!-- DataBrowserScreen -->
+    <string name="title_data_browser">Explorateur de données</string>
+    <string name="label_record_count">%d enregistrements</string>
+    <string name="hint_add_data">Appuyez sur + pour ajouter des données</string>
+    <string name="msg_data_add_success">Données ajoutées avec succès</string>
+    <string name="msg_data_update_success">Données mises à jour avec succès</string>
+    <string name="msg_data_deleted">Données supprimées</string>
+    <string name="msg_confirm_delete_record">Voulez-vous vraiment supprimer cet enregistrement ?</string>
+    <string name="msg_select_record_action">Que souhaitez-vous faire avec cet enregistrement ?</string>
+    <string name="title_edit_data">Modifier les données</string>
+    <string name="title_add_data">Ajouter des données</string>
+    <string name="cd_add_data">Ajouter des données</string>
+    <string name="label_auto_increment">Incrémentation automatique</string>
+
+    <!-- SettingsScreen -->
+    <string name="title_settings">Paramètres</string>
+    <string name="title_app_settings">Paramètres de l\'application</string>
+    <string name="section_settings">Paramètres</string>
+    <string name="section_about">À propos</string>
+    <string name="language_settings">Langue</string>
+    <string name="theme_settings">Thème</string>
+    <string name="about_app">À propos de l\'application</string>
+    <string name="cd_open_settings">Ouvrir les paramètres</string>
+    <string name="cd_close_drawer">Fermer le tiroir</string>
+    <string name="drawer_title">DBTool</string>
+    <string name="drawer_subtitle">Outil de gestion de bases de données</string>
+    <string name="menu_database">Gestion des bases de données</string>
+    <string name="menu_settings">Paramètres</string>
+
+    <!-- About Card -->
+    <string name="title_about">À propos</string>
+    <string name="visit_github">Page du développeur</string>
+    <string name="about_app_btn">À propos de l\'application</string>
+    <string name="about_owner_label">Propriétaire</string>
+    <string name="about_contributors_label">Contributeurs</string>
+    <string name="about_contributor_1">huidoudour</string>
+    <string name="about_contributor_2">2249807346</string>
+    <string name="about_built_with">Construit avec Kotlin</string>
+
+    <!-- About Me -->
+    <string name="about_hello">Hello World</string>
+    <string name="about_description">你保护世界，我保护你</string>
+    <string name="about_developer">亻尔女子，我是 huidoudour（慧兜兜）</string>
+    <string name="find_me">ω寻找我ω</string>
+</resources>

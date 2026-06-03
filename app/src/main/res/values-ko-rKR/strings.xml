@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DBTool</string>
+
+    <!-- Common -->
+    <string name="action_cancel">취소</string>
+    <string name="action_delete">삭제</string>
+    <string name="action_edit">편집</string>
+    <string name="action_retry">다시 시도</string>
+    <string name="action_confirm">확인</string>
+    <string name="action_update">업데이트</string>
+    <string name="action_add">추가</string>
+    <string name="action_create">만들기</string>
+    <string name="action_refresh">새로고침</string>
+    <string name="action_back">뒤로</string>
+    <string name="title_confirm_delete">삭제 확인</string>
+    <string name="title_select_action">작업 선택</string>
+    <string name="label_loading">로딩 중...</string>
+    <string name="label_no_data">데이터 없음</string>
+    <string name="msg_delete_success">삭제되었습니다</string>
+    <string name="msg_delete_failed">삭제 실패</string>
+    <string name="msg_delete_failed_retry">삭제 실패, 다시 시도해 주세요</string>
+
+    <!-- DatabaseManagementScreen / DatabaseListScreen -->
+    <string name="title_database_management">데이터베이스 관리</string>
+    <string name="label_database_count">데이터베이스 %d개</string>
+    <string name="label_loading_database_list">데이터베이스 목록 로딩 중...</string>
+    <string name="label_waiting_service">서비스 연결 대기 중...</string>
+    <string name="label_no_database">데이터베이스 없음</string>
+    <string name="hint_create_database">오른쪽 상단 + 를 눌러 데이터베이스 만들기</string>
+    <string name="msg_database_created">데이터베이스가 생성되었습니다</string>
+    <string name="msg_database_create_failed">데이터베이스 생성 실패</string>
+    <string name="msg_database_deleted">데이터베이스가 삭제되었습니다</string>
+    <string name="msg_confirm_delete_database">데이터베이스 \"%s\"을(를) 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다!</string>
+    <string name="msg_select_database_action">이 데이터베이스에 대해 어떤 작업을 수행하시겠습니까?</string>
+    <string name="cd_refresh">새로고침</string>
+    <string name="cd_create_database">데이터베이스 만들기</string>
+    <string name="label_db_size_and_date">크기: %s | 수정일: %s</string>
+
+    <!-- CreateDatabaseDialog -->
+    <string name="title_create_database">데이터베이스 만들기</string>
+    <string name="label_database_name">데이터베이스 이름</string>
+    <string name="placeholder_database_name">예: my_database.db</string>
+
+    <!-- TableListScreen -->
+    <string name="title_table_management">테이블 관리</string>
+    <string name="label_database_name_prefix">데이터베이스: %s</string>
+    <string name="label_loading_table_list">테이블 목록 로딩 중...</string>
+    <string name="label_no_table">테이블 없음</string>
+    <string name="hint_create_table">오른쪽 상단 + 를 눌러 테이블 만들기</string>
+    <string name="cd_create_table">테이블 만들기</string>
+    <string name="msg_table_created">테이블이 생성되었습니다</string>
+    <string name="msg_table_deleted">테이블이 삭제되었습니다</string>
+    <string name="msg_confirm_delete_table">테이블 \"%s\"을(를) 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다!</string>
+    <string name="msg_select_table_action">이 테이블에 대해 어떤 작업을 수행하시겠습니까?</string>
+
+    <!-- CreateTableDialog -->
+    <string name="title_create_table">테이블 만들기</string>
+    <string name="label_table_name">테이블 이름</string>
+    <string name="placeholder_table_name">예: users</string>
+    <string name="label_column_definition">열 정의:</string>
+    <string name="label_column_name">열 이름</string>
+    <string name="placeholder_column_name">예: username</string>
+    <string name="label_length">길이</string>
+    <string name="placeholder_length">선택 사항</string>
+    <string name="label_type">유형</string>
+    <string name="label_primary_key">기본 키</string>
+    <string name="action_add_column">열 추가</string>
+    <string name="cd_delete_column">열 삭제</string>
+
+    <!-- UserManagementScreen -->
+    <string name="status_connected_aqq">AQQ 데이터베이스에 연결됨</string>
+    <string name="status_not_connected">연결되지 않음</string>
+    <string name="cd_add_user">사용자 추가</string>
+    <string name="label_user_list_count">사용자 목록 (%d개 레코드)</string>
+    <string name="error_cannot_connect_aqq">앱 데이터베이스에 연결할 수 없습니다</string>
+    <string name="error_connect_failed">연결 실패: %s</string>
+    <string name="hint_ensure_aqq_running">AQQ 앱이 설치되어 실행 중인지 확인해 주세요</string>
+    <string name="hint_add_user">오른쪽 상단 + 버튼을 눌러 사용자 추가</string>
+    <string name="header_id">ID</string>
+    <string name="header_name">이름</string>
+    <string name="header_email">이메일</string>
+    <string name="header_age">나이</string>
+    <string name="header_city">도시</string>
+    <string name="title_add_user">사용자 추가</string>
+    <string name="title_edit_user">사용자 편집</string>
+    <string name="msg_add_success">추가되었습니다</string>
+    <string name="msg_add_failed">추가 실패</string>
+    <string name="msg_add_failed_retry">추가 실패, 다시 시도해 주세요</string>
+    <string name="msg_update_success">업데이트되었습니다</string>
+    <string name="msg_update_failed">업데이트 실패</string>
+    <string name="msg_update_failed_retry">업데이트 실패, 다시 시도해 주세요</string>
+    <string name="msg_confirm_delete_user">사용자 \"%s\"을(를) 삭제하시겠습니까?</string>
+    <string name="msg_select_user_action">이 사용자에 대해 어떤 작업을 수행하시겠습니까?</string>
+
+    <!-- DataBrowserScreen -->
+    <string name="title_data_browser">데이터 브라우저</string>
+    <string name="label_record_count">레코드 %d개</string>
+    <string name="hint_add_data">오른쪽 상단 + 를 눌러 데이터 추가</string>
+    <string name="msg_data_add_success">데이터가 추가되었습니다</string>
+    <string name="msg_data_update_success">데이터가 업데이트되었습니다</string>
+    <string name="msg_data_deleted">데이터가 삭제되었습니다</string>
+    <string name="msg_confirm_delete_record">이 레코드를 삭제하시겠습니까?</string>
+    <string name="msg_select_record_action">이 레코드에 대해 어떤 작업을 수행하시겠습니까?</string>
+    <string name="title_edit_data">데이터 편집</string>
+    <string name="title_add_data">데이터 추가</string>
+    <string name="cd_add_data">데이터 추가</string>
+    <string name="label_auto_increment">자동 증가</string>
+
+    <!-- SettingsScreen -->
+    <string name="title_settings">설정</string>
+    <string name="title_app_settings">앱 설정</string>
+    <string name="section_settings">설정</string>
+    <string name="section_about">정보</string>
+    <string name="language_settings">언어 설정</string>
+    <string name="theme_settings">테마 설정</string>
+    <string name="about_app">앱 정보</string>
+    <string name="cd_open_settings">설정 열기</string>
+    <string name="cd_close_drawer">서랍 메뉴 닫기</string>
+    <string name="drawer_title">DBTool</string>
+    <string name="drawer_subtitle">데이터베이스 관리 도구</string>
+    <string name="menu_database">데이터베이스 관리</string>
+    <string name="menu_settings">설정</string>
+
+    <!-- About Card -->
+    <string name="title_about">정보</string>
+    <string name="visit_github">개발자 페이지</string>
+    <string name="about_app_btn">앱 정보</string>
+    <string name="about_owner_label">소유자</string>
+    <string name="about_contributors_label">기여자</string>
+    <string name="about_contributor_1">huidoudour</string>
+    <string name="about_contributor_2">2249807346</string>
+    <string name="about_built_with">Kotlin으로 제작</string>
+
+    <!-- About Me -->
+    <string name="about_hello">Hello World</string>
+    <string name="about_description">你保护世界，我保护你</string>
+    <string name="about_developer">亻尔女子，我是 huidoudour（慧兜兜）</string>
+    <string name="find_me">ω寻找我ω</string>
+</resources>

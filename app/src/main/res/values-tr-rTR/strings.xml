@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DBTool</string>
+
+    <!-- Common -->
+    <string name="action_cancel">İptal</string>
+    <string name="action_delete">Sil</string>
+    <string name="action_edit">Düzenle</string>
+    <string name="action_retry">Tekrar Dene</string>
+    <string name="action_confirm">Tamam</string>
+    <string name="action_update">Güncelle</string>
+    <string name="action_add">Ekle</string>
+    <string name="action_create">Oluştur</string>
+    <string name="action_refresh">Yenile</string>
+    <string name="action_back">Geri</string>
+    <string name="title_confirm_delete">Silmeyi Onayla</string>
+    <string name="title_select_action">İşlem Seç</string>
+    <string name="label_loading">Yükleniyor...</string>
+    <string name="label_no_data">Veri yok</string>
+    <string name="msg_delete_success">Başarıyla silindi</string>
+    <string name="msg_delete_failed">Silme başarısız</string>
+    <string name="msg_delete_failed_retry">Silme başarısız, lütfen tekrar deneyin</string>
+
+    <!-- DatabaseManagementScreen / DatabaseListScreen -->
+    <string name="title_database_management">Veritabanı Yönetimi</string>
+    <string name="label_database_count">%d veritabanı</string>
+    <string name="label_loading_database_list">Veritabanları yükleniyor...</string>
+    <string name="label_waiting_service">Hizmete bağlanılıyor...</string>
+    <string name="label_no_database">Veritabanı yok</string>
+    <string name="hint_create_database">Veritabanı oluşturmak için + simgesine dokunun</string>
+    <string name="msg_database_created">Veritabanı oluşturuldu</string>
+    <string name="msg_database_create_failed">Veritabanı oluşturma başarısız</string>
+    <string name="msg_database_deleted">Veritabanı silindi</string>
+    <string name="msg_confirm_delete_database">\"%s\" veritabanını silmek istediğinizden emin misiniz? Bu işlem geri alınamaz!</string>
+    <string name="msg_select_database_action">Bu veritabanıyla ne yapmak istiyorsunuz?</string>
+    <string name="cd_refresh">Yenile</string>
+    <string name="cd_create_database">Veritabanı oluştur</string>
+    <string name="label_db_size_and_date">Boyut: %s | Değiştirilme: %s</string>
+
+    <!-- CreateDatabaseDialog -->
+    <string name="title_create_database">Veritabanı Oluştur</string>
+    <string name="label_database_name">Veritabanı Adı</string>
+    <string name="placeholder_database_name">örnek: veritabanim.db</string>
+
+    <!-- TableListScreen -->
+    <string name="title_table_management">Tablo Yönetimi</string>
+    <string name="label_database_name_prefix">Veritabanı: %s</string>
+    <string name="label_loading_table_list">Tablolar yükleniyor...</string>
+    <string name="label_no_table">Tablo yok</string>
+    <string name="hint_create_table">Tablo oluşturmak için + simgesine dokunun</string>
+    <string name="cd_create_table">Tablo oluştur</string>
+    <string name="msg_table_created">Tablo oluşturuldu</string>
+    <string name="msg_table_deleted">Tablo silindi</string>
+    <string name="msg_confirm_delete_table">\"%s\" tablosunu silmek istediğinizden emin misiniz? Bu işlem geri alınamaz!</string>
+    <string name="msg_select_table_action">Bu tabloyla ne yapmak istiyorsunuz?</string>
+
+    <!-- CreateTableDialog -->
+    <string name="title_create_table">Tablo Oluştur</string>
+    <string name="label_table_name">Tablo Adı</string>
+    <string name="placeholder_table_name">örnek: kullanicilar</string>
+    <string name="label_column_definition">Sütun Tanımı:</string>
+    <string name="label_column_name">Sütun Adı</string>
+    <string name="placeholder_column_name">örnek: kullanici_adi</string>
+    <string name="label_length">Uzunluk</string>
+    <string name="placeholder_length">İsteğe bağlı</string>
+    <string name="label_type">Tür</string>
+    <string name="label_primary_key">Birincil Anahtar</string>
+    <string name="action_add_column">Sütun Ekle</string>
+    <string name="cd_delete_column">Sütun sil</string>
+
+    <!-- UserManagementScreen -->
+    <string name="status_connected_aqq">AQQ veritabanına bağlandı</string>
+    <string name="status_not_connected">Bağlı değil</string>
+    <string name="cd_add_user">Kullanıcı ekle</string>
+    <string name="label_user_list_count">Kullanıcı Listesi (%d kayıt)</string>
+    <string name="error_cannot_connect_aqq">Uygulama veritabanına bağlanılamıyor</string>
+    <string name="error_connect_failed">Bağlantı başarısız: %s</string>
+    <string name="hint_ensure_aqq_running">Lütfen AQQ uygulamasının yüklü ve çalıştığından emin olun</string>
+    <string name="hint_add_user">Kullanıcı eklemek için + düğmesine dokunun</string>
+    <string name="header_id">ID</string>
+    <string name="header_name">Ad</string>
+    <string name="header_email">E-posta</string>
+    <string name="header_age">Yaş</string>
+    <string name="header_city">Şehir</string>
+    <string name="title_add_user">Kullanıcı Ekle</string>
+    <string name="title_edit_user">Kullanıcı Düzenle</string>
+    <string name="msg_add_success">Başarıyla eklendi</string>
+    <string name="msg_add_failed">Ekleme başarısız</string>
+    <string name="msg_add_failed_retry">Ekleme başarısız, lütfen tekrar deneyin</string>
+    <string name="msg_update_success">Başarıyla güncellendi</string>
+    <string name="msg_update_failed">Güncelleme başarısız</string>
+    <string name="msg_update_failed_retry">Güncelleme başarısız, lütfen tekrar deneyin</string>
+    <string name="msg_confirm_delete_user">\"%s\" kullanıcısını silmek istediğinizden emin misiniz?</string>
+    <string name="msg_select_user_action">Bu kullanıcıyla ne yapmak istiyorsunuz?</string>
+
+    <!-- DataBrowserScreen -->
+    <string name="title_data_browser">Veri Tarayıcısı</string>
+    <string name="label_record_count">%d kayıt</string>
+    <string name="hint_add_data">Veri eklemek için + simgesine dokunun</string>
+    <string name="msg_data_add_success">Veri başarıyla eklendi</string>
+    <string name="msg_data_update_success">Veri başarıyla güncellendi</string>
+    <string name="msg_data_deleted">Veri silindi</string>
+    <string name="msg_confirm_delete_record">Bu kaydı silmek istediğinizden emin misiniz?</string>
+    <string name="msg_select_record_action">Bu kayıtla ne yapmak istiyorsunuz?</string>
+    <string name="title_edit_data">Veriyi Düzenle</string>
+    <string name="title_add_data">Veri Ekle</string>
+    <string name="cd_add_data">Veri ekle</string>
+    <string name="label_auto_increment">Otomatik Artış</string>
+
+    <!-- SettingsScreen -->
+    <string name="title_settings">Ayarlar</string>
+    <string name="title_app_settings">Uygulama Ayarları</string>
+    <string name="section_settings">Ayarlar</string>
+    <string name="section_about">Hakkında</string>
+    <string name="language_settings">Dil</string>
+    <string name="theme_settings">Tema</string>
+    <string name="about_app">Uygulama Hakkında</string>
+    <string name="cd_open_settings">Ayarları aç</string>
+    <string name="cd_close_drawer">Yan menüyü kapat</string>
+    <string name="drawer_title">DBTool</string>
+    <string name="drawer_subtitle">Veritabanı Yönetim Aracı</string>
+    <string name="menu_database">Veritabanı Yönetimi</string>
+    <string name="menu_settings">Ayarlar</string>
+
+    <!-- About Card -->
+    <string name="title_about">Hakkında</string>
+    <string name="visit_github">Geliştirici Sayfası</string>
+    <string name="about_app_btn">Uygulama Hakkında</string>
+    <string name="about_owner_label">Sahip</string>
+    <string name="about_contributors_label">Katkıda Bulunanlar</string>
+    <string name="about_contributor_1">huidoudour</string>
+    <string name="about_contributor_2">2249807346</string>
+    <string name="about_built_with">Kotlin ile oluşturuldu</string>
+
+    <!-- About Me -->
+    <string name="about_hello">Hello World</string>
+    <string name="about_description">你保护世界，我保护你</string>
+    <string name="about_developer">亻尔女子，我是 huidoudour（慧兜兜）</string>
+    <string name="find_me">ω寻找我ω</string>
+</resources>

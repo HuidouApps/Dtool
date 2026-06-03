@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DBTool</string>
+
+    <!-- Common -->
+    <string name="action_cancel">取消</string>
+    <string name="action_delete">刪除</string>
+    <string name="action_edit">編輯</string>
+    <string name="action_retry">重試</string>
+    <string name="action_confirm">確定</string>
+    <string name="action_update">更新</string>
+    <string name="action_add">新增</string>
+    <string name="action_create">建立</string>
+    <string name="action_refresh">重新整理</string>
+    <string name="action_back">返回</string>
+    <string name="title_confirm_delete">確認刪除</string>
+    <string name="title_select_action">選擇操作</string>
+    <string name="label_loading">載入中...</string>
+    <string name="label_no_data">暫無資料</string>
+    <string name="msg_delete_success">刪除成功</string>
+    <string name="msg_delete_failed">刪除失敗</string>
+    <string name="msg_delete_failed_retry">刪除失敗，請重試</string>
+
+    <!-- DatabaseManagementScreen / DatabaseListScreen -->
+    <string name="title_database_management">資料庫管理</string>
+    <string name="label_database_count">共 %d 個資料庫</string>
+    <string name="label_loading_database_list">正在載入資料庫清單...</string>
+    <string name="label_waiting_service">等待服務連線...</string>
+    <string name="label_no_database">暫無資料庫</string>
+    <string name="hint_create_database">點擊右上角 + 建立資料庫</string>
+    <string name="msg_database_created">資料庫建立成功</string>
+    <string name="msg_database_create_failed">資料庫建立失敗</string>
+    <string name="msg_database_deleted">資料庫已刪除</string>
+    <string name="msg_confirm_delete_database">確定要刪除資料庫 \"%s\" 嗎？此操作無法復原！</string>
+    <string name="msg_select_database_action">您想對這個資料庫執行什麼操作？</string>
+    <string name="cd_refresh">重新整理</string>
+    <string name="cd_create_database">建立資料庫</string>
+    <string name="label_db_size_and_date">大小: %s | 修改時間: %s</string>
+
+    <!-- CreateDatabaseDialog -->
+    <string name="title_create_database">建立資料庫</string>
+    <string name="label_database_name">資料庫名稱</string>
+    <string name="placeholder_database_name">例如: my_database.db</string>
+
+    <!-- TableListScreen -->
+    <string name="title_table_management">資料表管理</string>
+    <string name="label_database_name_prefix">資料庫: %s</string>
+    <string name="label_loading_table_list">正在載入資料表清單...</string>
+    <string name="label_no_table">暫無資料表</string>
+    <string name="hint_create_table">點擊右上角 + 建立資料表</string>
+    <string name="cd_create_table">建立資料表</string>
+    <string name="msg_table_created">資料表建立成功</string>
+    <string name="msg_table_deleted">資料表已刪除</string>
+    <string name="msg_confirm_delete_table">確定要刪除資料表 \"%s\" 嗎？此操作無法復原！</string>
+    <string name="msg_select_table_action">您想對這個資料表執行什麼操作？</string>
+
+    <!-- CreateTableDialog -->
+    <string name="title_create_table">建立資料表</string>
+    <string name="label_table_name">資料表名稱</string>
+    <string name="placeholder_table_name">例如: users</string>
+    <string name="label_column_definition">欄位定義:</string>
+    <string name="label_column_name">欄位名稱</string>
+    <string name="placeholder_column_name">例如: username</string>
+    <string name="label_length">長度</string>
+    <string name="placeholder_length">選填</string>
+    <string name="label_type">類型</string>
+    <string name="label_primary_key">主鍵</string>
+    <string name="action_add_column">新增欄位</string>
+    <string name="cd_delete_column">刪除欄位</string>
+
+    <!-- UserManagementScreen -->
+    <string name="status_connected_aqq">已連線至 AQQ 資料庫</string>
+    <string name="status_not_connected">未連線</string>
+    <string name="cd_add_user">新增使用者</string>
+    <string name="label_user_list_count">使用者清單 (%d 筆記錄)</string>
+    <string name="error_cannot_connect_aqq">無法連線至應用程式資料庫</string>
+    <string name="error_connect_failed">連線失敗: %s</string>
+    <string name="hint_ensure_aqq_running">請確保 AQQ 應用程式已安裝並執行中</string>
+    <string name="hint_add_user">點擊右上角 + 按鈕新增使用者</string>
+    <string name="header_id">ID</string>
+    <string name="header_name">姓名</string>
+    <string name="header_email">電子郵件</string>
+    <string name="header_age">年齡</string>
+    <string name="header_city">城市</string>
+    <string name="title_add_user">新增使用者</string>
+    <string name="title_edit_user">編輯使用者</string>
+    <string name="msg_add_success">新增成功</string>
+    <string name="msg_add_failed">新增失敗</string>
+    <string name="msg_add_failed_retry">新增失敗，請重試</string>
+    <string name="msg_update_success">更新成功</string>
+    <string name="msg_update_failed">更新失敗</string>
+    <string name="msg_update_failed_retry">更新失敗，請重試</string>
+    <string name="msg_confirm_delete_user">確定要刪除使用者 \"%s\" 嗎？</string>
+    <string name="msg_select_user_action">您想對這個使用者執行什麼操作？</string>
+
+    <!-- DataBrowserScreen -->
+    <string name="title_data_browser">資料瀏覽</string>
+    <string name="label_record_count">共 %d 筆記錄</string>
+    <string name="hint_add_data">點擊右上角 + 新增資料</string>
+    <string name="msg_data_add_success">資料新增成功</string>
+    <string name="msg_data_update_success">資料更新成功</string>
+    <string name="msg_data_deleted">資料已刪除</string>
+    <string name="msg_confirm_delete_record">確定要刪除這筆記錄嗎？</string>
+    <string name="msg_select_record_action">您想對這筆記錄執行什麼操作？</string>
+    <string name="title_edit_data">編輯資料</string>
+    <string name="title_add_data">新增資料</string>
+    <string name="cd_add_data">新增資料</string>
+    <string name="label_auto_increment">自動遞增</string>
+
+    <!-- SettingsScreen -->
+    <string name="title_settings">設定</string>
+    <string name="title_app_settings">應用程式設定</string>
+    <string name="section_settings">設定</string>
+    <string name="section_about">關於</string>
+    <string name="language_settings">語言設定</string>
+    <string name="theme_settings">主題設定</string>
+    <string name="about_app">關於應用程式</string>
+    <string name="cd_open_settings">開啟設定</string>
+    <string name="cd_close_drawer">關閉側邊欄</string>
+    <string name="drawer_title">DBTool</string>
+    <string name="drawer_subtitle">資料庫管理工具</string>
+    <string name="menu_database">資料庫管理</string>
+    <string name="menu_settings">設定</string>
+
+    <!-- About Card -->
+    <string name="title_about">關於</string>
+    <string name="visit_github">開發者頁</string>
+    <string name="about_app_btn">關於應用程式</string>
+    <string name="about_owner_label">擁有者</string>
+    <string name="about_contributors_label">貢獻者</string>
+    <string name="about_contributor_1">huidoudour（慧兜兜）</string>
+    <string name="about_contributor_2">2249807346</string>
+    <string name="about_built_with">基於 Kotlin 建構</string>
+
+    <!-- About Me -->
+    <string name="about_hello">Hello World</string>
+    <string name="about_description">你保护世界，我保护你</string>
+    <string name="about_developer">亻尔女子，我是 huidoudour（慧兜兜）</string>
+    <string name="find_me">ω寻找我ω</string>
+</resources>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DBTool</string>
+
+    <!-- Common -->
+    <string name="action_cancel">Hủy</string>
+    <string name="action_delete">Xóa</string>
+    <string name="action_edit">Sửa</string>
+    <string name="action_retry">Thử lại</string>
+    <string name="action_confirm">OK</string>
+    <string name="action_update">Cập nhật</string>
+    <string name="action_add">Thêm</string>
+    <string name="action_create">Tạo</string>
+    <string name="action_refresh">Làm mới</string>
+    <string name="action_back">Quay lại</string>
+    <string name="title_confirm_delete">Xác nhận xóa</string>
+    <string name="title_select_action">Chọn hành động</string>
+    <string name="label_loading">Đang tải...</string>
+    <string name="label_no_data">Không có dữ liệu</string>
+    <string name="msg_delete_success">Đã xóa thành công</string>
+    <string name="msg_delete_failed">Xóa thất bại</string>
+    <string name="msg_delete_failed_retry">Xóa thất bại, vui lòng thử lại</string>
+
+    <!-- DatabaseManagementScreen / DatabaseListScreen -->
+    <string name="title_database_management">Quản lý cơ sở dữ liệu</string>
+    <string name="label_database_count">%d cơ sở dữ liệu</string>
+    <string name="label_loading_database_list">Đang tải danh sách cơ sở dữ liệu...</string>
+    <string name="label_waiting_service">Đang chờ dịch vụ...</string>
+    <string name="label_no_database">Không có cơ sở dữ liệu</string>
+    <string name="hint_create_database">Nhấn + để tạo cơ sở dữ liệu</string>
+    <string name="msg_database_created">Đã tạo cơ sở dữ liệu</string>
+    <string name="msg_database_create_failed">Tạo cơ sở dữ liệu thất bại</string>
+    <string name="msg_database_deleted">Đã xóa cơ sở dữ liệu</string>
+    <string name="msg_confirm_delete_database">Bạn có chắc muốn xóa cơ sở dữ liệu \"%s\" không? Hành động này không thể hoàn tác!</string>
+    <string name="msg_select_database_action">Bạn muốn làm gì với cơ sở dữ liệu này?</string>
+    <string name="cd_refresh">Làm mới</string>
+    <string name="cd_create_database">Tạo cơ sở dữ liệu</string>
+    <string name="label_db_size_and_date">Kích thước: %s | Sửa đổi: %s</string>
+
+    <!-- CreateDatabaseDialog -->
+    <string name="title_create_database">Tạo cơ sở dữ liệu</string>
+    <string name="label_database_name">Tên cơ sở dữ liệu</string>
+    <string name="placeholder_database_name">ví dụ: co_so_du_lieu.db</string>
+
+    <!-- TableListScreen -->
+    <string name="title_table_management">Quản lý bảng</string>
+    <string name="label_database_name_prefix">Cơ sở dữ liệu: %s</string>
+    <string name="label_loading_table_list">Đang tải danh sách bảng...</string>
+    <string name="label_no_table">Không có bảng</string>
+    <string name="hint_create_table">Nhấn + để tạo bảng</string>
+    <string name="cd_create_table">Tạo bảng</string>
+    <string name="msg_table_created">Đã tạo bảng</string>
+    <string name="msg_table_deleted">Đã xóa bảng</string>
+    <string name="msg_confirm_delete_table">Bạn có chắc muốn xóa bảng \"%s\" không? Hành động này không thể hoàn tác!</string>
+    <string name="msg_select_table_action">Bạn muốn làm gì với bảng này?</string>
+
+    <!-- CreateTableDialog -->
+    <string name="title_create_table">Tạo bảng</string>
+    <string name="label_table_name">Tên bảng</string>
+    <string name="placeholder_table_name">ví dụ: nguoi_dung</string>
+    <string name="label_column_definition">Định nghĩa cột:</string>
+    <string name="label_column_name">Tên cột</string>
+    <string name="placeholder_column_name">ví dụ: ten_dang_nhap</string>
+    <string name="label_length">Độ dài</string>
+    <string name="placeholder_length">Tùy chọn</string>
+    <string name="label_type">Kiểu</string>
+    <string name="label_primary_key">Khóa chính</string>
+    <string name="action_add_column">Thêm cột</string>
+    <string name="cd_delete_column">Xóa cột</string>
+
+    <!-- UserManagementScreen -->
+    <string name="status_connected_aqq">Đã kết nối cơ sở dữ liệu AQQ</string>
+    <string name="status_not_connected">Chưa kết nối</string>
+    <string name="cd_add_user">Thêm người dùng</string>
+    <string name="label_user_list_count">Danh sách người dùng (%d bản ghi)</string>
+    <string name="error_cannot_connect_aqq">Không thể kết nối cơ sở dữ liệu ứng dụng</string>
+    <string name="error_connect_failed">Kết nối thất bại: %s</string>
+    <string name="hint_ensure_aqq_running">Vui lòng đảm bảo ứng dụng AQQ đã được cài đặt và đang chạy</string>
+    <string name="hint_add_user">Nhấn nút + để thêm người dùng</string>
+    <string name="header_id">ID</string>
+    <string name="header_name">Tên</string>
+    <string name="header_email">Email</string>
+    <string name="header_age">Tuổi</string>
+    <string name="header_city">Thành phố</string>
+    <string name="title_add_user">Thêm người dùng</string>
+    <string name="title_edit_user">Sửa người dùng</string>
+    <string name="msg_add_success">Đã thêm thành công</string>
+    <string name="msg_add_failed">Thêm thất bại</string>
+    <string name="msg_add_failed_retry">Thêm thất bại, vui lòng thử lại</string>
+    <string name="msg_update_success">Đã cập nhật thành công</string>
+    <string name="msg_update_failed">Cập nhật thất bại</string>
+    <string name="msg_update_failed_retry">Cập nhật thất bại, vui lòng thử lại</string>
+    <string name="msg_confirm_delete_user">Bạn có chắc muốn xóa người dùng \"%s\" không?</string>
+    <string name="msg_select_user_action">Bạn muốn làm gì với người dùng này?</string>
+
+    <!-- DataBrowserScreen -->
+    <string name="title_data_browser">Trình duyệt dữ liệu</string>
+    <string name="label_record_count">%d bản ghi</string>
+    <string name="hint_add_data">Nhấn + để thêm dữ liệu</string>
+    <string name="msg_data_add_success">Đã thêm dữ liệu thành công</string>
+    <string name="msg_data_update_success">Đã cập nhật dữ liệu thành công</string>
+    <string name="msg_data_deleted">Đã xóa dữ liệu</string>
+    <string name="msg_confirm_delete_record">Bạn có chắc muốn xóa bản ghi này không?</string>
+    <string name="msg_select_record_action">Bạn muốn làm gì với bản ghi này?</string>
+    <string name="title_edit_data">Sửa dữ liệu</string>
+    <string name="title_add_data">Thêm dữ liệu</string>
+    <string name="cd_add_data">Thêm dữ liệu</string>
+    <string name="label_auto_increment">Tự động tăng</string>
+
+    <!-- SettingsScreen -->
+    <string name="title_settings">Cài đặt</string>
+    <string name="title_app_settings">Cài đặt ứng dụng</string>
+    <string name="section_settings">Cài đặt</string>
+    <string name="section_about">Giới thiệu</string>
+    <string name="language_settings">Ngôn ngữ</string>
+    <string name="theme_settings">Chủ đề</string>
+    <string name="about_app">Giới thiệu ứng dụng</string>
+    <string name="cd_open_settings">Mở cài đặt</string>
+    <string name="cd_close_drawer">Đóng menu bên</string>
+    <string name="drawer_title">DBTool</string>
+    <string name="drawer_subtitle">Công cụ quản lý cơ sở dữ liệu</string>
+    <string name="menu_database">Quản lý cơ sở dữ liệu</string>
+    <string name="menu_settings">Cài đặt</string>
+
+    <!-- About Card -->
+    <string name="title_about">Giới thiệu</string>
+    <string name="visit_github">Trang nhà phát triển</string>
+    <string name="about_app_btn">Giới thiệu ứng dụng</string>
+    <string name="about_owner_label">Chủ sở hữu</string>
+    <string name="about_contributors_label">Người đóng góp</string>
+    <string name="about_contributor_1">huidoudour</string>
+    <string name="about_contributor_2">2249807346</string>
+    <string name="about_built_with">Xây dựng bằng Kotlin</string>
+
+    <!-- About Me -->
+    <string name="about_hello">Hello World</string>
+    <string name="about_description">你保护世界，我保护你</string>
+    <string name="about_developer">亻尔女子，我是 huidoudour（慧兜兜）</string>
+    <string name="find_me">ω寻找我ω</string>
+</resources>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DBTool</string>
+
+    <!-- Common -->
+    <string name="action_cancel">Ακύρωση</string>
+    <string name="action_delete">Διαγραφή</string>
+    <string name="action_edit">Επεξεργασία</string>
+    <string name="action_retry">Επανάληψη</string>
+    <string name="action_confirm">ΟΚ</string>
+    <string name="action_update">Ενημέρωση</string>
+    <string name="action_add">Προσθήκη</string>
+    <string name="action_create">Δημιουργία</string>
+    <string name="action_refresh">Ανανέωση</string>
+    <string name="action_back">Πίσω</string>
+    <string name="title_confirm_delete">Επιβεβαίωση διαγραφής</string>
+    <string name="title_select_action">Επιλογή ενέργειας</string>
+    <string name="label_loading">Φόρτωση...</string>
+    <string name="label_no_data">Δεν υπάρχουν δεδομένα</string>
+    <string name="msg_delete_success">Η διαγραφή ήταν επιτυχής</string>
+    <string name="msg_delete_failed">Η διαγραφή απέτυχε</string>
+    <string name="msg_delete_failed_retry">Η διαγραφή απέτυχε, δοκιμάστε ξανά</string>
+
+    <!-- DatabaseManagementScreen / DatabaseListScreen -->
+    <string name="title_database_management">Διαχείριση βάσεων δεδομένων</string>
+    <string name="label_database_count">%d βάσεις δεδομένων</string>
+    <string name="label_loading_database_list">Φόρτωση λίστας βάσεων δεδομένων...</string>
+    <string name="label_waiting_service">Αναμονή σύνδεσης υπηρεσίας...</string>
+    <string name="label_no_database">Δεν υπάρχουν βάσεις δεδομένων</string>
+    <string name="hint_create_database">Πατήστε + για δημιουργία βάσης δεδομένων</string>
+    <string name="msg_database_created">Η βάση δεδομένων δημιουργήθηκε</string>
+    <string name="msg_database_create_failed">Η δημιουργία βάσης δεδομένων απέτυχε</string>
+    <string name="msg_database_deleted">Η βάση δεδομένων διαγράφηκε</string>
+    <string name="msg_confirm_delete_database">Είστε σίγουροι ότι θέλετε να διαγράψετε τη βάση δεδομένων \"%s\"; Αυτή η ενέργεια είναι μη αναστρέψιμη!</string>
+    <string name="msg_select_database_action">Τι θέλετε να κάνετε με αυτή τη βάση δεδομένων;</string>
+    <string name="cd_refresh">Ανανέωση</string>
+    <string name="cd_create_database">Δημιουργία βάσης δεδομένων</string>
+    <string name="label_db_size_and_date">Μέγεθος: %s | Τροποποίηση: %s</string>
+
+    <!-- CreateDatabaseDialog -->
+    <string name="title_create_database">Δημιουργία βάσης δεδομένων</string>
+    <string name="label_database_name">Όνομα βάσης δεδομένων</string>
+    <string name="placeholder_database_name">π.χ.: my_database.db</string>
+
+    <!-- TableListScreen -->
+    <string name="title_table_management">Διαχείριση πινάκων</string>
+    <string name="label_database_name_prefix">Βάση δεδομένων: %s</string>
+    <string name="label_loading_table_list">Φόρτωση λίστας πινάκων...</string>
+    <string name="label_no_table">Δεν υπάρχουν πίνακες</string>
+    <string name="hint_create_table">Πατήστε + για δημιουργία πίνακα</string>
+    <string name="cd_create_table">Δημιουργία πίνακα</string>
+    <string name="msg_table_created">Ο πίνακας δημιουργήθηκε</string>
+    <string name="msg_table_deleted">Ο πίνακας διαγράφηκε</string>
+    <string name="msg_confirm_delete_table">Είστε σίγουροι ότι θέλετε να διαγράψετε τον πίνακα \"%s\"; Αυτή η ενέργεια είναι μη αναστρέψιμη!</string>
+    <string name="msg_select_table_action">Τι θέλετε να κάνετε με αυτόν τον πίνακα;</string>
+
+    <!-- CreateTableDialog -->
+    <string name="title_create_table">Δημιουργία πίνακα</string>
+    <string name="label_table_name">Όνομα πίνακα</string>
+    <string name="placeholder_table_name">π.χ.: users</string>
+    <string name="label_column_definition">Ορισμός στηλών:</string>
+    <string name="label_column_name">Όνομα στήλης</string>
+    <string name="placeholder_column_name">π.χ.: username</string>
+    <string name="label_length">Μήκος</string>
+    <string name="placeholder_length">Προαιρετικό</string>
+    <string name="label_type">Τύπος</string>
+    <string name="label_primary_key">Πρωτεύον κλειδί</string>
+    <string name="action_add_column">Προσθήκη στήλης</string>
+    <string name="cd_delete_column">Διαγραφή στήλης</string>
+
+    <!-- UserManagementScreen -->
+    <string name="status_connected_aqq">Συνδέθηκε με τη βάση δεδομένων AQQ</string>
+    <string name="status_not_connected">Δεν συνδέθηκε</string>
+    <string name="cd_add_user">Προσθήκη χρήστη</string>
+    <string name="label_user_list_count">Λίστα χρηστών (%d εγγραφές)</string>
+    <string name="error_cannot_connect_aqq">Αδυναμία σύνδεσης με τη βάση δεδομένων της εφαρμογής</string>
+    <string name="error_connect_failed">Η σύνδεση απέτυχε: %s</string>
+    <string name="hint_ensure_aqq_running">Βεβαιωθείτε ότι η εφαρμογή AQQ είναι εγκατεστημένη και εκτελείται</string>
+    <string name="hint_add_user">Πατήστε το κουμπί + για προσθήκη χρήστη</string>
+    <string name="header_id">ID</string>
+    <string name="header_name">Όνομα</string>
+    <string name="header_email">Email</string>
+    <string name="header_age">Ηλικία</string>
+    <string name="header_city">Πόλη</string>
+    <string name="title_add_user">Προσθήκη χρήστη</string>
+    <string name="title_edit_user">Επεξεργασία χρήστη</string>
+    <string name="msg_add_success">Η προσθήκη ήταν επιτυχής</string>
+    <string name="msg_add_failed">Η προσθήκη απέτυχε</string>
+    <string name="msg_add_failed_retry">Η προσθήκη απέτυχε, δοκιμάστε ξανά</string>
+    <string name="msg_update_success">Η ενημέρωση ήταν επιτυχής</string>
+    <string name="msg_update_failed">Η ενημέρωση απέτυχε</string>
+    <string name="msg_update_failed_retry">Η ενημέρωση απέτυχε, δοκιμάστε ξανά</string>
+    <string name="msg_confirm_delete_user">Είστε σίγουροι ότι θέλετε να διαγράψετε τον χρήστη \"%s\";</string>
+    <string name="msg_select_user_action">Τι θέλετε να κάνετε με αυτόν τον χρήστη;</string>
+
+    <!-- DataBrowserScreen -->
+    <string name="title_data_browser">Περιήγηση δεδομένων</string>
+    <string name="label_record_count">%d εγγραφές</string>
+    <string name="hint_add_data">Πατήστε + για προσθήκη δεδομένων</string>
+    <string name="msg_data_add_success">Τα δεδομένα προστέθηκαν επιτυχώς</string>
+    <string name="msg_data_update_success">Τα δεδομένα ενημερώθηκαν επιτυχώς</string>
+    <string name="msg_data_deleted">Τα δεδομένα διαγράφηκαν</string>
+    <string name="msg_confirm_delete_record">Είστε σίγουροι ότι θέλετε να διαγράψετε αυτή την εγγραφή;</string>
+    <string name="msg_select_record_action">Τι θέλετε να κάνετε με αυτή την εγγραφή;</string>
+    <string name="title_edit_data">Επεξεργασία δεδομένων</string>
+    <string name="title_add_data">Προσθήκη δεδομένων</string>
+    <string name="cd_add_data">Προσθήκη δεδομένων</string>
+    <string name="label_auto_increment">Αυτόματη αύξηση</string>
+
+    <!-- SettingsScreen -->
+    <string name="title_settings">Ρυθμίσεις</string>
+    <string name="title_app_settings">Ρυθμίσεις εφαρμογής</string>
+    <string name="section_settings">Ρυθμίσεις</string>
+    <string name="section_about">Σχετικά</string>
+    <string name="language_settings">Γλώσσα</string>
+    <string name="theme_settings">Θέμα</string>
+    <string name="about_app">Σχετικά με την εφαρμογή</string>
+    <string name="cd_open_settings">Άνοιγμα ρυθμίσεων</string>
+    <string name="cd_close_drawer">Κλείσιμο πλευρικού μενού</string>
+    <string name="drawer_title">DBTool</string>
+    <string name="drawer_subtitle">Εργαλείο διαχείρισης βάσεων δεδομένων</string>
+    <string name="menu_database">Διαχείριση βάσεων δεδομένων</string>
+    <string name="menu_settings">Ρυθμίσεις</string>
+
+    <!-- About Card -->
+    <string name="title_about">Σχετικά</string>
+    <string name="visit_github">Σελίδα προγραμματιστή</string>
+    <string name="about_app_btn">Σχετικά με την εφαρμογή</string>
+    <string name="about_owner_label">Ιδιοκτήτης</string>
+    <string name="about_contributors_label">Συνεργάτες</string>
+    <string name="about_contributor_1">huidoudour</string>
+    <string name="about_contributor_2">2249807346</string>
+    <string name="about_built_with">Κατασκευάστηκε με Kotlin</string>
+
+    <!-- About Me -->
+    <string name="about_hello">Hello World</string>
+    <string name="about_description">你保护世界，我保护你</string>
+    <string name="about_developer">亻尔女子，我是 huidoudour（慧兜兜）</string>
+    <string name="find_me">ω寻找我ω</string>
+</resources>

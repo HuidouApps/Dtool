@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DBTool</string>
+
+    <!-- Common -->
+    <string name="action_cancel">Отмена</string>
+    <string name="action_delete">Удалить</string>
+    <string name="action_edit">Редактировать</string>
+    <string name="action_retry">Повторить</string>
+    <string name="action_confirm">ОК</string>
+    <string name="action_update">Обновить</string>
+    <string name="action_add">Добавить</string>
+    <string name="action_create">Создать</string>
+    <string name="action_refresh">Обновить</string>
+    <string name="action_back">Назад</string>
+    <string name="title_confirm_delete">Подтвердить удаление</string>
+    <string name="title_select_action">Выбрать действие</string>
+    <string name="label_loading">Загрузка...</string>
+    <string name="label_no_data">Нет данных</string>
+    <string name="msg_delete_success">Удалено успешно</string>
+    <string name="msg_delete_failed">Ошибка удаления</string>
+    <string name="msg_delete_failed_retry">Ошибка удаления, попробуйте снова</string>
+
+    <!-- DatabaseManagementScreen / DatabaseListScreen -->
+    <string name="title_database_management">Управление базами данных</string>
+    <string name="label_database_count">%d баз данных</string>
+    <string name="label_loading_database_list">Загрузка списка баз данных...</string>
+    <string name="label_waiting_service">Ожидание подключения к сервису...</string>
+    <string name="label_no_database">Нет баз данных</string>
+    <string name="hint_create_database">Нажмите +, чтобы создать базу данных</string>
+    <string name="msg_database_created">База данных создана</string>
+    <string name="msg_database_create_failed">Ошибка создания базы данных</string>
+    <string name="msg_database_deleted">База данных удалена</string>
+    <string name="msg_confirm_delete_database">Вы уверены, что хотите удалить базу данных \"%s\"? Это действие нельзя отменить!</string>
+    <string name="msg_select_database_action">Что вы хотите сделать с этой базой данных?</string>
+    <string name="cd_refresh">Обновить</string>
+    <string name="cd_create_database">Создать базу данных</string>
+    <string name="label_db_size_and_date">Размер: %s | Изменено: %s</string>
+
+    <!-- CreateDatabaseDialog -->
+    <string name="title_create_database">Создать базу данных</string>
+    <string name="label_database_name">Имя базы данных</string>
+    <string name="placeholder_database_name">например: my_database.db</string>
+
+    <!-- TableListScreen -->
+    <string name="title_table_management">Управление таблицами</string>
+    <string name="label_database_name_prefix">База данных: %s</string>
+    <string name="label_loading_table_list">Загрузка списка таблиц...</string>
+    <string name="label_no_table">Нет таблиц</string>
+    <string name="hint_create_table">Нажмите +, чтобы создать таблицу</string>
+    <string name="cd_create_table">Создать таблицу</string>
+    <string name="msg_table_created">Таблица создана</string>
+    <string name="msg_table_deleted">Таблица удалена</string>
+    <string name="msg_confirm_delete_table">Вы уверены, что хотите удалить таблицу \"%s\"? Это действие нельзя отменить!</string>
+    <string name="msg_select_table_action">Что вы хотите сделать с этой таблицей?</string>
+
+    <!-- CreateTableDialog -->
+    <string name="title_create_table">Создать таблицу</string>
+    <string name="label_table_name">Имя таблицы</string>
+    <string name="placeholder_table_name">например: users</string>
+    <string name="label_column_definition">Определение столбцов:</string>
+    <string name="label_column_name">Имя столбца</string>
+    <string name="placeholder_column_name">например: username</string>
+    <string name="label_length">Длина</string>
+    <string name="placeholder_length">Необязательно</string>
+    <string name="label_type">Тип</string>
+    <string name="label_primary_key">Первичный ключ</string>
+    <string name="action_add_column">Добавить столбец</string>
+    <string name="cd_delete_column">Удалить столбец</string>
+
+    <!-- UserManagementScreen -->
+    <string name="status_connected_aqq">Подключено к базе данных AQQ</string>
+    <string name="status_not_connected">Не подключено</string>
+    <string name="cd_add_user">Добавить пользователя</string>
+    <string name="label_user_list_count">Список пользователей (%d записей)</string>
+    <string name="error_cannot_connect_aqq">Не удалось подключиться к базе данных приложения</string>
+    <string name="error_connect_failed">Ошибка подключения: %s</string>
+    <string name="hint_ensure_aqq_running">Убедитесь, что приложение AQQ установлено и запущено</string>
+    <string name="hint_add_user">Нажмите +, чтобы добавить пользователя</string>
+    <string name="header_id">ID</string>
+    <string name="header_name">Имя</string>
+    <string name="header_email">Email</string>
+    <string name="header_age">Возраст</string>
+    <string name="header_city">Город</string>
+    <string name="title_add_user">Добавить пользователя</string>
+    <string name="title_edit_user">Редактировать пользователя</string>
+    <string name="msg_add_success">Добавлено успешно</string>
+    <string name="msg_add_failed">Ошибка добавления</string>
+    <string name="msg_add_failed_retry">Ошибка добавления, попробуйте снова</string>
+    <string name="msg_update_success">Обновлено успешно</string>
+    <string name="msg_update_failed">Ошибка обновления</string>
+    <string name="msg_update_failed_retry">Ошибка обновления, попробуйте снова</string>
+    <string name="msg_confirm_delete_user">Вы уверены, что хотите удалить пользователя \"%s\"?</string>
+    <string name="msg_select_user_action">Что вы хотите сделать с этим пользователем?</string>
+
+    <!-- DataBrowserScreen -->
+    <string name="title_data_browser">Обзор данных</string>
+    <string name="label_record_count">%d записей</string>
+    <string name="hint_add_data">Нажмите +, чтобы добавить данные</string>
+    <string name="msg_data_add_success">Данные добавлены успешно</string>
+    <string name="msg_data_update_success">Данные обновлены успешно</string>
+    <string name="msg_data_deleted">Данные удалены</string>
+    <string name="msg_confirm_delete_record">Вы уверены, что хотите удалить эту запись?</string>
+    <string name="msg_select_record_action">Что вы хотите сделать с этой записью?</string>
+    <string name="title_edit_data">Редактировать данные</string>
+    <string name="title_add_data">Добавить данные</string>
+    <string name="cd_add_data">Добавить данные</string>
+    <string name="label_auto_increment">Автоинкремент</string>
+
+    <!-- SettingsScreen -->
+    <string name="title_settings">Настройки</string>
+    <string name="title_app_settings">Настройки приложения</string>
+    <string name="section_settings">Настройки</string>
+    <string name="section_about">О приложении</string>
+    <string name="language_settings">Язык</string>
+    <string name="theme_settings">Тема</string>
+    <string name="about_app">О приложении</string>
+    <string name="cd_open_settings">Открыть настройки</string>
+    <string name="cd_close_drawer">Закрыть боковое меню</string>
+    <string name="drawer_title">DBTool</string>
+    <string name="drawer_subtitle">Инструмент управления базами данных</string>
+    <string name="menu_database">Управление базами данных</string>
+    <string name="menu_settings">Настройки</string>
+
+    <!-- About Card -->
+    <string name="title_about">О приложении</string>
+    <string name="visit_github">Страница разработчика</string>
+    <string name="about_app_btn">О приложении</string>
+    <string name="about_owner_label">Владелец</string>
+    <string name="about_contributors_label">Участники</string>
+    <string name="about_contributor_1">huidoudour</string>
+    <string name="about_contributor_2">2249807346</string>
+    <string name="about_built_with">Создано на Kotlin</string>
+
+    <!-- About Me -->
+    <string name="about_hello">Hello World</string>
+    <string name="about_description">你保护世界，我保护你</string>
+    <string name="about_developer">亻尔女子，我是 huidoudour（慧兜兜）</string>
+    <string name="find_me">ω寻找我ω</string>
+</resources>

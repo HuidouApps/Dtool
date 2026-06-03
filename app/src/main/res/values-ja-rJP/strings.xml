@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DBTool</string>
+
+    <!-- Common -->
+    <string name="action_cancel">キャンセル</string>
+    <string name="action_delete">削除</string>
+    <string name="action_edit">編集</string>
+    <string name="action_retry">再試行</string>
+    <string name="action_confirm">確認</string>
+    <string name="action_update">更新</string>
+    <string name="action_add">追加</string>
+    <string name="action_create">作成</string>
+    <string name="action_refresh">更新</string>
+    <string name="action_back">戻る</string>
+    <string name="title_confirm_delete">削除の確認</string>
+    <string name="title_select_action">操作を選択</string>
+    <string name="label_loading">読み込み中...</string>
+    <string name="label_no_data">データなし</string>
+    <string name="msg_delete_success">削除しました</string>
+    <string name="msg_delete_failed">削除に失敗しました</string>
+    <string name="msg_delete_failed_retry">削除に失敗しました。もう一度お試しください</string>
+
+    <!-- DatabaseManagementScreen / DatabaseListScreen -->
+    <string name="title_database_management">データベース管理</string>
+    <string name="label_database_count">%d 件のデータベース</string>
+    <string name="label_loading_database_list">データベース一覧を読み込み中...</string>
+    <string name="label_waiting_service">サービス接続待ち...</string>
+    <string name="label_no_database">データベースなし</string>
+    <string name="hint_create_database">右上の + をタップしてデータベースを作成</string>
+    <string name="msg_database_created">データベースを作成しました</string>
+    <string name="msg_database_create_failed">データベースの作成に失敗しました</string>
+    <string name="msg_database_deleted">データベースを削除しました</string>
+    <string name="msg_confirm_delete_database">データベース \"%s\" を削除してもよろしいですか？この操作は元に戻せません！</string>
+    <string name="msg_select_database_action">このデータベースに対してどのような操作を行いますか？</string>
+    <string name="cd_refresh">更新</string>
+    <string name="cd_create_database">データベースを作成</string>
+    <string name="label_db_size_and_date">サイズ: %s | 更新日時: %s</string>
+
+    <!-- CreateDatabaseDialog -->
+    <string name="title_create_database">データベースを作成</string>
+    <string name="label_database_name">データベース名</string>
+    <string name="placeholder_database_name">例: my_database.db</string>
+
+    <!-- TableListScreen -->
+    <string name="title_table_management">テーブル管理</string>
+    <string name="label_database_name_prefix">データベース: %s</string>
+    <string name="label_loading_table_list">テーブル一覧を読み込み中...</string>
+    <string name="label_no_table">テーブルなし</string>
+    <string name="hint_create_table">右上の + をタップしてテーブルを作成</string>
+    <string name="cd_create_table">テーブルを作成</string>
+    <string name="msg_table_created">テーブルを作成しました</string>
+    <string name="msg_table_deleted">テーブルを削除しました</string>
+    <string name="msg_confirm_delete_table">テーブル \"%s\" を削除してもよろしいですか？この操作は元に戻せません！</string>
+    <string name="msg_select_table_action">このテーブルに対してどのような操作を行いますか？</string>
+
+    <!-- CreateTableDialog -->
+    <string name="title_create_table">テーブルを作成</string>
+    <string name="label_table_name">テーブル名</string>
+    <string name="placeholder_table_name">例: users</string>
+    <string name="label_column_definition">カラム定義:</string>
+    <string name="label_column_name">カラム名</string>
+    <string name="placeholder_column_name">例: username</string>
+    <string name="label_length">長さ</string>
+    <string name="placeholder_length">任意</string>
+    <string name="label_type">型</string>
+    <string name="label_primary_key">主キー</string>
+    <string name="action_add_column">カラムを追加</string>
+    <string name="cd_delete_column">カラムを削除</string>
+
+    <!-- UserManagementScreen -->
+    <string name="status_connected_aqq">AQQデータベースに接続済み</string>
+    <string name="status_not_connected">未接続</string>
+    <string name="cd_add_user">ユーザーを追加</string>
+    <string name="label_user_list_count">ユーザー一覧（%d 件）</string>
+    <string name="error_cannot_connect_aqq">アプリデータベースに接続できません</string>
+    <string name="error_connect_failed">接続に失敗しました: %s</string>
+    <string name="hint_ensure_aqq_running">AQQアプリがインストールされ実行されていることを確認してください</string>
+    <string name="hint_add_user">右上の + ボタンをタップしてユーザーを追加</string>
+    <string name="header_id">ID</string>
+    <string name="header_name">名前</string>
+    <string name="header_email">メール</string>
+    <string name="header_age">年齢</string>
+    <string name="header_city">都市</string>
+    <string name="title_add_user">ユーザーを追加</string>
+    <string name="title_edit_user">ユーザーを編集</string>
+    <string name="msg_add_success">追加しました</string>
+    <string name="msg_add_failed">追加に失敗しました</string>
+    <string name="msg_add_failed_retry">追加に失敗しました。もう一度お試しください</string>
+    <string name="msg_update_success">更新しました</string>
+    <string name="msg_update_failed">更新に失敗しました</string>
+    <string name="msg_update_failed_retry">更新に失敗しました。もう一度お試しください</string>
+    <string name="msg_confirm_delete_user">ユーザー \"%s\" を削除してもよろしいですか？</string>
+    <string name="msg_select_user_action">このユーザーに対してどのような操作を行いますか？</string>
+
+    <!-- DataBrowserScreen -->
+    <string name="title_data_browser">データブラウザ</string>
+    <string name="label_record_count">%d 件のレコード</string>
+    <string name="hint_add_data">右上の + をタップしてデータを追加</string>
+    <string name="msg_data_add_success">データを追加しました</string>
+    <string name="msg_data_update_success">データを更新しました</string>
+    <string name="msg_data_deleted">データを削除しました</string>
+    <string name="msg_confirm_delete_record">このレコードを削除してもよろしいですか？</string>
+    <string name="msg_select_record_action">このレコードに対してどのような操作を行いますか？</string>
+    <string name="title_edit_data">データを編集</string>
+    <string name="title_add_data">データを追加</string>
+    <string name="cd_add_data">データを追加</string>
+    <string name="label_auto_increment">自動採番</string>
+
+    <!-- SettingsScreen -->
+    <string name="title_settings">設定</string>
+    <string name="title_app_settings">アプリ設定</string>
+    <string name="section_settings">設定</string>
+    <string name="section_about">アプリについて</string>
+    <string name="language_settings">言語設定</string>
+    <string name="theme_settings">テーマ設定</string>
+    <string name="about_app">アプリについて</string>
+    <string name="cd_open_settings">設定を開く</string>
+    <string name="cd_close_drawer">ドロワーを閉じる</string>
+    <string name="drawer_title">DBTool</string>
+    <string name="drawer_subtitle">データベース管理ツール</string>
+    <string name="menu_database">データベース管理</string>
+    <string name="menu_settings">設定</string>
+
+    <!-- About Card -->
+    <string name="title_about">アプリについて</string>
+    <string name="visit_github">開発者ページ</string>
+    <string name="about_app_btn">アプリについて</string>
+    <string name="about_owner_label">オーナー</string>
+    <string name="about_contributors_label">貢献者</string>
+    <string name="about_contributor_1">huidoudour</string>
+    <string name="about_contributor_2">2249807346</string>
+    <string name="about_built_with">Kotlinで構築</string>
+
+    <!-- About Me -->
+    <string name="about_hello">Hello World</string>
+    <string name="about_description">你保护世界，我保护你</string>
+    <string name="about_developer">亻尔女子，我是 huidoudour（慧兜兜）</string>
+    <string name="find_me">ω寻找我ω</string>
+</resources>

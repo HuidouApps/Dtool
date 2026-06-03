@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DBTool</string>
+
+    <!-- Common -->
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_delete">Excluir</string>
+    <string name="action_edit">Editar</string>
+    <string name="action_retry">Tentar novamente</string>
+    <string name="action_confirm">OK</string>
+    <string name="action_update">Atualizar</string>
+    <string name="action_add">Adicionar</string>
+    <string name="action_create">Criar</string>
+    <string name="action_refresh">Atualizar</string>
+    <string name="action_back">Voltar</string>
+    <string name="title_confirm_delete">Confirmar exclusão</string>
+    <string name="title_select_action">Selecionar ação</string>
+    <string name="label_loading">Carregando...</string>
+    <string name="label_no_data">Sem dados</string>
+    <string name="msg_delete_success">Excluído com sucesso</string>
+    <string name="msg_delete_failed">Falha ao excluir</string>
+    <string name="msg_delete_failed_retry">Falha ao excluir, tente novamente</string>
+
+    <!-- DatabaseManagementScreen / DatabaseListScreen -->
+    <string name="title_database_management">Gerenciamento de bancos de dados</string>
+    <string name="label_database_count">%d bancos de dados</string>
+    <string name="label_loading_database_list">Carregando bancos de dados...</string>
+    <string name="label_waiting_service">Aguardando serviço...</string>
+    <string name="label_no_database">Nenhum banco de dados</string>
+    <string name="hint_create_database">Toque em + para criar um banco de dados</string>
+    <string name="msg_database_created">Banco de dados criado</string>
+    <string name="msg_database_create_failed">Falha ao criar banco de dados</string>
+    <string name="msg_database_deleted">Banco de dados excluído</string>
+    <string name="msg_confirm_delete_database">Tem certeza de que deseja excluir o banco de dados \"%s\"? Esta ação não pode ser desfeita!</string>
+    <string name="msg_select_database_action">O que você deseja fazer com este banco de dados?</string>
+    <string name="cd_refresh">Atualizar</string>
+    <string name="cd_create_database">Criar banco de dados</string>
+    <string name="label_db_size_and_date">Tamanho: %s | Modificado: %s</string>
+
+    <!-- CreateDatabaseDialog -->
+    <string name="title_create_database">Criar banco de dados</string>
+    <string name="label_database_name">Nome do banco de dados</string>
+    <string name="placeholder_database_name">ex: meu_banco.db</string>
+
+    <!-- TableListScreen -->
+    <string name="title_table_management">Gerenciamento de tabelas</string>
+    <string name="label_database_name_prefix">Banco de dados: %s</string>
+    <string name="label_loading_table_list">Carregando tabelas...</string>
+    <string name="label_no_table">Nenhuma tabela</string>
+    <string name="hint_create_table">Toque em + para criar uma tabela</string>
+    <string name="cd_create_table">Criar tabela</string>
+    <string name="msg_table_created">Tabela criada</string>
+    <string name="msg_table_deleted">Tabela excluída</string>
+    <string name="msg_confirm_delete_table">Tem certeza de que deseja excluir a tabela \"%s\"? Esta ação não pode ser desfeita!</string>
+    <string name="msg_select_table_action">O que você deseja fazer com esta tabela?</string>
+
+    <!-- CreateTableDialog -->
+    <string name="title_create_table">Criar tabela</string>
+    <string name="label_table_name">Nome da tabela</string>
+    <string name="placeholder_table_name">ex: usuarios</string>
+    <string name="label_column_definition">Definição de colunas:</string>
+    <string name="label_column_name">Nome da coluna</string>
+    <string name="placeholder_column_name">ex: nome_usuario</string>
+    <string name="label_length">Comprimento</string>
+    <string name="placeholder_length">Opcional</string>
+    <string name="label_type">Tipo</string>
+    <string name="label_primary_key">Chave primária</string>
+    <string name="action_add_column">Adicionar coluna</string>
+    <string name="cd_delete_column">Excluir coluna</string>
+
+    <!-- UserManagementScreen -->
+    <string name="status_connected_aqq">Conectado ao banco de dados AQQ</string>
+    <string name="status_not_connected">Não conectado</string>
+    <string name="cd_add_user">Adicionar usuário</string>
+    <string name="label_user_list_count">Lista de usuários (%d registros)</string>
+    <string name="error_cannot_connect_aqq">Não é possível conectar ao banco de dados do aplicativo</string>
+    <string name="error_connect_failed">Falha na conexão: %s</string>
+    <string name="hint_ensure_aqq_running">Certifique-se de que o aplicativo AQQ esteja instalado e em execução</string>
+    <string name="hint_add_user">Toque em + para adicionar um usuário</string>
+    <string name="header_id">ID</string>
+    <string name="header_name">Nome</string>
+    <string name="header_email">E-mail</string>
+    <string name="header_age">Idade</string>
+    <string name="header_city">Cidade</string>
+    <string name="title_add_user">Adicionar usuário</string>
+    <string name="title_edit_user">Editar usuário</string>
+    <string name="msg_add_success">Adicionado com sucesso</string>
+    <string name="msg_add_failed">Falha ao adicionar</string>
+    <string name="msg_add_failed_retry">Falha ao adicionar, tente novamente</string>
+    <string name="msg_update_success">Atualizado com sucesso</string>
+    <string name="msg_update_failed">Falha ao atualizar</string>
+    <string name="msg_update_failed_retry">Falha ao atualizar, tente novamente</string>
+    <string name="msg_confirm_delete_user">Tem certeza de que deseja excluir o usuário \"%s\"?</string>
+    <string name="msg_select_user_action">O que você deseja fazer com este usuário?</string>
+
+    <!-- DataBrowserScreen -->
+    <string name="title_data_browser">Navegador de dados</string>
+    <string name="label_record_count">%d registros</string>
+    <string name="hint_add_data">Toque em + para adicionar dados</string>
+    <string name="msg_data_add_success">Dados adicionados com sucesso</string>
+    <string name="msg_data_update_success">Dados atualizados com sucesso</string>
+    <string name="msg_data_deleted">Dados excluídos</string>
+    <string name="msg_confirm_delete_record">Tem certeza de que deseja excluir este registro?</string>
+    <string name="msg_select_record_action">O que você deseja fazer com este registro?</string>
+    <string name="title_edit_data">Editar dados</string>
+    <string name="title_add_data">Adicionar dados</string>
+    <string name="cd_add_data">Adicionar dados</string>
+    <string name="label_auto_increment">Autoincremento</string>
+
+    <!-- SettingsScreen -->
+    <string name="title_settings">Configurações</string>
+    <string name="title_app_settings">Configurações do aplicativo</string>
+    <string name="section_settings">Configurações</string>
+    <string name="section_about">Sobre</string>
+    <string name="language_settings">Idioma</string>
+    <string name="theme_settings">Tema</string>
+    <string name="about_app">Sobre o aplicativo</string>
+    <string name="cd_open_settings">Abrir configurações</string>
+    <string name="cd_close_drawer">Fechar menu lateral</string>
+    <string name="drawer_title">DBTool</string>
+    <string name="drawer_subtitle">Ferramenta de gerenciamento de bancos de dados</string>
+    <string name="menu_database">Gerenciamento de bancos de dados</string>
+    <string name="menu_settings">Configurações</string>
+
+    <!-- About Card -->
+    <string name="title_about">Sobre</string>
+    <string name="visit_github">Página do desenvolvedor</string>
+    <string name="about_app_btn">Sobre o aplicativo</string>
+    <string name="about_owner_label">Proprietário</string>
+    <string name="about_contributors_label">Colaboradores</string>
+    <string name="about_contributor_1">huidoudour</string>
+    <string name="about_contributor_2">2249807346</string>
+    <string name="about_built_with">Construído com Kotlin</string>
+
+    <!-- About Me -->
+    <string name="about_hello">Hello World</string>
+    <string name="about_description">你保护世界，我保护你</string>
+    <string name="about_developer">亻尔女子，我是 huidoudour（慧兜兜）</string>
+    <string name="find_me">ω寻找我ω</string>
+</resources>

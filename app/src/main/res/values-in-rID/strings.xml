@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DBTool</string>
+
+    <!-- Common -->
+    <string name="action_cancel">Batal</string>
+    <string name="action_delete">Hapus</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_retry">Coba Lagi</string>
+    <string name="action_confirm">OK</string>
+    <string name="action_update">Perbarui</string>
+    <string name="action_add">Tambah</string>
+    <string name="action_create">Buat</string>
+    <string name="action_refresh">Segarkan</string>
+    <string name="action_back">Kembali</string>
+    <string name="title_confirm_delete">Konfirmasi Hapus</string>
+    <string name="title_select_action">Pilih Tindakan</string>
+    <string name="label_loading">Memuat...</string>
+    <string name="label_no_data">Tidak ada data</string>
+    <string name="msg_delete_success">Berhasil dihapus</string>
+    <string name="msg_delete_failed">Gagal menghapus</string>
+    <string name="msg_delete_failed_retry">Gagal menghapus, silakan coba lagi</string>
+
+    <!-- DatabaseManagementScreen / DatabaseListScreen -->
+    <string name="title_database_management">Pengelolaan Basis Data</string>
+    <string name="label_database_count">%d basis data</string>
+    <string name="label_loading_database_list">Memuat daftar basis data...</string>
+    <string name="label_waiting_service">Menunggu layanan...</string>
+    <string name="label_no_database">Tidak ada basis data</string>
+    <string name="hint_create_database">Ketuk + untuk membuat basis data</string>
+    <string name="msg_database_created">Basis data dibuat</string>
+    <string name="msg_database_create_failed">Gagal membuat basis data</string>
+    <string name="msg_database_deleted">Basis data dihapus</string>
+    <string name="msg_confirm_delete_database">Apakah Anda yakin ingin menghapus basis data \"%s\"? Tindakan ini tidak dapat dibatalkan!</string>
+    <string name="msg_select_database_action">Apa yang ingin Anda lakukan dengan basis data ini?</string>
+    <string name="cd_refresh">Segarkan</string>
+    <string name="cd_create_database">Buat basis data</string>
+    <string name="label_db_size_and_date">Ukuran: %s | Diubah: %s</string>
+
+    <!-- CreateDatabaseDialog -->
+    <string name="title_create_database">Buat Basis Data</string>
+    <string name="label_database_name">Nama Basis Data</string>
+    <string name="placeholder_database_name">contoh: basis_data_saya.db</string>
+
+    <!-- TableListScreen -->
+    <string name="title_table_management">Pengelolaan Tabel</string>
+    <string name="label_database_name_prefix">Basis Data: %s</string>
+    <string name="label_loading_table_list">Memuat daftar tabel...</string>
+    <string name="label_no_table">Tidak ada tabel</string>
+    <string name="hint_create_table">Ketuk + untuk membuat tabel</string>
+    <string name="cd_create_table">Buat tabel</string>
+    <string name="msg_table_created">Tabel dibuat</string>
+    <string name="msg_table_deleted">Tabel dihapus</string>
+    <string name="msg_confirm_delete_table">Apakah Anda yakin ingin menghapus tabel \"%s\"? Tindakan ini tidak dapat dibatalkan!</string>
+    <string name="msg_select_table_action">Apa yang ingin Anda lakukan dengan tabel ini?</string>
+
+    <!-- CreateTableDialog -->
+    <string name="title_create_table">Buat Tabel</string>
+    <string name="label_table_name">Nama Tabel</string>
+    <string name="placeholder_table_name">contoh: pengguna</string>
+    <string name="label_column_definition">Definisi Kolom:</string>
+    <string name="label_column_name">Nama Kolom</string>
+    <string name="placeholder_column_name">contoh: nama_pengguna</string>
+    <string name="label_length">Panjang</string>
+    <string name="placeholder_length">Opsional</string>
+    <string name="label_type">Tipe</string>
+    <string name="label_primary_key">Kunci Primer</string>
+    <string name="action_add_column">Tambah Kolom</string>
+    <string name="cd_delete_column">Hapus kolom</string>
+
+    <!-- UserManagementScreen -->
+    <string name="status_connected_aqq">Terhubung ke basis data AQQ</string>
+    <string name="status_not_connected">Tidak terhubung</string>
+    <string name="cd_add_user">Tambah pengguna</string>
+    <string name="label_user_list_count">Daftar Pengguna (%d catatan)</string>
+    <string name="error_cannot_connect_aqq">Tidak dapat terhubung ke basis data aplikasi</string>
+    <string name="error_connect_failed">Koneksi gagal: %s</string>
+    <string name="hint_ensure_aqq_running">Pastikan aplikasi AQQ terinstal dan berjalan</string>
+    <string name="hint_add_user">Ketuk tombol + untuk menambah pengguna</string>
+    <string name="header_id">ID</string>
+    <string name="header_name">Nama</string>
+    <string name="header_email">Email</string>
+    <string name="header_age">Usia</string>
+    <string name="header_city">Kota</string>
+    <string name="title_add_user">Tambah Pengguna</string>
+    <string name="title_edit_user">Edit Pengguna</string>
+    <string name="msg_add_success">Berhasil ditambahkan</string>
+    <string name="msg_add_failed">Gagal menambahkan</string>
+    <string name="msg_add_failed_retry">Gagal menambahkan, silakan coba lagi</string>
+    <string name="msg_update_success">Berhasil diperbarui</string>
+    <string name="msg_update_failed">Gagal memperbarui</string>
+    <string name="msg_update_failed_retry">Gagal memperbarui, silakan coba lagi</string>
+    <string name="msg_confirm_delete_user">Apakah Anda yakin ingin menghapus pengguna \"%s\"?</string>
+    <string name="msg_select_user_action">Apa yang ingin Anda lakukan dengan pengguna ini?</string>
+
+    <!-- DataBrowserScreen -->
+    <string name="title_data_browser">Peramban Data</string>
+    <string name="label_record_count">%d catatan</string>
+    <string name="hint_add_data">Ketuk + untuk menambah data</string>
+    <string name="msg_data_add_success">Data berhasil ditambahkan</string>
+    <string name="msg_data_update_success">Data berhasil diperbarui</string>
+    <string name="msg_data_deleted">Data dihapus</string>
+    <string name="msg_confirm_delete_record">Apakah Anda yakin ingin menghapus catatan ini?</string>
+    <string name="msg_select_record_action">Apa yang ingin Anda lakukan dengan catatan ini?</string>
+    <string name="title_edit_data">Edit Data</string>
+    <string name="title_add_data">Tambah Data</string>
+    <string name="cd_add_data">Tambah data</string>
+    <string name="label_auto_increment">Kenaikan Otomatis</string>
+
+    <!-- SettingsScreen -->
+    <string name="title_settings">Pengaturan</string>
+    <string name="title_app_settings">Pengaturan Aplikasi</string>
+    <string name="section_settings">Pengaturan</string>
+    <string name="section_about">Tentang</string>
+    <string name="language_settings">Bahasa</string>
+    <string name="theme_settings">Tema</string>
+    <string name="about_app">Tentang Aplikasi</string>
+    <string name="cd_open_settings">Buka pengaturan</string>
+    <string name="cd_close_drawer">Tutup menu samping</string>
+    <string name="drawer_title">DBTool</string>
+    <string name="drawer_subtitle">Alat Pengelolaan Basis Data</string>
+    <string name="menu_database">Pengelolaan Basis Data</string>
+    <string name="menu_settings">Pengaturan</string>
+
+    <!-- About Card -->
+    <string name="title_about">Tentang</string>
+    <string name="visit_github">Halaman Pengembang</string>
+    <string name="about_app_btn">Tentang Aplikasi</string>
+    <string name="about_owner_label">Pemilik</string>
+    <string name="about_contributors_label">Kontributor</string>
+    <string name="about_contributor_1">huidoudour</string>
+    <string name="about_contributor_2">2249807346</string>
+    <string name="about_built_with">Dibuat dengan Kotlin</string>
+
+    <!-- About Me -->
+    <string name="about_hello">Hello World</string>
+    <string name="about_description">你保护世界，我保护你</string>
+    <string name="about_developer">亻尔女子，我是 huidoudour（慧兜兜）</string>
+    <string name="find_me">ω寻找我ω</string>
+</resources>
