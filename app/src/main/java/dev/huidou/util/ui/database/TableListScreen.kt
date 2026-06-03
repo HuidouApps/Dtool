@@ -471,11 +471,11 @@ fun CreateTableDialog(
             Button(
                 onClick = {
                     // 生成 SQL 列定义
-                    val columnDefs = columns.map { col ->
+                     val columnDefs = columns.map { col ->
                         val lengthPart = if (col.length.isNotBlank()) "(${col.length})" else ""
                         val pkPart = if (col.isPrimaryKey) " PRIMARY KEY" else ""
                         val autoIncPart = if (col.isAutoIncrement && col.isPrimaryKey && col.type == "INTEGER") " AUTOINCREMENT" else ""
-                        "${col.name} ${col.type}$lengthPart$pkPart$autoIncPart"
+                        "`" + col.name + "` " + col.type + lengthPart + pkPart + autoIncPart
                     }.joinToString(", ")
                     
                     val success = dbClient.createTable(dbName, tableName, columnDefs)

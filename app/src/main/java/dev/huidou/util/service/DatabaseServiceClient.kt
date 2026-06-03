@@ -214,7 +214,8 @@ class DatabaseServiceClient(private val context: Context) {
                     "type" to obj.getString("type"),
                     "notnull" to obj.getInt("notnull"),
                     "dflt_value" to if (obj.isNull("dflt_value")) null else obj.getString("dflt_value"),
-                    "pk" to obj.getInt("pk")
+                    "pk" to obj.getInt("pk"),
+                    "autoincrement" to obj.optBoolean("autoincrement", false)
                 )
                 columns.add(col)
             }

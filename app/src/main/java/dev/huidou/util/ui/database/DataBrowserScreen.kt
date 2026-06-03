@@ -36,6 +36,8 @@ fun DataBrowserScreen(
     var data by remember { mutableStateOf<List<Map<String, Any?>>>(emptyList()) }
     var columns by remember { mutableStateOf<List<String>>(emptyList()) }
     var columnTypes by remember { mutableStateOf<Map<String, String>>(emptyMap()) }  // 字段名 -> 类型
+    var primaryKeyColumns by remember { mutableStateOf<Set<String>>(emptySet()) }  // 主键列集合
+    var autoIncrementColumns by remember { mutableStateOf<Set<String>>(emptySet()) }  // 自增列集合
     var showAddDialog by remember { mutableStateOf(false) }
     var editingRow by remember { mutableStateOf<Map<String, Any?>?>(null) }
     var deletingRow by remember { mutableStateOf<Map<String, Any?>?>(null) }
@@ -51,6 +53,10 @@ fun DataBrowserScreen(
             columnTypes = structure.associate { 
                 (it["name"] as String) to (it["type"] as? String ?: "TEXT")
             }
+            // 保存主键列信息（pk > 0 表示是主键）
+            primaryKeyColumns = structure.filter { (it["pk"] as? Int ?: 0) > 0 }.map { it["name"] as String }.toSet()
+            // 保存自增列信息（autoincrement == true）
+            autoIncrementColumns = structure.filter { it["autoincrement"] as? Boolean == true }.map { it["name"] as String }.toSet()
             
             // 再获取数据
             data = dbClient.queryData(dbName, tableName)
@@ -134,6 +140,8 @@ fun DataBrowserScreen(
             tableName = tableName,
             columns = columns,
             columnTypes = columnTypes,
+            primaryKeyColumns = primaryKeyColumns,
+            autoIncrementColumns = autoIncrementColumns,
             dbClient = dbClient,
             isEdit = false,
             onDismiss = { showAddDialog = false },
@@ -153,6 +161,8 @@ fun DataBrowserScreen(
             tableName = tableName,
             columns = columns,
             columnTypes = columnTypes,
+            primaryKeyColumns = primaryKeyColumns,
+            autoIncrementColumns = autoIncrementColumns,
             dbClient = dbClient,
             isEdit = true,
             initialData = row,
@@ -257,6 +267,8 @@ fun AddEditDataDialog(
     tableName: String,
     columns: List<String>,
     columnTypes: Map<String, String>,  // 字段名 -> 类型
+    primaryKeyColumns: Set<String>,  // 主键列集合
+    autoIncrementColumns: Set<String>,  // 自增列集合
     dbClient: UniversalDatabaseClient,
     isEdit: Boolean,
     initialData: Map<String, Any?> = emptyMap(),
@@ -285,13 +297,22 @@ fun AddEditDataDialog(
                     .heightIn(max = 400.dp)
                     .verticalScroll(rememberScrollState())
             ) {
-                columns.filter { it != "id" || !isEdit }.forEach { col ->
+                columns.filter { col ->
+                    // 编辑模式：所有列都显示
+                    // 添加模式：仅跳过自增列（AUTOINCREMENT），主键但非自增的列仍需用户手动输入
+                    if (isEdit) {
+                        true
+                    } else {
+                        !autoIncrementColumns.contains(col)
+                    }
+                }.forEach { col ->
+                    val isPrimaryKey = primaryKeyColumns.contains(col)
                     OutlinedTextField(
                         value = columnValues[col] ?: "",
                         onValueChange = { columnValues[col] = it },
                         label = { Text(col) },
                         singleLine = true,
-                        enabled = !(isEdit && col == "id"),
+                        enabled = !(isEdit && isPrimaryKey),
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
@@ -301,7 +322,14 @@ fun AddEditDataDialog(
             Button(
                 onClick = {
                     val values = mutableMapOf<String, Any?>()
-                    columns.forEach { col ->
+                    columns.filter { col ->
+                        // 添加模式时仅跳过自增列
+                        if (!isEdit) {
+                            !autoIncrementColumns.contains(col)
+                        } else {
+                            true
+                        }
+                    }.forEach { col ->
                         val value = columnValues[col]
                         if (!value.isNullOrBlank()) {
                             val columnType = columnTypes[col]?.uppercase() ?: "TEXT"

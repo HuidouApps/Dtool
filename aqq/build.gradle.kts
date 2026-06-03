@@ -21,6 +21,12 @@ android {
         versionName = "26.1.6"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // 指定要包含的 ABI 架构（所有架构）
+        ndk {
+            // 包含所有支持的架构：armeabi-v7a, arm64-v8a, x86, x86_64
+            abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+        }
     }
 
     buildTypes {

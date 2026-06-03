@@ -101,7 +101,7 @@ class DatabaseService : Service() {
             return try {
                 val dbFile = getDatabasePath(dbName)
                 val db = android.database.sqlite.SQLiteDatabase.openOrCreateDatabase(dbFile, null)
-                val sql = "CREATE TABLE IF NOT EXISTS $tableName ($columns)"
+                val sql = "CREATE TABLE IF NOT EXISTS `$tableName` ($columns)"
                 db.execSQL(sql)
                 db.close()
                 Log.d(TAG, "Table created: $tableName")
@@ -120,7 +120,7 @@ class DatabaseService : Service() {
                     null, 
                     android.database.sqlite.SQLiteDatabase.OPEN_READWRITE
                 )
-                db.execSQL("DROP TABLE IF EXISTS $tableName")
+                db.execSQL("DROP TABLE IF EXISTS `$tableName`")
                 db.close()
                 Log.d(TAG, "Table dropped: $tableName")
                 true
@@ -141,17 +141,34 @@ class DatabaseService : Service() {
                     android.database.sqlite.SQLiteDatabase.OPEN_READONLY
                 )
                 
-                val cursor = db.rawQuery("PRAGMA table_info($tableName)", null)
+                // 检查该表是否使用了 AUTOINCREMENT（sqlite_sequence 表中存在记录）
+                val isAutoIncrement = try {
+                    val seqCursor = db.rawQuery(
+                        "SELECT COUNT(*) FROM sqlite_sequence WHERE name = ?",
+                        arrayOf(tableName)
+                    )
+                    seqCursor.moveToFirst()
+                    val count = seqCursor.getInt(0)
+                    seqCursor.close()
+                    count > 0
+                } catch (e: Exception) {
+                    false
+                }
+                
+                val cursor = db.rawQuery("PRAGMA table_info(`$tableName`)", null)
                 
                 val result = JSONArray()
                 while (cursor.moveToNext()) {
+                    val pkValue = cursor.getInt(5)
                     val column = JSONObject().apply {
                         put("cid", cursor.getInt(0))
                         put("name", cursor.getString(1))
                         put("type", cursor.getString(2))
                         put("notnull", cursor.getInt(3))
                         put("dflt_value", if (cursor.isNull(4)) null else cursor.getString(4))
-                        put("pk", cursor.getInt(5))
+                        put("pk", pkValue)
+                        // 只有同时满足：表有AUTOINCREMENT + 该列是INTEGER类型主键，才标记为自增列
+                        put("autoincrement", isAutoIncrement && pkValue > 0 && cursor.getString(2).uppercase().contains("INTEGER"))
                     }
                     result.put(column)
                 }
@@ -234,17 +251,22 @@ class DatabaseService : Service() {
                 val json = JSONObject(values)
                 json.keys().forEach { key ->
                     val value = json.get(key)
-                    when (value) {
-                        is String -> contentValues.put(key, value)
-                        is Int -> contentValues.put(key, value)
-                        is Long -> contentValues.put(key, value)
-                        is Double -> contentValues.put(key, value)
-                        is Float -> contentValues.put(key, value)
-                        else -> contentValues.put(key, value.toString())
+                    if (value == JSONObject.NULL) {
+                        contentValues.putNull("`$key`")
+                    } else {
+                        when (value) {
+                            is String -> contentValues.put("`$key`", value)
+                            is Int -> contentValues.put("`$key`", value)
+                            is Long -> contentValues.put("`$key`", value)
+                            is Double -> contentValues.put("`$key`", value)
+                            is Float -> contentValues.put("`$key`", value)
+                            is Boolean -> contentValues.put("`$key`", value)
+                            else -> contentValues.put("`$key`", value.toString())
+                        }
                     }
                 }
                 
-                val id = db.insert(tableName, null, contentValues)
+                val id = db.insert("`$tableName`", null, contentValues)
                 db.close()
                 Log.d(TAG, "Data inserted with id: $id")
                 id > 0
@@ -274,17 +296,17 @@ class DatabaseService : Service() {
                 json.keys().forEach { key ->
                     val value = json.get(key)
                     when (value) {
-                        is String -> contentValues.put(key, value)
-                        is Int -> contentValues.put(key, value)
-                        is Long -> contentValues.put(key, value)
-                        is Double -> contentValues.put(key, value)
-                        is Float -> contentValues.put(key, value)
-                        else -> contentValues.put(key, value.toString())
+                        is String -> contentValues.put("`$key`", value)
+                        is Int -> contentValues.put("`$key`", value)
+                        is Long -> contentValues.put("`$key`", value)
+                        is Double -> contentValues.put("`$key`", value)
+                        is Float -> contentValues.put("`$key`", value)
+                        else -> contentValues.put("`$key`", value.toString())
                     }
                 }
                 
                 val args = whereArgs?.split(",")?.map { it.trim() }?.toTypedArray()
-                val rows = db.update(tableName, contentValues, whereClause, args)
+                val rows = db.update("`$tableName`", contentValues, whereClause, args)
                 db.close()
                 Log.d(TAG, "Data updated: $rows rows")
                 rows > 0
