@@ -11,7 +11,6 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
@@ -58,10 +57,8 @@ fun DtoolTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as ComponentActivity).window
-            // Enable edge-to-edge layout
+            // Enable edge-to-edge layout (status bar is transparent automatically)
             WindowCompat.setDecorFitsSystemWindows(window, false)
-            // Set status bar transparent
-            window.statusBarColor = Color.Transparent.toArgb()
             // Auto-adjust status bar icon color based on theme
             // Light theme -> dark icons (black), Dark theme -> light icons (white)
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme

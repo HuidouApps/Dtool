@@ -1,12 +1,9 @@
 package dev.huidou.util.ui
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -127,7 +124,7 @@ private fun ContributorRow(name: String) {
 
 /**
  * Kotlin 徽标
- * 使用 Kotlin 官方品牌色 #7F52FF，包含官方多边形标记和文字
+ * 使用 ic_kotlin.xml 渐变矢量图标，包含官方多边形标记和文字
  */
 @Composable
 private fun KotlinBadge() {
@@ -140,51 +137,13 @@ private fun KotlinBadge() {
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Kotlin 官方多边形标记
-        Canvas(
-            modifier = Modifier.size(32.dp)
-        ) {
-            val scaleX = size.width / 24f
-            val scaleY = size.height / 24f
-            
-            // 第一个多边形（右下角三角形）
-            val path1 = androidx.compose.ui.graphics.Path().apply {
-                moveTo(1.3f * scaleX, 24f * scaleY)
-                lineTo((1.3f + 11.3f) * scaleX, (24f - 11.5f) * scaleY)
-                lineTo(24f * scaleX, 24f * scaleY)
-                close()
-            }
-            drawPath(
-                path = path1,
-                color = kotlinPurple
-            )
-            
-            // 第二个多边形（左上角三角形）
-            val path2 = androidx.compose.ui.graphics.Path().apply {
-                moveTo(0f, 0f)
-                lineTo(12f * scaleX, 0f)
-                lineTo(0f, 12.5f * scaleY)
-                close()
-            }
-            drawPath(
-                path = path2,
-                color = kotlinPurple
-            )
-            
-            // 第三个多边形（主体部分）
-            val path3 = androidx.compose.ui.graphics.Path().apply {
-                moveTo(13.4f * scaleX, 0f)
-                lineTo(0f, 14f * scaleY)
-                lineTo(0f, 24f * scaleY)
-                lineTo(12f * scaleX, 12f * scaleY)
-                lineTo(24f * scaleX, 0f)
-                close()
-            }
-            drawPath(
-                path = path3,
-                color = kotlinPurple
-            )
-        }
+        // Kotlin 官方渐变多边形标记
+        Icon(
+            painter = painterResource(R.drawable.ic_kotlin),
+            contentDescription = "Kotlin logo",
+            modifier = Modifier.size(32.dp),
+            tint = Color.Unspecified
+        )
         
         Spacer(modifier = Modifier.width(12.dp))
         
