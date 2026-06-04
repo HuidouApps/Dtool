@@ -12,8 +12,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import dev.huidou.util.R
@@ -177,19 +175,19 @@ private fun DrawerContent(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color(0xFF48444E))
+                .background(MaterialTheme.colorScheme.primaryContainer)
                 .padding(horizontal = 20.dp, vertical = 16.dp)
         ) {
             Text(
                 text = stringResource(R.string.drawer_title),
                 style = MaterialTheme.typography.titleLarge,
-                color = colorResource(R.color.light_and_night)
+                color = MaterialTheme.colorScheme.onPrimaryContainer
             )
             Spacer(modifier = Modifier.height(2.dp))
             Text(
                 text = stringResource(R.string.drawer_subtitle),
                 style = MaterialTheme.typography.bodySmall,
-                color = colorResource(R.color.light_and_night).copy(alpha = 0.7f)
+                color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
             )
         }
 

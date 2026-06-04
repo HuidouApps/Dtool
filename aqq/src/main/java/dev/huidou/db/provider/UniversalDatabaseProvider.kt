@@ -109,7 +109,7 @@ class UniversalDatabaseProvider : ContentProvider() {
                 // 创建表
                 val dbName = uri.pathSegments[1]
                 val tableName = values?.getAsString("table_name") ?: return null
-                val columns = values?.getAsString("columns") ?: return null
+                val columns = values.getAsString("columns") ?: return null
                 createTable(context, dbName, tableName, columns)
             }
             DATA_QUERY -> {

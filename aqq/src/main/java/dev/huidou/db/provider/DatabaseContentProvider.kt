@@ -106,9 +106,9 @@ class DatabaseContentProvider : ContentProvider() {
         }
         
         val name = values?.getAsString("name") ?: return null
-        val email = values?.getAsString("email") ?: return null
-        val age = values?.getAsInteger("age") ?: 0
-        val city = values?.getAsString("city") ?: ""
+        val email = values.getAsString("email") ?: return null
+        val age = values.getAsInteger("age") ?: 0
+        val city = values.getAsString("city") ?: ""
         
         val user = User(name = name, email = email, age = age, city = city)
         
