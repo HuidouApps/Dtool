@@ -10,3 +10,6 @@ codeStyles
 MarsCodeWorkspaceAppSettings.xml
 /inspectionProfiles/
 deviceManager.xml
+deploymentTargetSelector.xml
+compiler.xml
+vcs.xml
