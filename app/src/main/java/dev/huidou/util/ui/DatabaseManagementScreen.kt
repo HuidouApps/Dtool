@@ -1,7 +1,22 @@
 package dev.huidou.util.ui
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -9,10 +24,15 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Storage
 import androidx.compose.material3.*
+import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import dev.huidou.util.R
 import dev.huidou.util.ui.database.DataBrowserScreen
@@ -78,7 +98,10 @@ fun DatabaseManagementScreen(
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
-            ModalDrawerSheet {
+            ModalDrawerSheet(
+                drawerContainerColor = MaterialTheme.colorScheme.surface,
+                drawerContentColor = MaterialTheme.colorScheme.onSurface
+            ) {
                 DrawerContent(
                     onDatabaseClick = {
                         navigation = DatabaseNavigation.DatabaseList
@@ -93,64 +116,144 @@ fun DatabaseManagementScreen(
             }
         }
     ) {
-        when (val currentNav = navigation) {
-            is DatabaseNavigation.DatabaseList -> {
-                DatabaseListScreen(
-                    onDatabaseSelected = { dbName ->
-                        navigation = DatabaseNavigation.TableList(dbName)
-                    },
-                    onMenuClick = {
-                        scope.launch { drawerState.open() }
+        // 防止深色模式下闪白的背景层
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
+        ) {
+            AnimatedContent(
+                targetState = navigation,
+                transitionSpec = {
+                    // 判断是前进还是后退
+                    val isForward = when {
+                        initialState is DatabaseNavigation.DatabaseList && targetState is DatabaseNavigation.TableList -> true
+                        initialState is DatabaseNavigation.TableList && targetState is DatabaseNavigation.DataBrowser -> true
+                        initialState is DatabaseNavigation.Settings && (targetState is DatabaseNavigation.About || targetState is DatabaseNavigation.AboutApp) -> true
+                        targetState is DatabaseNavigation.DatabaseList && initialState is DatabaseNavigation.TableList -> false
+                        targetState is DatabaseNavigation.TableList && initialState is DatabaseNavigation.DataBrowser -> false
+                        targetState is DatabaseNavigation.Settings && (initialState is DatabaseNavigation.About || initialState is DatabaseNavigation.AboutApp) -> false
+                        else -> true // 默认使用前进动画
                     }
-                )
-            }
-            is DatabaseNavigation.TableList -> {
-                TableListScreen(
-                    dbName = currentNav.dbName,
-                    onTableSelected = { tableName ->
-                        navigation = DatabaseNavigation.DataBrowser(currentNav.dbName, tableName)
-                    },
-                    onBack = {
-                        navigation = DatabaseNavigation.DatabaseList
+                    
+                    if (isForward) {
+                        // 前进动画：从右滑入 + 淡入 + 轻微缩放，向左滑出
+                        (
+                            slideInHorizontally(
+                                animationSpec = tween(durationMillis = 350, easing = LinearOutSlowInEasing),
+                                initialOffsetX = { fullWidth -> fullWidth }
+                            ) +
+                            fadeIn(
+                                animationSpec = tween(durationMillis = 350, delayMillis = 50)
+                            ) +
+                            scaleIn(
+                                animationSpec = tween(durationMillis = 350, easing = FastOutLinearInEasing),
+                                initialScale = 0.95f
+                            )
+                        ) togetherWith (
+                            slideOutHorizontally(
+                                animationSpec = tween(durationMillis = 350, easing = FastOutSlowInEasing),
+                                targetOffsetX = { fullWidth -> -fullWidth / 3 }
+                            ) +
+                            fadeOut(
+                                animationSpec = tween(durationMillis = 250)
+                            ) +
+                            scaleOut(
+                                animationSpec = tween(durationMillis = 350),
+                                targetScale = 0.95f
+                            )
+                        )
+                    } else {
+                        // 后退动画：从左滑入 + 淡入，向右滑出
+                        (
+                            slideInHorizontally(
+                                animationSpec = tween(durationMillis = 350, easing = LinearOutSlowInEasing),
+                                initialOffsetX = { fullWidth -> -fullWidth }
+                            ) +
+                            fadeIn(
+                                animationSpec = tween(durationMillis = 350, delayMillis = 50)
+                            ) +
+                            scaleIn(
+                                animationSpec = tween(durationMillis = 350, easing = FastOutLinearInEasing),
+                                initialScale = 0.95f
+                            )
+                        ) togetherWith (
+                            slideOutHorizontally(
+                                animationSpec = tween(durationMillis = 350, easing = FastOutSlowInEasing),
+                                targetOffsetX = { fullWidth -> fullWidth / 3 }
+                            ) +
+                            fadeOut(
+                                animationSpec = tween(durationMillis = 250)
+                            ) +
+                            scaleOut(
+                                animationSpec = tween(durationMillis = 350),
+                                targetScale = 0.95f
+                            )
+                        )
                     }
-                )
-            }
-            is DatabaseNavigation.DataBrowser -> {
-                DataBrowserScreen(
-                    dbName = currentNav.dbName,
-                    tableName = currentNav.tableName,
-                    onBack = {
-                        navigation = DatabaseNavigation.TableList(currentNav.dbName)
+                },
+                modifier = Modifier.fillMaxSize()
+            ) { currentNav ->
+                when (currentNav) {
+                    is DatabaseNavigation.DatabaseList -> {
+                        DatabaseListScreen(
+                            onDatabaseSelected = { dbName ->
+                                navigation = DatabaseNavigation.TableList(dbName)
+                            },
+                            onMenuClick = {
+                                scope.launch { drawerState.open() }
+                            }
+                        )
                     }
-                )
-            }
-            is DatabaseNavigation.Settings -> {
-                SettingsScreen(
-                    onMenuClick = {
-                        scope.launch { drawerState.open() }
-                    },
-                    onAboutClick = {
-                        navigation = DatabaseNavigation.About
-                    },
-                    onAboutAppClick = {
-                        navigation = DatabaseNavigation.AboutApp
-                    },
-                    themeViewModel = themeViewModel
-                )
-            }
-            is DatabaseNavigation.About -> {
-                AboutScreen(
-                    onBack = {
-                        navigation = DatabaseNavigation.Settings
+                    is DatabaseNavigation.TableList -> {
+                        TableListScreen(
+                            dbName = currentNav.dbName,
+                            onTableSelected = { tableName ->
+                                navigation = DatabaseNavigation.DataBrowser(currentNav.dbName, tableName)
+                            },
+                            onBack = {
+                                navigation = DatabaseNavigation.DatabaseList
+                            }
+                        )
                     }
-                )
-            }
-            is DatabaseNavigation.AboutApp -> {
-                AboutAppScreen(
-                    onBack = {
-                        navigation = DatabaseNavigation.Settings
+                    is DatabaseNavigation.DataBrowser -> {
+                        DataBrowserScreen(
+                            dbName = currentNav.dbName,
+                            tableName = currentNav.tableName,
+                            onBack = {
+                                navigation = DatabaseNavigation.TableList(currentNav.dbName)
+                            }
+                        )
                     }
-                )
+                    is DatabaseNavigation.Settings -> {
+                        SettingsScreen(
+                            onMenuClick = {
+                                scope.launch { drawerState.open() }
+                            },
+                            onAboutClick = {
+                                navigation = DatabaseNavigation.About
+                            },
+                            onAboutAppClick = {
+                                navigation = DatabaseNavigation.AboutApp
+                            },
+                            themeViewModel = themeViewModel
+                        )
+                    }
+                    is DatabaseNavigation.About -> {
+                        AboutScreen(
+                            onBack = {
+                                navigation = DatabaseNavigation.Settings
+                            }
+                        )
+                    }
+                    is DatabaseNavigation.AboutApp -> {
+                        AboutAppScreen(
+                            onBack = {
+                                navigation = DatabaseNavigation.Settings
+                            }
+                        )
+                    }
+                }
             }
         }
     }
@@ -170,63 +273,215 @@ private fun DrawerContent(
         modifier = Modifier
             .fillMaxHeight()
             .width(280.dp)
+            .background(MaterialTheme.colorScheme.surface)
     ) {
-        // Drawer Header
+        // Drawer Header - 美化头部设计
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.primaryContainer)
-                .padding(horizontal = 20.dp, vertical = 16.dp)
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            MaterialTheme.colorScheme.primaryContainer,
+                            MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.7f)
+                        )
+                    )
+                )
+                .padding(horizontal = 24.dp, vertical = 24.dp)
         ) {
             Text(
                 text = stringResource(R.string.drawer_title),
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onPrimaryContainer
+                style = MaterialTheme.typography.headlineSmall,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                fontWeight = FontWeight.Bold
             )
-            Spacer(modifier = Modifier.height(2.dp))
+            Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = stringResource(R.string.drawer_subtitle),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.75f)
             )
         }
 
+        // 分隔线
+        HorizontalDivider(
+            color = MaterialTheme.colorScheme.outline.copy(alpha = 0.15f),
+            thickness = 1.dp
+        )
+
         Spacer(modifier = Modifier.height(8.dp))
 
+        // Menu Section Label
+        Text(
+            text = "主要功能",
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(start = 24.dp, top = 8.dp, bottom = 4.dp),
+            fontWeight = FontWeight.SemiBold
+        )
+
         // Menu: 数据库管理
-        NavigationDrawerItem(
-            icon = {
+        if (currentNavigation !is DatabaseNavigation.Settings) {
+            // 选中状态
+            NavigationDrawerItem(
+                icon = {
+                    Icon(
+                        imageVector = Icons.Filled.Storage,
+                        contentDescription = null,
+                        modifier = Modifier.size(24.dp)
+                    )
+                },
+                label = {
+                    Text(
+                        text = stringResource(R.string.menu_database),
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontWeight = FontWeight.Medium
+                    )
+                },
+                selected = true,
+                onClick = onDatabaseClick,
+                modifier = Modifier
+                    .padding(horizontal = 12.dp, vertical = 2.dp)
+                    .fillMaxWidth(),
+                shape = RoundedCornerShape(12.dp),
+                colors = NavigationDrawerItemDefaults.colors(
+                    selectedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                    selectedIconColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    selectedTextColor = MaterialTheme.colorScheme.onPrimaryContainer
+                )
+            )
+        } else {
+            // 未选中状态 - 带边框和点击效果
+            Row(
+                modifier = Modifier
+                    .padding(horizontal = 12.dp, vertical = 2.dp)
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(12.dp))
+                    .border(
+                        width = 1.dp,
+                        color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                    .background(
+                        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                    .clickable(
+                        onClick = onDatabaseClick,
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null
+                    )
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Icon(
                     imageVector = Icons.Filled.Storage,
-                    contentDescription = null
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp),
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-            },
-            label = {
-                Text(stringResource(R.string.menu_database))
-            },
-            selected = currentNavigation !is DatabaseNavigation.Settings,
-            onClick = onDatabaseClick,
-            modifier = Modifier.padding(horizontal = 12.dp),
-            shape = RoundedCornerShape(28.dp)
-        )
+                Text(
+                    text = stringResource(R.string.menu_database),
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Normal,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            }
+        }
 
         Spacer(modifier = Modifier.height(4.dp))
 
         // Menu: 设置
-        NavigationDrawerItem(
-            icon = {
+        if (currentNavigation is DatabaseNavigation.Settings) {
+            // 选中状态
+            NavigationDrawerItem(
+                icon = {
+                    Icon(
+                        imageVector = Icons.Filled.Settings,
+                        contentDescription = null,
+                        modifier = Modifier.size(24.dp)
+                    )
+                },
+                label = {
+                    Text(
+                        text = stringResource(R.string.menu_settings),
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontWeight = FontWeight.Medium
+                    )
+                },
+                selected = true,
+                onClick = onSettingsClick,
+                modifier = Modifier
+                    .padding(horizontal = 12.dp, vertical = 2.dp)
+                    .fillMaxWidth(),
+                shape = RoundedCornerShape(12.dp),
+                colors = NavigationDrawerItemDefaults.colors(
+                    selectedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                    selectedIconColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    selectedTextColor = MaterialTheme.colorScheme.onPrimaryContainer
+                )
+            )
+        } else {
+            // 未选中状态 - 带边框和点击效果
+            Row(
+                modifier = Modifier
+                    .padding(horizontal = 12.dp, vertical = 2.dp)
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(12.dp))
+                    .border(
+                        width = 1.dp,
+                        color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                    .background(
+                        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                    .clickable(
+                        onClick = onSettingsClick,
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null
+                    )
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Icon(
                     imageVector = Icons.Filled.Settings,
-                    contentDescription = null
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp),
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-            },
-            label = {
-                Text(stringResource(R.string.menu_settings))
-            },
-            selected = currentNavigation is DatabaseNavigation.Settings,
-            onClick = onSettingsClick,
-            modifier = Modifier.padding(horizontal = 12.dp),
-            shape = RoundedCornerShape(28.dp)
+                Text(
+                    text = stringResource(R.string.menu_settings),
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Normal,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        // Footer - 底部版本信息
+        HorizontalDivider(
+            color = MaterialTheme.colorScheme.outline.copy(alpha = 0.15f),
+            thickness = 1.dp
         )
+        
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp, vertical = 16.dp)
+        ) {
+            Text(
+                text = "DTool v1.0",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
     }
 }
