@@ -30,6 +30,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
+import android.content.Context
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -260,6 +262,18 @@ fun DatabaseManagementScreen(
 }
 
 /**
+ * 获取应用版本名称
+ */
+private fun getVersionName(context: Context): String {
+    return try {
+        val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+        packageInfo.versionName ?: "1.0"
+    } catch (e: Exception) {
+        "1.0"
+    }
+}
+
+/**
  * 侧边栏内容组件
  * 包含应用标题、菜单项（数据库管理、设置）
  */
@@ -269,6 +283,8 @@ private fun DrawerContent(
     onSettingsClick: () -> Unit,
     currentNavigation: DatabaseNavigation
 ) {
+    val context = LocalContext.current
+    val versionName = getVersionName(context)
     Column(
         modifier = Modifier
             .fillMaxHeight()
@@ -476,7 +492,7 @@ private fun DrawerContent(
                 .padding(horizontal = 24.dp, vertical = 16.dp)
         ) {
             Text(
-                text = "DTool v1.0",
+                text = "DTool v$versionName",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
                 textAlign = TextAlign.Center,

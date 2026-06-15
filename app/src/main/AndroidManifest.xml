@@ -25,6 +25,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="fun.huidou.app"
+            android:value="true" />
+        <meta-data
+            android:name="dev.huidou.db"
+            android:value="true" />
     </application>
 
 </manifest>

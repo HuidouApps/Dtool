@@ -42,6 +42,10 @@
                 <action android:name="dev.huidou.db.action.BIND_DATABASE_SERVICE" />
             </intent-filter>
         </service>
+
+        <meta-data
+            android:name="fun.huidou.app"
+            android:value="true" />
     </application>
 
 </manifest>

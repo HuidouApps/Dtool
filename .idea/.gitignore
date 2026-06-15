@@ -1,6 +1,7 @@
 # 默认忽略的文件
 /shelf/
 /workspace.xml
+/modules
 gradle.xml
 misc.xml
 runConfigurations.xml
@@ -13,3 +14,4 @@ deviceManager.xml
 deploymentTargetSelector.xml
 compiler.xml
 vcs.xml
+markdown.xml

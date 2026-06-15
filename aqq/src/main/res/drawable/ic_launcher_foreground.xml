@@ -12,7 +12,7 @@
         <!-- 左右竖线（默认 butt 端点） -->
         <path
             android:fillColor="@android:color/transparent"
-            android:strokeColor="#2E7D32"
+            android:strokeColor="#FFB6C1"
             android:strokeWidth="1.5"
             android:pathData="
                 M 2,7 L 2,19
@@ -21,7 +21,7 @@
         <!-- 顶部完整椭圆（保持圆头，因为闭合） -->
         <path
             android:fillColor="@android:color/transparent"
-            android:strokeColor="#2E7D32"
+            android:strokeColor="#FFB6C1"
             android:strokeWidth="1.5"
             android:strokeLineCap="round"
             android:pathData="
@@ -32,7 +32,7 @@
         <!-- 第二圈：平头端点，与竖线平齐 -->
         <path
             android:fillColor="@android:color/transparent"
-            android:strokeColor="#2E7D32"
+            android:strokeColor="#FFB6C1"
             android:strokeWidth="1.5"
             android:pathData="
                 M 2,11
@@ -41,7 +41,7 @@
         <!-- 第三圈 -->
         <path
             android:fillColor="@android:color/transparent"
-            android:strokeColor="#2E7D32"
+            android:strokeColor="#FFB6C1"
             android:strokeWidth="1.5"
             android:pathData="
                 M 2,15
@@ -50,7 +50,7 @@
         <!-- 底部弧线：平头端点，与竖线底端完美对齐，无突出 -->
         <path
             android:fillColor="@android:color/transparent"
-            android:strokeColor="#2E7D32"
+            android:strokeColor="#FFB6C1"
             android:strokeWidth="1.5"
             android:pathData="
                 M 2,19

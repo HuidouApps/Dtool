@@ -30,6 +30,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            isDebuggable = true
+        }
         release {
             isMinifyEnabled = true
             isShrinkResources = true
@@ -70,5 +73,6 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
+    //noinspection UseTomlInstead
     debugImplementation("com.github.L-JINBIN:MTDataFilesProvider:v1.0.0")
 }
