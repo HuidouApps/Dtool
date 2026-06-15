@@ -141,6 +141,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
     
     - name: Get app version
       id: get_app_version
@@ -178,8 +180,18 @@ jobs:
     - name: Create tag if needed
       if: github.event_name == 'workflow_dispatch'
       run: |
-        git tag ${{ steps.tag_name.outputs.tag }}
-        git push origin ${{ steps.tag_name.outputs.tag }}
+        # 检查tag是否已存在
+        if git rev-parse ${{ steps.tag_name.outputs.tag }} >/dev/null 2>&1; then
+          echo "Tag ${{ steps.tag_name.outputs.tag }} already exists locally"
+        else
+          git tag ${{ steps.tag_name.outputs.tag }}
+        fi
+        # 检查远程tag是否已存在
+        if git ls-remote --tags origin ${{ steps.tag_name.outputs.tag }} | grep -q ${{ steps.tag_name.outputs.tag }}; then
+          echo "Tag ${{ steps.tag_name.outputs.tag }} already exists remotely"
+        else
+          git push origin ${{ steps.tag_name.outputs.tag }}
+        fi
     
     - name: Determine release title
       id: release_title
