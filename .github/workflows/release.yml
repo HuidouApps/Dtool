@@ -14,6 +14,10 @@ on:
         required: true
         default: true
         type: boolean
+      tag_name:
+        description: 'Release标签（如v1.0.0，留空则自动生成）'
+        required: false
+        type: string
       release_title:
         description: 'Release标题（留空则自动生成）'
         required: false
@@ -75,7 +79,7 @@ jobs:
       with:
         name: DBTool-v${{ steps.get_version.outputs.version }}-U-R.apk
         path: app/build/outputs/apk/release/DBTool-v${{ steps.get_version.outputs.version }}-U-R.apk
-        retention-days: 30
+        retention-days: 3
 
   build-aqq:
     name: Build Aqq Module (Release)
@@ -123,7 +127,7 @@ jobs:
       with:
         name: DataBase-v${{ steps.get_version.outputs.version }}-U-R.apk
         path: aqq/build/outputs/apk/release/DataBase-v${{ steps.get_version.outputs.version }}-U-R.apk
-        retention-days: 30
+        retention-days: 3
 
   create-release:
     name: Create GitHub Release
@@ -157,32 +161,44 @@ jobs:
         name: DataBase-v${{ steps.get_aqq_version.outputs.version }}-U-R.apk
         path: ./artifacts
     
+    - name: Determine tag name
+      id: tag_name
+      run: |
+        if [ -n "${{ github.event.inputs.tag_name }}" ]; then
+          echo "tag=${{ github.event.inputs.tag_name }}" >> $GITHUB_OUTPUT
+        elif [ "${{ github.ref_type }}" == "tag" ]; then
+          echo "tag=${{ github.ref_name }}" >> $GITHUB_OUTPUT
+        else
+          echo "tag=v${{ steps.get_app_version.outputs.version }}" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Create tag if needed
+      if: github.event_name == 'workflow_dispatch'
+      run: |
+        git tag ${{ steps.tag_name.outputs.tag }}
+        git push origin ${{ steps.tag_name.outputs.tag }}
+    
     - name: Determine release title
       id: release_title
       run: |
         if [ -n "${{ github.event.inputs.release_title }}" ]; then
           echo "title=${{ github.event.inputs.release_title }}" >> $GITHUB_OUTPUT
-        elif [ -n "${{ github.ref_name }}" ]; then
-          echo "title=${{ github.ref_name }}" >> $GITHUB_OUTPUT
         else
-          echo "title=DBTool v${{ steps.get_app_version.outputs.version }}" >> $GITHUB_OUTPUT
+          echo "title=${{ steps.tag_name.outputs.tag }}" >> $GITHUB_OUTPUT
         fi
     
     - name: Get git commit messages
       id: git_commits
       run: |
-        # 获取自上次tag以来的提交记录，如果没有tag则获取最近10条
-        if [ -n "${{ github.ref_name }}" ] && [ "${{ github.ref_type }}" == "tag" ]; then
+        # 获取自上次Release tag以来的提交记录
+        # 如果是第一次Release，则获取所有提交
+        PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+        if [ -n "$PREV_TAG" ]; then
           # 获取当前tag和前一个tag之间的提交
-          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
-          if [ -n "$PREV_TAG" ]; then
-            COMMITS=$(git log --oneline --no-merges $PREV_TAG..HEAD | head -20)
-          else
-            COMMITS=$(git log --oneline --no-merges -10)
-          fi
+          COMMITS=$(git log --oneline --no-merges $PREV_TAG..HEAD)
         else
-          # 手动触发时获取最近10条提交
-          COMMITS=$(git log --oneline --no-merges -10)
+          # 如果没有之前的tag，获取所有提交
+          COMMITS=$(git log --oneline --no-merges)
         fi
         # 格式化为Markdown列表
         FORMATTED=$(echo "$COMMITS" | sed 's/^/- /')
@@ -201,14 +217,9 @@ jobs:
           echo "body<<EOF" >> $GITHUB_OUTPUT
           echo "## 更新内容" >> $GITHUB_OUTPUT
           echo "" >> $GITHUB_OUTPUT
-          echo "- DBTool v${{ steps.get_app_version.outputs.version }}" >> $GITHUB_OUTPUT
-          echo "- DataBase v${{ steps.get_aqq_version.outputs.version }}" >> $GITHUB_OUTPUT
-          echo "" >> $GITHUB_OUTPUT
-          echo "### 提交记录" >> $GITHUB_OUTPUT
-          echo "" >> $GITHUB_OUTPUT
           echo "${{ steps.git_commits.outputs.commits }}" >> $GITHUB_OUTPUT
           echo "" >> $GITHUB_OUTPUT
-          echo "## 下载" >> $GITHUB_OUTPUT
+          echo "## 下载应用" >> $GITHUB_OUTPUT
           echo "" >> $GITHUB_OUTPUT
           if [ -f "./artifacts/DBTool-v${{ steps.get_app_version.outputs.version }}-U-R.apk" ]; then
             echo "- DBTool-v${{ steps.get_app_version.outputs.version }}-U-R.apk" >> $GITHUB_OUTPUT
@@ -222,7 +233,7 @@ jobs:
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: ${{ github.ref_name }}
+        tag_name: ${{ steps.tag_name.outputs.tag }}
         name: ${{ steps.release_title.outputs.title }}
         body: ${{ steps.release_body.outputs.body }}
         files: ./artifacts/*.apk
