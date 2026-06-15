@@ -32,6 +32,9 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  contents: write
+
 jobs:
   build-app:
     name: Build App Module (Release)

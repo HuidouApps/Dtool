@@ -16,8 +16,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.painterResource
 import dev.huidou.db.R
 import java.io.File
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
+import android.widget.Toast
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun DatabaseBrowserScreen() {
     val context = LocalContext.current
@@ -53,11 +56,22 @@ fun DatabaseBrowserScreen() {
                     }
                 },
                 navigationIcon = {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_db_24dp),
-                        contentDescription = stringResource(R.string.cd_database),
-                        modifier = Modifier.padding(start = 16.dp)
-                    )
+                    Box(
+                        modifier = Modifier
+                            .padding(start = 16.dp)
+                            .combinedClickable(
+                                onClick = { },
+                                onLongClick = {
+                                    databases = getDatabaseList(context)
+                                    Toast.makeText(context, "数据库列表已刷新", Toast.LENGTH_SHORT).show()
+                                }
+                            )
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_db_24dp),
+                            contentDescription = stringResource(R.string.cd_database)
+                        )
+                    }
                 }
             )
         }
