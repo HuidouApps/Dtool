@@ -4,12 +4,10 @@
 .qoder
 .workbuddy
 /local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
+/.idea/
+!/.idea/.name
+!/.idea/.gitignore
+
 .DS_Store
 /build
 /captures
