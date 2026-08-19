@@ -17,15 +17,15 @@ android {
         minSdk = 29
         //noinspection OldTargetApi
         targetSdk = 36
-        versionCode = 260013
-        versionName = "26.1.13"
+        versionCode = 260032
+        versionName = "26.08.19"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         // 指定要包含的 ABI 架构（所有架构）
         ndk {
-            // 包含所有支持的架构：armeabi-v7a, arm64-v8a, x86, x86_64
-            abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+            // 包含所有支持的架构："armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+            abiFilters += listOf( "arm64-v8a" , "x86_64" )
         }
     }
 

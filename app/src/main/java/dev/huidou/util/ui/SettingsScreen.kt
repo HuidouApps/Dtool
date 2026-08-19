@@ -299,6 +299,7 @@ private fun SettingsItemCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = 4.dp)
+            .clip(MaterialTheme.shapes.medium)
             .clickable(onClick = onClick),
         shape = MaterialTheme.shapes.medium, // 12dp corner radius
         colors = CardDefaults.cardColors(

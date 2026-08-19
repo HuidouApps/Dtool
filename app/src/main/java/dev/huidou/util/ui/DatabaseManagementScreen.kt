@@ -494,9 +494,10 @@ private fun DrawerMenuItem(
                 )
                 .clickable(
                     onClick = onClick,
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null
+                    interactionSource = remember { MutableInteractionSource() }
                 )
+                // 与选中态 NavigationDrawerItem 的 56dp 最小高度保持一致，避免点击切换时高度跳变
+                .heightIn(min = 56.dp)
                 .padding(horizontal = 16.dp, vertical = 12.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalAlignment = Alignment.CenterVertically
