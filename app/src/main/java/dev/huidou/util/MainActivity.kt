@@ -25,7 +25,8 @@ class MainActivity : ComponentActivity() {
                 ThemeMode.DARK -> true
                 ThemeMode.SYSTEM -> themeViewModel.isDarkTheme()
             }
-            DtoolTheme(darkTheme = isDark) {
+            val useDynamicColor by themeViewModel.dynamicColor.collectAsState(initial = true)
+            DtoolTheme(darkTheme = isDark, dynamicColor = useDynamicColor) {
                 DatabaseManagementScreen(
                     themeViewModel = themeViewModel
                 )

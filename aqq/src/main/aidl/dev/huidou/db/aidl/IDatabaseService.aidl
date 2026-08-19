@@ -6,7 +6,8 @@ interface IDatabaseService {
     boolean createDatabase(String dbName);
     boolean deleteDatabase(String dbName);
     boolean renameDatabase(String oldName, String newName);
-    
+    long getDatabasesTotalSize();
+
     // 表操作
     List<String> getTables(String dbName);
     boolean createTable(String dbName, String tableName, String columns);

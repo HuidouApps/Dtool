@@ -35,7 +35,7 @@
     <string name="msg_select_database_action">Τι θέλετε να κάνετε με αυτή τη βάση δεδομένων;</string>
     <string name="cd_refresh">Ανανέωση</string>
     <string name="cd_create_database">Δημιουργία βάσης δεδομένων</string>
-    <string name="label_db_size_and_date">Μέγεθος: %s | Τροποποίηση: %s</string>
+    <string name="label_db_size_and_date">Μέγεθος: %1$s | Τροποποίηση: %2$s</string>
 
     <!-- CreateDatabaseDialog -->
     <string name="title_create_database">Δημιουργία βάσης δεδομένων</string>

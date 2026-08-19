@@ -35,7 +35,7 @@
     <string name="msg_select_database_action">Bu veritabanıyla ne yapmak istiyorsunuz?</string>
     <string name="cd_refresh">Yenile</string>
     <string name="cd_create_database">Veritabanı oluştur</string>
-    <string name="label_db_size_and_date">Boyut: %s | Değiştirilme: %s</string>
+    <string name="label_db_size_and_date">Boyut: %1$s | Değiştirilme: %2$s</string>
 
     <!-- CreateDatabaseDialog -->
     <string name="title_create_database">Veritabanı Oluştur</string>

@@ -34,7 +34,7 @@
     <string name="msg_select_database_action">您想对这个数据库执行什么操作?</string>
     <string name="cd_refresh">刷新</string>
     <string name="cd_create_database">创建数据库</string>
-    <string name="label_db_size_and_date">大小: %s | 修改时间: %s</string>
+    <string name="label_db_size_and_date">大小: %1$s | 修改时间: %2$s</string>
 
     <!-- CreateDatabaseDialog -->
     <string name="title_create_database">创建数据库</string>

@@ -95,7 +95,19 @@ class UniversalDatabaseClient(private val context: Context) {
             false
         }
     }
-    
+
+    /**
+     * 获取所有数据库文件的总大小
+     */
+    fun getDatabasesTotalSize(): Long {
+        return try {
+            serviceClient.getDatabasesTotalSize()
+        } catch (e: Exception) {
+            Log.e(TAG, "Error getting databases total size", e)
+            0L
+        }
+    }
+
     // ==================== 表操作 ====================
         
     /**

@@ -35,7 +35,7 @@
     <string name="msg_select_database_action">Was möchten Sie mit dieser Datenbank tun?</string>
     <string name="cd_refresh">Aktualisieren</string>
     <string name="cd_create_database">Datenbank erstellen</string>
-    <string name="label_db_size_and_date">Größe: %s | Geändert: %s</string>
+    <string name="label_db_size_and_date">Größe: %1$s | Geändert: %2$s</string>
 
     <!-- CreateDatabaseDialog -->
     <string name="title_create_database">Datenbank erstellen</string>

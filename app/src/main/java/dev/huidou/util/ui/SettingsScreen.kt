@@ -24,8 +24,10 @@ import androidx.compose.ui.unit.dp
 import android.widget.Toast
 import androidx.annotation.DrawableRes
 import dev.huidou.util.R
+import dev.huidou.util.provider.UniversalDatabaseClient
 import dev.huidou.util.ui.theme.ThemeMode
 import dev.huidou.util.ui.theme.ThemeViewModel
+import kotlinx.coroutines.launch
 
 /**
  * 设置页面
@@ -35,11 +37,38 @@ import dev.huidou.util.ui.theme.ThemeViewModel
 @Composable
 fun SettingsScreen(
     onMenuClick: () -> Unit = {},
-    themeViewModel: ThemeViewModel
+    themeViewModel: ThemeViewModel,
+    onOpenSourceLicenses: () -> Unit = {}
 ) {
     var showThemeDialog by remember { mutableStateOf(false) }
     val context = LocalContext.current
     val languageToastMsg = stringResource(R.string.do_not_change_language)
+
+    // ==================== 数据库存储统计 ====================
+    val dbClient = remember { UniversalDatabaseClient(context) }
+    val scope = rememberCoroutineScope()
+    var dbCount by remember { mutableStateOf(0) }
+    var totalSize by remember { mutableStateOf(0L) }
+    var isStatsLoading by remember { mutableStateOf(true) }
+
+    fun loadStorageStats() {
+        scope.launch {
+            isStatsLoading = true
+            dbCount = dbClient.getDatabases().size
+            totalSize = dbClient.getDatabasesTotalSize()
+            isStatsLoading = false
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        loadStorageStats()
+    }
+
+    val storageSubtitle = if (isStatsLoading) {
+        stringResource(R.string.label_loading)
+    } else {
+        stringResource(R.string.label_db_storage, dbCount, formatSize(totalSize))
+    }
 
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing,
@@ -97,6 +126,35 @@ fun SettingsScreen(
                 onClick = { showThemeDialog = true }
             )
 
+            // ═══════════════════════════════════════════════
+            // Section: 存储
+            // ═══════════════════════════════════════════════
+            SectionTitle(text = stringResource(R.string.section_storage))
+
+            // 数据库存储统计
+            SettingsItemCard(
+                iconRes = R.drawable.ic_storage,
+                iconBackgroundColor = colorResource(R.color.light_and_night).copy(alpha = 0.1f),
+                iconTintColor = colorResource(R.color.light_and_night),
+                title = stringResource(R.string.database_storage),
+                subtitle = storageSubtitle,
+                onClick = { loadStorageStats() }
+            )
+
+            // ═══════════════════════════════════════════════
+            // Section: 关于
+            // ═══════════════════════════════════════════════
+            SectionTitle(text = stringResource(R.string.section_about))
+
+            // 开源许可
+            SettingsItemCard(
+                iconRes = R.drawable.ic_code,
+                iconBackgroundColor = colorResource(R.color.light_and_night).copy(alpha = 0.1f),
+                iconTintColor = colorResource(R.color.light_and_night),
+                title = stringResource(R.string.title_open_source_licenses),
+                onClick = onOpenSourceLicenses
+            )
+
         }
     }
 
@@ -118,6 +176,7 @@ private fun ThemeSelectionDialog(
     onDismiss: () -> Unit
 ) {
     val currentMode by themeViewModel.themeMode.collectAsState(initial = ThemeMode.SYSTEM)
+    val dynamicColorEnabled by themeViewModel.dynamicColor.collectAsState(initial = true)
 
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -139,6 +198,33 @@ private fun ThemeSelectionDialog(
                     selected = currentMode == ThemeMode.SYSTEM,
                     onClick = { themeViewModel.setThemeMode(ThemeMode.SYSTEM) }
                 )
+
+                HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
+
+                // 动态取色开关（Android 12+ 跟随壁纸配色）
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { themeViewModel.setDynamicColor(!dynamicColorEnabled) }
+                        .padding(vertical = 8.dp, horizontal = 4.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = stringResource(R.string.dynamic_color),
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                        Text(
+                            text = stringResource(R.string.dynamic_color_subtitle),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                    Switch(
+                        checked = dynamicColorEnabled,
+                        onCheckedChange = { themeViewModel.setDynamicColor(it) }
+                    )
+                }
             }
         },
         confirmButton = {
@@ -206,6 +292,7 @@ private fun SettingsItemCard(
     iconBackgroundColor: androidx.compose.ui.graphics.Color,
     iconTintColor: androidx.compose.ui.graphics.Color,
     title: String,
+    subtitle: String? = null,
     onClick: () -> Unit
 ) {
     Card(
@@ -242,15 +329,37 @@ private fun SettingsItemCard(
                 )
             }
 
-            // 文字标题，左侧 16dp 间距
-            Text(
-                text = title,
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurface,
+            // 文字标题 + 可选副标题，左侧 16dp 间距
+            Column(
                 modifier = Modifier
                     .padding(start = 16.dp)
                     .weight(1f)
-            )
+            ) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                if (subtitle != null) {
+                    Spacer(modifier = Modifier.height(2.dp))
+                    Text(
+                        text = subtitle,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
         }
+    }
+}
+
+/**
+ * 格式化文件大小（与数据库列表页的 formatFileSize 保持一致）
+ */
+private fun formatSize(size: Long): String {
+    return when {
+        size < 1024 -> "$size B"
+        size < 1024 * 1024 -> "${size / 1024} KB"
+        else -> String.format("%.2f MB", size / (1024.0 * 1024.0))
     }
 }

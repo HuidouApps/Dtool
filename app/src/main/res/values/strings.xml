@@ -34,7 +34,7 @@
     <string name="msg_select_database_action">您想对这个数据库执行什么操作?</string>
     <string name="cd_refresh">刷新</string>
     <string name="cd_create_database">创建数据库</string>
-    <string name="label_db_size_and_date">大小: %s | 修改时间: %s</string>
+    <string name="label_db_size_and_date">大小: %1$s | 修改时间: %2$s</string>
 
     <!-- 创建数据库对话框 -->
     <string name="title_create_database">创建数据库</string>
@@ -119,7 +119,7 @@
     <!-- 批量删除对话框 -->
     <string name="title_batch_delete">批量删除</string>
     <string name="msg_confirm_batch_delete">确定要删除选中的 %d 个数据库吗?此操作不可恢复!</string>
-    <string name="msg_batch_delete_result">已删除 %d 个，失败 %d 个</string>
+    <string name="msg_batch_delete_result">已删除 %1$d 个，失败 %2$d 个</string>
 
     <!-- 批量重命名对话框 -->
     <string name="title_batch_rename">批量重命名</string>
@@ -129,7 +129,7 @@
     <string name="msg_rename_invalid_extension">名称必须以 .db 或 .sqlite 结尾</string>
     <string name="msg_rename_conflict">该名称已存在</string>
     <string name="msg_rename_duplicate">批量内名称不能重复</string>
-    <string name="msg_batch_rename_result">已重命名 %d 个，失败 %d 个</string>
+    <string name="msg_batch_rename_result">已重命名 %1$d 个，失败 %2$d 个</string>
 
     <!-- 设置页 -->
     <string name="title_app_settings">应用设置</string>
@@ -150,6 +150,19 @@
     <string name="menu_developer_page">开发者页</string>
     <string name="menu_about_app">关于应用</string>
     <string name="do_not_change_language" translatable="false">暂不支持切换语言</string>
+
+    <!-- 存储 -->
+    <string name="section_storage">存储</string>
+    <string name="database_storage">数据库存储</string>
+    <string name="label_db_storage">共 %1$d 个数据库 · 占用 %2$s</string>
+
+    <!-- 关于 -->
+    <string name="section_about">关于</string>
+    <string name="title_open_source_licenses">开源许可</string>
+
+    <!-- 主题 -->
+    <string name="dynamic_color">动态颜色</string>
+    <string name="dynamic_color_subtitle">跟随壁纸配色（Android 12+）</string>
 
     <!-- 关于 卡片 -->
     <string name="title_about">关于</string>

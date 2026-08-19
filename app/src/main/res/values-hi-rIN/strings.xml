@@ -35,7 +35,7 @@
     <string name="msg_select_database_action">आप इस डेटाबेस के साथ क्या करना चाहते हैं?</string>
     <string name="cd_refresh">रीफ़्रेश करें</string>
     <string name="cd_create_database">डेटाबेस बनाएं</string>
-    <string name="label_db_size_and_date">आकार: %s | संशोधित: %s</string>
+    <string name="label_db_size_and_date">आकार: %1$s | संशोधित: %2$s</string>
 
     <!-- CreateDatabaseDialog -->
     <string name="title_create_database">डेटाबेस बनाएं</string>

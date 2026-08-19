@@ -29,17 +29,46 @@ android {
         }
     }
 
+    val useSecKey = rootProject.hasProperty("SecKeyFile") &&
+        rootProject.hasProperty("SecKeyPasswd") &&
+        rootProject.hasProperty("SecAlias") &&
+        rootProject.hasProperty("SecPassword")
+
+    signingConfigs {
+        if (useSecKey) {
+            create("sec_sign_key") {
+                storeFile = file(rootProject.property("SecKeyFile") as String)
+                storePassword = rootProject.property("SecKeyPasswd") as String
+                keyAlias = rootProject.property("SecAlias") as String
+                keyPassword = rootProject.property("SecPassword") as String
+                enableV1Signing = true
+                enableV2Signing = true
+                enableV3Signing = true
+                enableV4Signing = false
+            }
+        }
+    }
+
     buildTypes {
         debug {
             isDebuggable = true
+            signingConfig = if (useSecKey) {
+                signingConfigs.getByName("sec_sign_key")
+            } else {
+                signingConfigs.getByName("debug")
+            }
         }
         release {
             isMinifyEnabled = true
             isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            optimization {
+                enable = false
+            }
+            signingConfig = if (useSecKey) {
+                signingConfigs.getByName("sec_sign_key")
+            } else {
+                signingConfigs.getByName("debug")
+            }
         }
     }
     compileOptions {

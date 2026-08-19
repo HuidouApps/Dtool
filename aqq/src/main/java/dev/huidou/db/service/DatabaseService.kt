@@ -109,7 +109,18 @@ class DatabaseService : Service() {
                 false
             }
         }
-        
+
+        override fun getDatabasesTotalSize(): Long {
+            return try {
+                databaseList()
+                    .filter { it.endsWith(".db") || it.endsWith(".sqlite") }
+                    .sumOf { getDatabasePath(it).length() }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error computing databases total size", e)
+                0L
+            }
+        }
+
         // ==================== 表操作 ====================
         
         override fun getTables(dbName: String): List<String> {

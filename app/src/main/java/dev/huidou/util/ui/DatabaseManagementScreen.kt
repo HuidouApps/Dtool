@@ -53,6 +53,7 @@ sealed class DatabaseNavigation {
     object Settings : DatabaseNavigation()
     object About : DatabaseNavigation()
     object AboutApp : DatabaseNavigation()
+    object OpenSourceLicenses : DatabaseNavigation()
 }
 
 @Composable
@@ -88,6 +89,11 @@ fun DatabaseManagementScreen(
         is DatabaseNavigation.AboutApp -> {
             BackHandler {
                 navigation = DatabaseNavigation.DatabaseList
+            }
+        }
+        is DatabaseNavigation.OpenSourceLicenses -> {
+            BackHandler {
+                navigation = DatabaseNavigation.Settings
             }
         }
         else -> {
@@ -147,6 +153,10 @@ fun DatabaseManagementScreen(
                         // 从开发者页/关于应用返回主页视为后退
                         targetState is DatabaseNavigation.DatabaseList &&
                             (initialState is DatabaseNavigation.About || initialState is DatabaseNavigation.AboutApp) -> false
+                        // 从设置页进入开源许可视为前进
+                        targetState is DatabaseNavigation.OpenSourceLicenses -> true
+                        // 从开源许可返回设置页视为后退
+                        targetState is DatabaseNavigation.Settings && initialState is DatabaseNavigation.OpenSourceLicenses -> false
                         targetState is DatabaseNavigation.DatabaseList && initialState is DatabaseNavigation.TableList -> false
                         targetState is DatabaseNavigation.TableList && initialState is DatabaseNavigation.DataBrowser -> false
                         else -> true // 默认使用前进动画
@@ -246,7 +256,10 @@ fun DatabaseManagementScreen(
                             onMenuClick = {
                                 scope.launch { drawerState.open() }
                             },
-                            themeViewModel = themeViewModel
+                            themeViewModel = themeViewModel,
+                            onOpenSourceLicenses = {
+                                navigation = DatabaseNavigation.OpenSourceLicenses
+                            }
                         )
                     }
                     is DatabaseNavigation.About -> {
@@ -260,6 +273,13 @@ fun DatabaseManagementScreen(
                         AboutAppScreen(
                             onBack = {
                                 navigation = DatabaseNavigation.DatabaseList
+                            }
+                        )
+                    }
+                    is DatabaseNavigation.OpenSourceLicenses -> {
+                        OpenSourceLicensesScreen(
+                            onBack = {
+                                navigation = DatabaseNavigation.Settings
                             }
                         )
                     }

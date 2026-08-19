@@ -5,6 +5,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -25,6 +26,7 @@ enum class ThemeMode {
 
 private val DATASTORE_NAME = "settings"
 private val KEY_THEME_MODE = stringPreferencesKey("theme_mode")
+private val KEY_DYNAMIC_COLOR = booleanPreferencesKey("dynamic_color")
 
 private val Application.dataStore by preferencesDataStore(name = DATASTORE_NAME)
 
@@ -41,6 +43,21 @@ class ThemeViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             dataStore.edit { prefs ->
                 prefs[KEY_THEME_MODE] = mode.name
+            }
+        }
+    }
+
+    /**
+     * 是否启用动态取色（Android 12+ 跟随壁纸配色），默认启用
+     */
+    val dynamicColor: Flow<Boolean> = dataStore.data.map { prefs ->
+        prefs[KEY_DYNAMIC_COLOR] ?: true
+    }
+
+    fun setDynamicColor(enabled: Boolean) {
+        viewModelScope.launch {
+            dataStore.edit { prefs ->
+                prefs[KEY_DYNAMIC_COLOR] = enabled
             }
         }
     }

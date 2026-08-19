@@ -35,7 +35,7 @@
     <string name="msg_select_database_action">Bạn muốn làm gì với cơ sở dữ liệu này?</string>
     <string name="cd_refresh">Làm mới</string>
     <string name="cd_create_database">Tạo cơ sở dữ liệu</string>
-    <string name="label_db_size_and_date">Kích thước: %s | Sửa đổi: %s</string>
+    <string name="label_db_size_and_date">Kích thước: %1$s | Sửa đổi: %2$s</string>
 
     <!-- CreateDatabaseDialog -->
     <string name="title_create_database">Tạo cơ sở dữ liệu</string>
