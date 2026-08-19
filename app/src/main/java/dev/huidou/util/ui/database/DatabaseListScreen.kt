@@ -4,12 +4,17 @@ import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Checklist
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Storage
 import androidx.compose.material3.*
@@ -53,6 +58,14 @@ fun DatabaseListScreen(
     var selectedDatabaseIndex by remember { mutableStateOf<Int?>(null) }
     var showActionDialog by remember { mutableStateOf(false) }
     var retryCount by remember { mutableStateOf(0) }
+
+    // ==================== 批量管理模式状态 ====================
+    var isBatchMode by remember { mutableStateOf(false) }
+    val selectedNames = remember { mutableStateListOf<String>() }
+    var batchMenuExpanded by remember { mutableStateOf(false) }
+    var showBatchDeleteDialog by remember { mutableStateOf(false) }
+    var showBatchRenameDialog by remember { mutableStateOf(false) }
+    val renameTexts = remember { mutableStateMapOf<String, String>() } // oldName -> newName
     
     fun loadDatabases(showLoading: Boolean = true) {
         scope.launch {
@@ -84,7 +97,39 @@ fun DatabaseListScreen(
             }
         }
     }
-    
+
+    // ==================== 批量管理模式辅助函数 ====================
+
+    fun toggleSelection(name: String) {
+        if (name in selectedNames) selectedNames.remove(name) else selectedNames.add(name)
+    }
+
+    fun enterBatchMode() {
+        isBatchMode = true
+        selectedNames.clear()
+    }
+
+    fun exitBatchMode() {
+        isBatchMode = false
+        selectedNames.clear()
+        batchMenuExpanded = false
+    }
+
+    fun isRenameValid(): Boolean {
+        if (renameTexts.isEmpty()) return false
+        val allNames = databases.map { it["name"] as String }
+        val newNames = renameTexts.values.map { it.trim() }
+        if (newNames.any { it.isBlank() }) return false
+        if (newNames.any { it.contains('/') || it.contains('\\') }) return false
+        if (newNames.any { !it.endsWith(".db") && !it.endsWith(".sqlite") }) return false
+        if (newNames.toSet().size != newNames.size) return false
+        renameTexts.forEach { (old, new) ->
+            val t = new.trim()
+            if (t != old && allNames.contains(t)) return false
+        }
+        return true
+    }
+
     LaunchedEffect(Unit) {
         loadDatabases()
     }
@@ -94,36 +139,106 @@ fun DatabaseListScreen(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
             TopAppBar(
-                title = { 
-                    Column {
-                        Text(stringResource(R.string.title_database_management))
-                        Text(
-                            text = if (isLoading) stringResource(R.string.label_loading) else stringResource(R.string.label_database_count, databases.size),
-                            style = MaterialTheme.typography.bodySmall
-                        )
+                title = {
+                    if (isBatchMode) {
+                        Text(stringResource(R.string.label_selected_count, selectedNames.size))
+                    } else {
+                        Column {
+                            Text(stringResource(R.string.title_database_management))
+                            Text(
+                                text = if (isLoading) stringResource(R.string.label_loading) else stringResource(R.string.label_database_count, databases.size),
+                                style = MaterialTheme.typography.bodySmall
+                            )
+                        }
                     }
                 },
                 navigationIcon = {
-                    IconButton(onClick = onMenuClick) {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_list),
-                            contentDescription = stringResource(R.string.cd_open_settings)
-                        )
+                    if (isBatchMode) {
+                        IconButton(onClick = { exitBatchMode() }) {
+                            Icon(
+                                Icons.Filled.Close,
+                                contentDescription = stringResource(R.string.cd_exit_batch_mode)
+                            )
+                        }
+                    } else {
+                        IconButton(onClick = onMenuClick) {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_list),
+                                contentDescription = stringResource(R.string.cd_open_settings)
+                            )
+                        }
                     }
                 },
                 actions = {
-                    IconButton(
-                        onClick = { loadDatabases() },
-                        enabled = !isLoading
-                    ) {
-                        Icon(
-                            Icons.Default.Refresh,
-                            contentDescription = stringResource(R.string.cd_refresh),
-                            modifier = if (isLoading) Modifier else Modifier
-                        )
-                    }
-                    IconButton(onClick = { showCreateDialog = true }) {
-                        Icon(Icons.Default.Add, contentDescription = stringResource(R.string.cd_create_database))
+                    if (isBatchMode) {
+                        val allSelected = databases.isNotEmpty() && selectedNames.size == databases.size
+                        TextButton(onClick = {
+                            if (allSelected) {
+                                selectedNames.clear()
+                            } else {
+                                selectedNames.clear()
+                                selectedNames.addAll(databases.map { it["name"] as String })
+                            }
+                        }) {
+                            Text(stringResource(if (allSelected) R.string.action_deselect_all else R.string.action_select_all))
+                        }
+                        Box {
+                            IconButton(
+                                onClick = { batchMenuExpanded = true },
+                                enabled = selectedNames.isNotEmpty()
+                            ) {
+                                Icon(
+                                    Icons.Filled.MoreVert,
+                                    contentDescription = stringResource(R.string.cd_batch_actions)
+                                )
+                            }
+                            DropdownMenu(
+                                expanded = batchMenuExpanded,
+                                onDismissRequest = { batchMenuExpanded = false }
+                            ) {
+                                DropdownMenuItem(
+                                    text = { Text(stringResource(R.string.action_batch_delete)) },
+                                    onClick = {
+                                        batchMenuExpanded = false
+                                        showBatchDeleteDialog = true
+                                    },
+                                    enabled = selectedNames.isNotEmpty()
+                                )
+                                DropdownMenuItem(
+                                    text = { Text(stringResource(R.string.action_batch_rename)) },
+                                    onClick = {
+                                        batchMenuExpanded = false
+                                        renameTexts.clear()
+                                        selectedNames.forEach { renameTexts[it] = it }
+                                        showBatchRenameDialog = true
+                                    },
+                                    enabled = selectedNames.isNotEmpty()
+                                )
+                            }
+                        }
+                    } else {
+                        IconButton(
+                            onClick = { enterBatchMode() },
+                            enabled = databases.isNotEmpty()
+                        ) {
+                            Icon(
+                                Icons.Filled.Checklist,
+                                contentDescription = stringResource(R.string.cd_batch_mode)
+                            )
+                        }
+                        IconButton(
+                            onClick = { loadDatabases() },
+                            enabled = !isLoading
+                        ) {
+                            Icon(
+                                Icons.Default.Refresh,
+                                contentDescription = stringResource(R.string.cd_refresh),
+                                modifier = if (isLoading) Modifier else Modifier
+                            )
+                        }
+                        IconButton(onClick = { showCreateDialog = true }) {
+                            Icon(Icons.Default.Add, contentDescription = stringResource(R.string.cd_create_database))
+                        }
                     }
                 }
             )
@@ -187,25 +302,41 @@ fun DatabaseListScreen(
                         val dbName = db["name"] as String
                         val dbSize = db["size"] as Long
                         val lastModified = db["last_modified"] as Long
-                        
+                        val isSelected = dbName in selectedNames
+
                         Card(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .combinedClickable(
-                                    onClick = { onDatabaseSelected(dbName) },
+                                    onClick = {
+                                        if (isBatchMode) toggleSelection(dbName) else onDatabaseSelected(dbName)
+                                    },
                                     onLongClick = {
-                                        selectedDatabaseIndex = index
-                                        showActionDialog = true
+                                        if (!isBatchMode) {
+                                            selectedDatabaseIndex = index
+                                            showActionDialog = true
+                                        }
                                     }
-                                )
+                                ),
+                            colors = if (isBatchMode && isSelected) {
+                                CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)
+                            } else {
+                                CardDefaults.cardColors()
+                            }
                         ) {
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(16.dp),
-                                horizontalArrangement = Arrangement.SpaceBetween,
+                                horizontalArrangement = if (isBatchMode) Arrangement.spacedBy(12.dp) else Arrangement.SpaceBetween,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
+                                if (isBatchMode) {
+                                    Checkbox(
+                                        checked = isSelected,
+                                        onCheckedChange = { toggleSelection(dbName) }
+                                    )
+                                }
                                 Column(modifier = Modifier.weight(1f)) {
                                     Text(
                                         text = dbName,
@@ -274,6 +405,92 @@ fun DatabaseListScreen(
         )
     }
     
+    // 批量删除确认对话框
+    if (showBatchDeleteDialog) {
+        AlertDialog(
+            onDismissRequest = { showBatchDeleteDialog = false },
+            title = { Text(stringResource(R.string.title_batch_delete)) },
+            text = { Text(stringResource(R.string.msg_confirm_batch_delete, selectedNames.size)) },
+            confirmButton = {
+                OutlinedButton(onClick = { showBatchDeleteDialog = false }) {
+                    Text(stringResource(R.string.action_cancel))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = {
+                    showBatchDeleteDialog = false
+                    val toDelete = selectedNames.toList()
+                    scope.launch {
+                        var ok = 0
+                        var fail = 0
+                        toDelete.forEach { if (dbClient.deleteDatabase(it)) ok++ else fail++ }
+                        snackbarHostState.showSnackbar(context.getString(R.string.msg_batch_delete_result, ok, fail))
+                        loadDatabases()
+                        exitBatchMode()
+                    }
+                }) {
+                    Text(stringResource(R.string.action_delete))
+                }
+            }
+        )
+    }
+
+    // 批量重命名对话框
+    if (showBatchRenameDialog) {
+        AlertDialog(
+            onDismissRequest = { showBatchRenameDialog = false },
+            title = { Text(stringResource(R.string.title_batch_rename)) },
+            text = {
+                Column(
+                    modifier = Modifier.verticalScroll(rememberScrollState())
+                ) {
+                    selectedNames.forEach { oldName ->
+                        Text(
+                            text = oldName,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        OutlinedTextField(
+                            value = renameTexts[oldName] ?: oldName,
+                            onValueChange = { renameTexts[oldName] = it },
+                            label = { Text(stringResource(R.string.label_new_database_name)) },
+                            singleLine = true,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Spacer(modifier = Modifier.height(12.dp))
+                    }
+                }
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        showBatchRenameDialog = false
+                        val renames = renameTexts.map { it.key to it.value.trim() }
+                        scope.launch {
+                            var ok = 0
+                            var fail = 0
+                            renames.forEach { (old, new) ->
+                                if (new == old) ok++
+                                else if (dbClient.renameDatabase(old, new)) ok++ else fail++
+                            }
+                            snackbarHostState.showSnackbar(context.getString(R.string.msg_batch_rename_result, ok, fail))
+                            loadDatabases()
+                            exitBatchMode()
+                        }
+                    },
+                    enabled = isRenameValid()
+                ) {
+                    Text(stringResource(R.string.action_confirm))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showBatchRenameDialog = false }) {
+                    Text(stringResource(R.string.action_cancel))
+                }
+            }
+        )
+    }
+
     // 长按操作选择对话框
     if (showActionDialog && selectedDatabaseIndex != null) {
         AlertDialog(

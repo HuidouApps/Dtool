@@ -83,6 +83,18 @@ class UniversalDatabaseClient(private val context: Context) {
             false
         }
     }
+
+    /**
+     * 重命名数据库
+     */
+    fun renameDatabase(oldName: String, newName: String): Boolean {
+        return try {
+            serviceClient.renameDatabase(oldName, newName)
+        } catch (e: Exception) {
+            Log.e(TAG, "Error renaming database: $oldName to $newName", e)
+            false
+        }
+    }
     
     // ==================== 表操作 ====================
         

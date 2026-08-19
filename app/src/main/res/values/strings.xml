@@ -106,6 +106,31 @@
     <string name="cd_add_data">添加数据</string>
     <string name="label_auto_increment">自增</string>
 
+    <!-- 批量管理模式 -->
+    <string name="cd_batch_mode">批量管理</string>
+    <string name="cd_exit_batch_mode">退出批量管理</string>
+    <string name="label_selected_count">已选 %d 项</string>
+    <string name="action_select_all">全选</string>
+    <string name="action_deselect_all">取消全选</string>
+    <string name="cd_batch_actions">批量操作</string>
+    <string name="action_batch_delete">批量删除</string>
+    <string name="action_batch_rename">批量重命名</string>
+
+    <!-- 批量删除对话框 -->
+    <string name="title_batch_delete">批量删除</string>
+    <string name="msg_confirm_batch_delete">确定要删除选中的 %d 个数据库吗?此操作不可恢复!</string>
+    <string name="msg_batch_delete_result">已删除 %d 个，失败 %d 个</string>
+
+    <!-- 批量重命名对话框 -->
+    <string name="title_batch_rename">批量重命名</string>
+    <string name="label_new_database_name">新名称</string>
+    <string name="msg_rename_blank">名称不能为空</string>
+    <string name="msg_rename_invalid_char">名称不能包含 / 或 \\</string>
+    <string name="msg_rename_invalid_extension">名称必须以 .db 或 .sqlite 结尾</string>
+    <string name="msg_rename_conflict">该名称已存在</string>
+    <string name="msg_rename_duplicate">批量内名称不能重复</string>
+    <string name="msg_batch_rename_result">已重命名 %d 个，失败 %d 个</string>
+
     <!-- 设置页 -->
     <string name="title_app_settings">应用设置</string>
     <string name="section_settings">设置</string>

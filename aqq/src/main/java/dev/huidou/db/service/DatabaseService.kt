@@ -65,6 +65,50 @@ class DatabaseService : Service() {
                 false
             }
         }
+
+        override fun renameDatabase(oldName: String, newName: String): Boolean {
+            return try {
+                // 校验：非空、不含路径分隔符
+                if (oldName.isBlank() || newName.isBlank()) return false
+                if (newName.contains('/') || newName.contains('\\')) {
+                    Log.w(TAG, "renameDatabase rejected: newName contains path separator: $newName")
+                    return false
+                }
+                if (oldName == newName) return true // 无需重命名
+
+                val oldFile = getDatabasePath(oldName)
+                if (!oldFile.exists()) {
+                    Log.w(TAG, "renameDatabase rejected: old database not found: $oldName")
+                    return false
+                }
+                val newFile = getDatabasePath(newName)
+                if (newFile.exists()) {
+                    Log.w(TAG, "renameDatabase rejected: target already exists: $newName")
+                    return false
+                }
+
+                // 重命名主文件及 sidecar 文件 (-journal/-wal/-shm)，失败则回滚已重命名的文件
+                val suffixes = listOf("", "-journal", "-wal", "-shm")
+                val moved = mutableListOf<Pair<File, File>>()
+                for (suffix in suffixes) {
+                    val src = File(oldFile.absolutePath + suffix)
+                    if (!src.exists()) continue
+                    val dst = File(newFile.absolutePath + suffix)
+                    if (!src.renameTo(dst)) {
+                        // 回滚已重命名的文件
+                        moved.asReversed().forEach { (s, d) -> d.renameTo(s) }
+                        Log.w(TAG, "renameDatabase failed to rename: ${src.absolutePath}")
+                        return false
+                    }
+                    moved.add(src to dst)
+                }
+                Log.d(TAG, "Database renamed: $oldName -> $newName")
+                true
+            } catch (e: Exception) {
+                Log.e(TAG, "Error renaming database: $oldName -> $newName", e)
+                false
+            }
+        }
         
         // ==================== 表操作 ====================
         

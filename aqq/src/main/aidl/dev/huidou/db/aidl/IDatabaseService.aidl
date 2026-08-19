@@ -5,6 +5,7 @@ interface IDatabaseService {
     List<String> getDatabases();
     boolean createDatabase(String dbName);
     boolean deleteDatabase(String dbName);
+    boolean renameDatabase(String oldName, String newName);
     
     // 表操作
     List<String> getTables(String dbName);
