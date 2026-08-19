@@ -55,9 +55,11 @@ class DatabaseService : Service() {
         
         override fun deleteDatabase(dbName: String): Boolean {
             return try {
-                deleteDatabase(dbName)
-                Log.d(TAG, "Database deleted: $dbName")
-                true
+                // 必须用 this@DatabaseService 限定，否则这里会递归调用 binder 自身的
+                // deleteDatabase（AIDL 方法），造成无限递归直到 StackOverflowError。
+                val result = this@DatabaseService.deleteDatabase(dbName)
+                Log.d(TAG, "Database deleted: $dbName, result=$result")
+                result
             } catch (e: Exception) {
                 Log.e(TAG, "Error deleting database: $dbName", e)
                 false

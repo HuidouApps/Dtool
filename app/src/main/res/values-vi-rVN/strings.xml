@@ -108,16 +108,13 @@
     <string name="label_auto_increment">Tự động tăng</string>
 
     <!-- SettingsScreen -->
-    <string name="title_settings">Cài đặt</string>
     <string name="title_app_settings">Cài đặt ứng dụng</string>
     <string name="section_settings">Cài đặt</string>
-    <string name="section_about">Giới thiệu</string>
     <string name="language_settings">Ngôn ngữ</string>
     <string name="theme_settings">Chủ đề</string>
     <string name="theme_mode_light">Chế độ sáng</string>
     <string name="theme_mode_dark">Chế độ tối</string>
     <string name="theme_mode_system">Theo hệ thống</string>
-    <string name="about_app">Giới thiệu ứng dụng</string>
     <string name="cd_open_settings">Mở cài đặt</string>
     <string name="cd_close_drawer">Đóng menu bên</string>
     <string name="drawer_title">DBTool</string>
@@ -127,13 +124,10 @@
 
     <!-- About Card -->
     <string name="title_about">Giới thiệu</string>
-    <string name="visit_github">Trang nhà phát triển</string>
     <string name="about_app_btn">Giới thiệu ứng dụng</string>
-    <string name="about_owner_label">Chủ sở hữu</string>
     <string name="about_contributors_label">Người đóng góp</string>
     <string name="about_contributor_1">huidoudour</string>
     <string name="about_contributor_2">2249807346</string>
-    <string name="about_built_with">Xây dựng bằng Kotlin</string>
 
     <!-- About Me -->
     <string name="about_hello">Hello World</string>

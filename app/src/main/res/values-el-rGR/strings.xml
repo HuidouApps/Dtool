@@ -108,16 +108,13 @@
     <string name="label_auto_increment">Αυτόματη αύξηση</string>
 
     <!-- SettingsScreen -->
-    <string name="title_settings">Ρυθμίσεις</string>
     <string name="title_app_settings">Ρυθμίσεις εφαρμογής</string>
     <string name="section_settings">Ρυθμίσεις</string>
-    <string name="section_about">Σχετικά</string>
     <string name="language_settings">Γλώσσα</string>
     <string name="theme_settings">Θέμα</string>
     <string name="theme_mode_light">Φωτεινή λειτουργία</string>
     <string name="theme_mode_dark">Σκοτεινή λειτουργία</string>
     <string name="theme_mode_system">Ακολουθία συστήματος</string>
-    <string name="about_app">Σχετικά με την εφαρμογή</string>
     <string name="cd_open_settings">Άνοιγμα ρυθμίσεων</string>
     <string name="cd_close_drawer">Κλείσιμο πλευρικού μενού</string>
     <string name="drawer_title">DBTool</string>
@@ -127,13 +124,10 @@
 
     <!-- About Card -->
     <string name="title_about">Σχετικά</string>
-    <string name="visit_github">Σελίδα προγραμματιστή</string>
     <string name="about_app_btn">Σχετικά με την εφαρμογή</string>
-    <string name="about_owner_label">Ιδιοκτήτης</string>
     <string name="about_contributors_label">Συνεργάτες</string>
     <string name="about_contributor_1">huidoudour</string>
     <string name="about_contributor_2">2249807346</string>
-    <string name="about_built_with">Κατασκευάστηκε με Kotlin</string>
 
     <!-- About Me -->
     <string name="about_hello">Hello World</string>

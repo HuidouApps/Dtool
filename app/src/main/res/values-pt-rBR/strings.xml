@@ -108,16 +108,13 @@
     <string name="label_auto_increment">Autoincremento</string>
 
     <!-- SettingsScreen -->
-    <string name="title_settings">Configurações</string>
     <string name="title_app_settings">Configurações do aplicativo</string>
     <string name="section_settings">Configurações</string>
-    <string name="section_about">Sobre</string>
     <string name="language_settings">Idioma</string>
     <string name="theme_settings">Tema</string>
     <string name="theme_mode_light">Modo claro</string>
     <string name="theme_mode_dark">Modo escuro</string>
     <string name="theme_mode_system">Seguir o sistema</string>
-    <string name="about_app">Sobre o aplicativo</string>
     <string name="cd_open_settings">Abrir configurações</string>
     <string name="cd_close_drawer">Fechar menu lateral</string>
     <string name="drawer_title">DBTool</string>
@@ -127,13 +124,10 @@
 
     <!-- About Card -->
     <string name="title_about">Sobre</string>
-    <string name="visit_github">Página do desenvolvedor</string>
     <string name="about_app_btn">Sobre o aplicativo</string>
-    <string name="about_owner_label">Proprietário</string>
     <string name="about_contributors_label">Colaboradores</string>
     <string name="about_contributor_1">huidoudour</string>
     <string name="about_contributor_2">2249807346</string>
-    <string name="about_built_with">Construído com Kotlin</string>
 
     <!-- About Me -->
     <string name="about_hello">Hello World</string>

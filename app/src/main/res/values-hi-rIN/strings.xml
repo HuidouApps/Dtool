@@ -108,16 +108,13 @@
     <string name="label_auto_increment">स्वतः वृद्धि</string>
 
     <!-- SettingsScreen -->
-    <string name="title_settings">सेटिंग</string>
     <string name="title_app_settings">ऐप सेटिंग</string>
     <string name="section_settings">सेटिंग</string>
-    <string name="section_about">के बारे में</string>
     <string name="language_settings">भाषा</string>
     <string name="theme_settings">थीम</string>
     <string name="theme_mode_light">लाइट मोड</string>
     <string name="theme_mode_dark">डार्क मोड</string>
     <string name="theme_mode_system">सिस्टम का पालन करें</string>
-    <string name="about_app">ऐप के बारे में</string>
     <string name="cd_open_settings">सेटिंग खोलें</string>
     <string name="cd_close_drawer">ड्रावर बंद करें</string>
     <string name="drawer_title">DBTool</string>
@@ -127,13 +124,10 @@
 
     <!-- About Card -->
     <string name="title_about">के बारे में</string>
-    <string name="visit_github">डेवलपर पेज</string>
     <string name="about_app_btn">ऐप के बारे में</string>
-    <string name="about_owner_label">स्वामी</string>
     <string name="about_contributors_label">योगदानकर्ता</string>
     <string name="about_contributor_1">huidoudour</string>
     <string name="about_contributor_2">2249807346</string>
-    <string name="about_built_with">Kotlin से बनाया गया</string>
 
     <!-- About Me -->
     <string name="about_hello">Hello World</string>

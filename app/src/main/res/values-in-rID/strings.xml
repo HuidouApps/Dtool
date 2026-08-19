@@ -108,16 +108,13 @@
     <string name="label_auto_increment">Kenaikan Otomatis</string>
 
     <!-- SettingsScreen -->
-    <string name="title_settings">Pengaturan</string>
     <string name="title_app_settings">Pengaturan Aplikasi</string>
     <string name="section_settings">Pengaturan</string>
-    <string name="section_about">Tentang</string>
     <string name="language_settings">Bahasa</string>
     <string name="theme_settings">Tema</string>
     <string name="theme_mode_light">Mode Terang</string>
     <string name="theme_mode_dark">Mode Gelap</string>
     <string name="theme_mode_system">Ikuti Sistem</string>
-    <string name="about_app">Tentang Aplikasi</string>
     <string name="cd_open_settings">Buka pengaturan</string>
     <string name="cd_close_drawer">Tutup menu samping</string>
     <string name="drawer_title">DBTool</string>
@@ -127,13 +124,10 @@
 
     <!-- About Card -->
     <string name="title_about">Tentang</string>
-    <string name="visit_github">Halaman Pengembang</string>
     <string name="about_app_btn">Tentang Aplikasi</string>
-    <string name="about_owner_label">Pemilik</string>
     <string name="about_contributors_label">Kontributor</string>
     <string name="about_contributor_1">huidoudour</string>
     <string name="about_contributor_2">2249807346</string>
-    <string name="about_built_with">Dibuat dengan Kotlin</string>
 
     <!-- About Me -->
     <string name="about_hello">Hello World</string>

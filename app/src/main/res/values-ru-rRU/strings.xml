@@ -108,16 +108,13 @@
     <string name="label_auto_increment">Автоинкремент</string>
 
     <!-- SettingsScreen -->
-    <string name="title_settings">Настройки</string>
     <string name="title_app_settings">Настройки приложения</string>
     <string name="section_settings">Настройки</string>
-    <string name="section_about">О приложении</string>
     <string name="language_settings">Язык</string>
     <string name="theme_settings">Тема</string>
     <string name="theme_mode_light">Светлый режим</string>
     <string name="theme_mode_dark">Тёмный режим</string>
     <string name="theme_mode_system">Системный</string>
-    <string name="about_app">О приложении</string>
     <string name="cd_open_settings">Открыть настройки</string>
     <string name="cd_close_drawer">Закрыть боковое меню</string>
     <string name="drawer_title">DBTool</string>
@@ -127,13 +124,10 @@
 
     <!-- About Card -->
     <string name="title_about">О приложении</string>
-    <string name="visit_github">Страница разработчика</string>
     <string name="about_app_btn">О приложении</string>
-    <string name="about_owner_label">Владелец</string>
     <string name="about_contributors_label">Участники</string>
     <string name="about_contributor_1">huidoudour</string>
     <string name="about_contributor_2">2249807346</string>
-    <string name="about_built_with">Создано на Kotlin</string>
 
     <!-- About Me -->
     <string name="about_hello">Hello World</string>

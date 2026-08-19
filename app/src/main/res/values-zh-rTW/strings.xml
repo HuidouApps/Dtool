@@ -108,16 +108,13 @@
     <string name="label_auto_increment">自動遞增</string>
 
     <!-- SettingsScreen -->
-    <string name="title_settings">設定</string>
     <string name="title_app_settings">應用程式設定</string>
     <string name="section_settings">設定</string>
-    <string name="section_about">關於</string>
     <string name="language_settings">語言設定</string>
     <string name="theme_settings">主題設定</string>
     <string name="theme_mode_light">淺色模式</string>
     <string name="theme_mode_dark">深色模式</string>
     <string name="theme_mode_system">跟隨系統</string>
-    <string name="about_app">關於應用程式</string>
     <string name="cd_open_settings">開啟設定</string>
     <string name="cd_close_drawer">關閉側邊欄</string>
     <string name="drawer_title">DBTool</string>
@@ -127,13 +124,10 @@
 
     <!-- About Card -->
     <string name="title_about">關於</string>
-    <string name="visit_github">開發者頁</string>
     <string name="about_app_btn">關於應用程式</string>
-    <string name="about_owner_label">擁有者</string>
     <string name="about_contributors_label">貢獻者</string>
     <string name="about_contributor_1">huidoudour（慧兜兜）</string>
     <string name="about_contributor_2">2249807346</string>
-    <string name="about_built_with">基於 Kotlin 建構</string>
 
     <!-- About Me -->
     <string name="about_hello">Hello World</string>

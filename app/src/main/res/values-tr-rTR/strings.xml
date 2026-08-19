@@ -108,16 +108,13 @@
     <string name="label_auto_increment">Otomatik Artış</string>
 
     <!-- SettingsScreen -->
-    <string name="title_settings">Ayarlar</string>
     <string name="title_app_settings">Uygulama Ayarları</string>
     <string name="section_settings">Ayarlar</string>
-    <string name="section_about">Hakkında</string>
     <string name="language_settings">Dil</string>
     <string name="theme_settings">Tema</string>
     <string name="theme_mode_light">Açık mod</string>
     <string name="theme_mode_dark">Karanlık mod</string>
     <string name="theme_mode_system">Sistemi takip et</string>
-    <string name="about_app">Uygulama Hakkında</string>
     <string name="cd_open_settings">Ayarları aç</string>
     <string name="cd_close_drawer">Yan menüyü kapat</string>
     <string name="drawer_title">DBTool</string>
@@ -127,13 +124,10 @@
 
     <!-- About Card -->
     <string name="title_about">Hakkında</string>
-    <string name="visit_github">Geliştirici Sayfası</string>
     <string name="about_app_btn">Uygulama Hakkında</string>
-    <string name="about_owner_label">Sahip</string>
     <string name="about_contributors_label">Katkıda Bulunanlar</string>
     <string name="about_contributor_1">huidoudour</string>
     <string name="about_contributor_2">2249807346</string>
-    <string name="about_built_with">Kotlin ile oluşturuldu</string>
 
     <!-- About Me -->
     <string name="about_hello">Hello World</string>

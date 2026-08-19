@@ -108,16 +108,13 @@
     <string name="label_auto_increment">স্বয়ংক্রিয় বৃদ্ধি</string>
 
     <!-- SettingsScreen -->
-    <string name="title_settings">সেটিংস</string>
     <string name="title_app_settings">অ্যাপ সেটিংস</string>
     <string name="section_settings">সেটিংস</string>
-    <string name="section_about">সম্পর্কে</string>
     <string name="language_settings">ভাষা</string>
     <string name="theme_settings">থিম</string>
     <string name="theme_mode_light">লাইট মোড</string>
     <string name="theme_mode_dark">ডার্ক মোড</string>
     <string name="theme_mode_system">সিস্টেম অনুসরণ</string>
-    <string name="about_app">অ্যাপ সম্পর্কে</string>
     <string name="cd_open_settings">সেটিংস খুলুন</string>
     <string name="cd_close_drawer">ড্রয়ার বন্ধ করুন</string>
     <string name="drawer_title">DBTool</string>
@@ -127,13 +124,10 @@
 
     <!-- About Card -->
     <string name="title_about">সম্পর্কে</string>
-    <string name="visit_github">ডেভেলপার পেজ</string>
     <string name="about_app_btn">অ্যাপ সম্পর্কে</string>
-    <string name="about_owner_label">মালিক</string>
     <string name="about_contributors_label">অবদানকারী</string>
     <string name="about_contributor_1">huidoudour</string>
     <string name="about_contributor_2">2249807346</string>
-    <string name="about_built_with">Kotlin দিয়ে তৈরি</string>
 
     <!-- About Me -->
     <string name="about_hello">Hello World</string>

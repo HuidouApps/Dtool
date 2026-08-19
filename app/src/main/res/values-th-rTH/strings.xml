@@ -108,16 +108,13 @@
     <string name="label_auto_increment">เพิ่มอัตโนมัติ</string>
 
     <!-- SettingsScreen -->
-    <string name="title_settings">การตั้งค่า</string>
     <string name="title_app_settings">การตั้งค่าแอป</string>
     <string name="section_settings">การตั้งค่า</string>
-    <string name="section_about">เกี่ยวกับ</string>
     <string name="language_settings">ภาษา</string>
     <string name="theme_settings">ธีม</string>
     <string name="theme_mode_light">โหมดสว่าง</string>
     <string name="theme_mode_dark">โหมดมืด</string>
     <string name="theme_mode_system">ตามระบบ</string>
-    <string name="about_app">เกี่ยวกับแอป</string>
     <string name="cd_open_settings">เปิดการตั้งค่า</string>
     <string name="cd_close_drawer">ปิดเมนูด้านข้าง</string>
     <string name="drawer_title">DBTool</string>
@@ -127,13 +124,10 @@
 
     <!-- About Card -->
     <string name="title_about">เกี่ยวกับ</string>
-    <string name="visit_github">หน้าผู้พัฒนา</string>
     <string name="about_app_btn">เกี่ยวกับแอป</string>
-    <string name="about_owner_label">เจ้าของ</string>
     <string name="about_contributors_label">ผู้มีส่วนร่วม</string>
     <string name="about_contributor_1">huidoudour</string>
     <string name="about_contributor_2">2249807346</string>
-    <string name="about_built_with">สร้างด้วย Kotlin</string>
 
     <!-- About Me -->
     <string name="about_hello">Hello World</string>

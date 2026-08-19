@@ -107,33 +107,38 @@
     <string name="label_auto_increment">自增</string>
 
     <!-- 设置页 -->
-    <string name="title_settings">设置</string>
     <string name="title_app_settings">应用设置</string>
     <string name="section_settings">设置</string>
-    <string name="section_about">关于</string>
     <string name="language_settings">语言设置</string>
     <string name="theme_settings">主题设置</string>
     <string name="theme_mode_light">浅色模式</string>
     <string name="theme_mode_dark">深色模式</string>
     <string name="theme_mode_system">跟随系统</string>
-    <string name="about_app">关于应用</string>
     <string name="cd_open_settings">打开设置</string>
     <string name="cd_close_drawer">关闭侧边栏</string>
     <string name="drawer_title">DBTool</string>
     <string name="drawer_subtitle">数据库管理工具</string>
+    <string name="drawer_section_main">主要功能</string>
+    <string name="drawer_section_about">关于</string>
     <string name="menu_database">数据库管理</string>
     <string name="menu_settings">设置</string>
+    <string name="menu_developer_page">开发者页</string>
+    <string name="menu_about_app">关于应用</string>
     <string name="do_not_change_language" translatable="false">暂不支持切换语言</string>
 
     <!-- 关于 卡片 -->
     <string name="title_about">关于</string>
-    <string name="visit_github">开发者页</string>
     <string name="about_app_btn">关于应用</string>
-    <string name="about_owner_label">所有者</string>
     <string name="about_contributors_label">贡献者</string>
     <string name="about_contributor_1">huidoudour（慧兜兜）</string>
     <string name="about_contributor_2">2249807346（2249807346）</string>
-    <string name="about_built_with">基于 Kotlin 构建</string>
+
+    <!-- 技术徽标 -->
+    <string name="badge_kotlin">Kotlin</string>
+    <string name="badge_gradle">Gradle</string>
+    <string name="badge_java">Java</string>
+    <string name="badge_android_studio">Android Studio</string>
+    <string name="badge_compose">Compose</string>
 
     <!-- 关于我 -->
     <string name="about_hello">Hello World</string>

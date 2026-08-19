@@ -35,8 +35,6 @@ import dev.huidou.util.ui.theme.ThemeViewModel
 @Composable
 fun SettingsScreen(
     onMenuClick: () -> Unit = {},
-    onAboutClick: () -> Unit = {},
-    onAboutAppClick: () -> Unit = {},
     themeViewModel: ThemeViewModel
 ) {
     var showThemeDialog by remember { mutableStateOf(false) }
@@ -99,32 +97,6 @@ fun SettingsScreen(
                 onClick = { showThemeDialog = true }
             )
 
-            Spacer(modifier = Modifier.height(12.dp))
-
-            // ═══════════════════════════════════════════════
-            // Section: 关于
-            // ═══════════════════════════════════════════════
-            SectionTitle(text = stringResource(R.string.section_about))
-
-            // 开发者页
-            SettingsItemCard(
-                iconRes = R.drawable.ic_github,
-                iconBackgroundColor = colorResource(R.color.light_and_night).copy(alpha = 0.1f),
-                iconTintColor = colorResource(R.color.light_and_night),
-                title = stringResource(R.string.visit_github),
-                onClick = onAboutClick
-            )
-
-            Spacer(modifier = Modifier.height(4.dp))
-
-            // 关于应用
-            SettingsItemCard(
-                iconRes = R.drawable.ic_version,
-                iconBackgroundColor = colorResource(R.color.light_and_night).copy(alpha = 0.1f),
-                iconTintColor = colorResource(R.color.light_and_night),
-                title = stringResource(R.string.about_app_btn),
-                onClick = onAboutAppClick
-            )
         }
     }
 

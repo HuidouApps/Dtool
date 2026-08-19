@@ -108,16 +108,13 @@
     <string name="label_auto_increment">زيادة تلقائية</string>
 
     <!-- SettingsScreen -->
-    <string name="title_settings">الإعدادات</string>
     <string name="title_app_settings">إعدادات التطبيق</string>
     <string name="section_settings">الإعدادات</string>
-    <string name="section_about">حول</string>
     <string name="language_settings">اللغة</string>
     <string name="theme_settings">المظهر</string>
     <string name="theme_mode_light">الوضع الفاتح</string>
     <string name="theme_mode_dark">الوضع الداكن</string>
     <string name="theme_mode_system">اتبع النظام</string>
-    <string name="about_app">حول التطبيق</string>
     <string name="cd_open_settings">فتح الإعدادات</string>
     <string name="cd_close_drawer">إغلاق القائمة الجانبية</string>
     <string name="drawer_title">DBTool</string>
@@ -127,13 +124,10 @@
 
     <!-- About Card -->
     <string name="title_about">حول</string>
-    <string name="visit_github">صفحة المطور</string>
     <string name="about_app_btn">حول التطبيق</string>
-    <string name="about_owner_label">المالك</string>
     <string name="about_contributors_label">المساهمون</string>
     <string name="about_contributor_1">huidoudour</string>
     <string name="about_contributor_2">2249807346</string>
-    <string name="about_built_with">مبني بـ Kotlin</string>
 
     <!-- About Me -->
     <string name="about_hello">Hello World</string>

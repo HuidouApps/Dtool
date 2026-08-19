@@ -109,9 +109,38 @@ fun AboutAppScreen(
             )
 
             Spacer(modifier = Modifier.weight(1f))
-            
-            // ── Kotlin 徽标 ──
-            KotlinBadge()
+
+            // ── 技术徽标 ──
+            TechBadge(
+                iconRes = R.drawable.ic_java,
+                contentDescription = stringResource(R.string.badge_java),
+                name = stringResource(R.string.badge_java),
+                nameColor = Color(0xFF0074BD)
+            )
+            TechBadge(
+                iconRes = R.drawable.ic_kotlin,
+                contentDescription = stringResource(R.string.badge_kotlin),
+                name = stringResource(R.string.badge_kotlin),
+                nameColor = Color(0xFF7F52FF)
+            )
+            TechBadge(
+                iconRes = R.drawable.ic_gradle,
+                contentDescription = stringResource(R.string.badge_gradle),
+                name = stringResource(R.string.badge_gradle),
+                nameColor = Color(0xFF02303A)
+            )
+            TechBadge(
+                iconRes = R.drawable.ic_compose,
+                contentDescription = stringResource(R.string.badge_compose),
+                name = stringResource(R.string.badge_compose),
+                nameColor = Color(0xFF4285F4)
+            )
+            TechBadge(
+                iconRes = R.drawable.ic_android_studio,
+                contentDescription = stringResource(R.string.badge_android_studio),
+                name = stringResource(R.string.badge_android_studio),
+                nameColor = Color(0xFF3DDC84)
+            )
         }
     }
 }
@@ -146,36 +175,37 @@ private fun ContributorRow(
 }
 
 /**
- * Kotlin 徽标
- * 使用 ic_kotlin.xml 渐变矢量图标，包含官方多边形标记和文字
+ * 技术徽标（图标 + 品牌色名称，居中显示）
+ * 图标使用官方品牌矢量图（品牌配色，非 UI 主题色）
  */
 @Composable
-private fun KotlinBadge() {
-    val kotlinPurple = Color(0xFF7F52FF)
-    
+private fun TechBadge(
+    iconRes: Int,
+    contentDescription: String,
+    name: String,
+    nameColor: Color
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 16.dp),
+            .padding(vertical = 8.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Kotlin 官方渐变多边形标记
         Icon(
-            painter = painterResource(R.drawable.ic_kotlin),
-            contentDescription = "Kotlin logo",
+            painter = painterResource(iconRes),
+            contentDescription = contentDescription,
             modifier = Modifier.size(32.dp),
             tint = Color.Unspecified
         )
-        
+
         Spacer(modifier = Modifier.width(12.dp))
-        
-        // Kotlin 文字
+
         Text(
-            text = "Kotlin",
+            text = name,
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
-            color = kotlinPurple
+            color = nameColor
         )
     }
 }
