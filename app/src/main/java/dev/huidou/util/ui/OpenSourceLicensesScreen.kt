@@ -1,5 +1,6 @@
 package dev.huidou.util.ui
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -55,22 +56,23 @@ fun OpenSourceLicensesScreen(
 }
 
 private data class LicenseItem(
-    val name: String,
+    @StringRes val nameRes: Int,
     val license: String,
-    val description: String
+    @StringRes val descriptionRes: Int
 )
 
 /**
  * 项目依赖的开源库列表（以 release 实际使用为准）。
  * 说明：debug-only 依赖（如 MTDataFilesProvider）不随应用发布，不在此列出。
+ * 库名与协议为专有名词不做本地化；描述文本走字符串资源，跟随当前语言。
  */
 private val licenseItems = listOf(
-    LicenseItem("Jetpack Compose", "Apache License 2.0", "声明式 UI 框架（Compose UI、Runtime、Foundation、Animation）"),
-    LicenseItem("Material 3 & Material Icons", "Apache License 2.0", "Material Design 3 组件与图标库"),
-    LicenseItem("AndroidX 组件", "Apache License 2.0", "Core KTX、Lifecycle、Activity、DataStore、Room 等"),
-    LicenseItem("Kotlin", "Apache License 2.0", "编程语言"),
-    LicenseItem("Kotlinx Coroutines", "Apache License 2.0", "协程库"),
-    LicenseItem("DTool（本项目）", "MIT License", "Copyright (c) 2026 HuidouApps")
+    LicenseItem(R.string.license_name_jetpack_compose, "Apache License 2.0", R.string.license_desc_compose),
+    LicenseItem(R.string.license_name_material3, "Apache License 2.0", R.string.license_desc_material3),
+    LicenseItem(R.string.license_name_androidx, "Apache License 2.0", R.string.license_desc_androidx),
+    LicenseItem(R.string.license_name_kotlin, "Apache License 2.0", R.string.license_desc_kotlin),
+    LicenseItem(R.string.license_name_coroutines, "Apache License 2.0", R.string.license_desc_coroutines),
+    LicenseItem(R.string.license_name_dtool, "MIT License", R.string.license_desc_dtool)
 )
 
 @Composable
@@ -89,7 +91,7 @@ private fun LicenseCard(item: LicenseItem) {
                 .padding(16.dp)
         ) {
             Text(
-                text = item.name,
+                text = stringResource(item.nameRes),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface
             )
@@ -99,10 +101,10 @@ private fun LicenseCard(item: LicenseItem) {
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.primary
             )
-            if (item.description.isNotBlank()) {
+            if (item.descriptionRes != 0) {
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = item.description,
+                    text = stringResource(item.descriptionRes),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

@@ -1,10 +1,12 @@
 package dev.huidou.util.ui
 
-
-
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 
@@ -21,8 +23,8 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import android.widget.Toast
 import androidx.annotation.DrawableRes
+import java.util.Locale
 import dev.huidou.util.R
 import dev.huidou.util.provider.UniversalDatabaseClient
 import dev.huidou.util.ui.theme.ThemeMode
@@ -41,8 +43,16 @@ fun SettingsScreen(
     onOpenSourceLicenses: () -> Unit = {}
 ) {
     var showThemeDialog by remember { mutableStateOf(false) }
+    var showLanguageDialog by remember { mutableStateOf(false) }
     val context = LocalContext.current
-    val languageToastMsg = stringResource(R.string.do_not_change_language)
+
+    // 当前应用语言（跟随系统，或应用内/系统设置选定的语言）
+    val appLocales = remember { AppCompatDelegate.getApplicationLocales() }
+    val followSystemLabel = stringResource(R.string.language_system)
+    val currentLanguageName = remember(appLocales, followSystemLabel) {
+        val current = appLocales[0]
+        if (current == null) followSystemLabel else current.getDisplayName(current)
+    }
 
     // ==================== 数据库存储统计 ====================
     val dbClient = remember { UniversalDatabaseClient(context) }
@@ -110,9 +120,8 @@ fun SettingsScreen(
                 iconBackgroundColor = colorResource(R.color.light_and_night).copy(alpha = 0.1f),
                 iconTintColor = colorResource(R.color.light_and_night),
                 title = stringResource(R.string.language_settings),
-                onClick = {
-                    Toast.makeText(context, languageToastMsg, Toast.LENGTH_SHORT).show()
-                }
+                subtitle = currentLanguageName,
+                onClick = { showLanguageDialog = true }
             )
 
             Spacer(modifier = Modifier.height(4.dp))
@@ -163,6 +172,13 @@ fun SettingsScreen(
         ThemeSelectionDialog(
             themeViewModel = themeViewModel,
             onDismiss = { showThemeDialog = false }
+        )
+    }
+
+    // 语言选择对话框
+    if (showLanguageDialog) {
+        LanguageSelectionDialog(
+            onDismiss = { showLanguageDialog = false }
         )
     }
 }
@@ -223,6 +239,69 @@ private fun ThemeSelectionDialog(
                     Switch(
                         checked = dynamicColorEnabled,
                         onCheckedChange = { themeViewModel.setDynamicColor(it) }
+                    )
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onDismiss) {
+                Text(stringResource(R.string.action_confirm))
+            }
+        }
+    )
+}
+
+/**
+ * 应用支持的语言列表（与 res/xml/locales_config.xml 保持一致）
+ */
+private val supportedLocaleTags = listOf(
+    "zh-CN", "zh-TW", "zh-HK",
+    "en-US", "en-GB",
+    "ar-SA", "bn-BD", "de-DE", "el-GR", "es-ES", "fr-FR",
+    "hi-IN", "id-ID", "it-IT", "ja-JP", "ko-KR", "pt-BR",
+    "ru-RU", "th-TH", "tr-TR", "vi-VN"
+)
+
+/**
+ * 语言选择对话框
+ * 以 AppCompatDelegate 作为语言唯一事实来源：应用内选择实时生效（自动重建 Activity），
+ * 并与系统「设置→应用→语言」（Android 13+）双向同步。
+ */
+@Composable
+private fun LanguageSelectionDialog(
+    onDismiss: () -> Unit
+) {
+    val currentLocales = remember { AppCompatDelegate.getApplicationLocales() }
+    val currentTag = currentLocales[0]?.toLanguageTag()
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.language_settings)) },
+        text = {
+            LazyColumn(modifier = Modifier.heightIn(max = 400.dp)) {
+                item(key = "system") {
+                    ThemeOptionRow(
+                        label = stringResource(R.string.language_system),
+                        selected = currentLocales.isEmpty,
+                        onClick = {
+                            onDismiss()
+                            AppCompatDelegate.setApplicationLocales(
+                                LocaleListCompat.getEmptyLocaleList()
+                            )
+                        }
+                    )
+                }
+                items(items = supportedLocaleTags, key = { it }) { tag ->
+                    val locale = Locale.forLanguageTag(tag)
+                    ThemeOptionRow(
+                        label = locale.getDisplayName(locale), // 以母语显示
+                        selected = tag == currentTag,
+                        onClick = {
+                            onDismiss()
+                            AppCompatDelegate.setApplicationLocales(
+                                LocaleListCompat.forLanguageTags(tag)
+                            )
+                        }
                     )
                 }
             }

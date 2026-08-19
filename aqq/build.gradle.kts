@@ -1,7 +1,17 @@
+import java.text.SimpleDateFormat
+import java.util.Date
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.ksp)
+}
+
+fun Project.gitHash(): String = try {
+    providers.exec { commandLine("git", "rev-parse", "--short=7", "HEAD") }
+        .standardOutput.asText.get().trim()
+} catch (_: Exception) {
+    SimpleDateFormat("MMddHHmm").format(Date())
 }
 
 android {
@@ -18,7 +28,7 @@ android {
         //noinspection OldTargetApi
         targetSdk = 36
         versionCode = 260032
-        versionName = "26.08.19"
+        versionName = "26.08.19-${gitHash()}"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 

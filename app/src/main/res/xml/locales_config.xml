@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 声明应用支持的语言（Android 13+ 系统「设置→应用→语言」据此展示；id-ID 映射到 values-in-rID） -->
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="zh-CN" />
+    <locale android:name="zh-TW" />
+    <locale android:name="zh-HK" />
+    <locale android:name="en-US" />
+    <locale android:name="en-GB" />
+    <locale android:name="ar-SA" />
+    <locale android:name="bn-BD" />
+    <locale android:name="de-DE" />
+    <locale android:name="el-GR" />
+    <locale android:name="es-ES" />
+    <locale android:name="fr-FR" />
+    <locale android:name="hi-IN" />
+    <locale android:name="id-ID" />
+    <locale android:name="it-IT" />
+    <locale android:name="ja-JP" />
+    <locale android:name="ko-KR" />
+    <locale android:name="pt-BR" />
+    <locale android:name="ru-RU" />
+    <locale android:name="th-TH" />
+    <locale android:name="tr-TR" />
+    <locale android:name="vi-VN" />
+</locale-config>

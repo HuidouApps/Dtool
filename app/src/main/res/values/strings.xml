@@ -135,6 +135,7 @@
     <string name="title_app_settings">应用设置</string>
     <string name="section_settings">设置</string>
     <string name="language_settings">语言设置</string>
+    <string name="language_system">跟随系统</string>
     <string name="theme_settings">主题设置</string>
     <string name="theme_mode_light">浅色模式</string>
     <string name="theme_mode_dark">深色模式</string>
@@ -149,7 +150,6 @@
     <string name="menu_settings">设置</string>
     <string name="menu_developer_page">开发者页</string>
     <string name="menu_about_app">关于应用</string>
-    <string name="do_not_change_language" translatable="false">暂不支持切换语言</string>
 
     <!-- 存储 -->
     <string name="section_storage">存储</string>
@@ -183,4 +183,17 @@
     <string name="about_description">你保护世界，我保护你</string>
     <string name="about_developer">亻尔女子，我是 huidoudour（慧兜兜）</string>
     <string name="find_me">ω寻找我ω</string>
+
+    <string name="license_desc_androidx">Core KTX、Lifecycle、Activity、DataStore、Room 等</string>
+    <string name="license_desc_compose">声明式 UI 框架（Compose UI、Runtime、Foundation、Animation）</string>
+    <string name="license_desc_coroutines">协程库</string>
+    <string name="license_desc_dtool">Copyright (c) 2026 HuidouApps</string>
+    <string name="license_desc_kotlin">编程语言</string>
+    <string name="license_desc_material3">Material Design 3 组件与图标库</string>
+    <string name="license_name_androidx">AndroidX 组件</string>
+    <string name="license_name_coroutines">Kotlinx Coroutines</string>
+    <string name="license_name_dtool">DTool（本项目）</string>
+    <string name="license_name_jetpack_compose">Jetpack Compose</string>
+    <string name="license_name_kotlin">Kotlin</string>
+    <string name="license_name_material3">Material 3 &amp; Material Icons</string>
 </resources>

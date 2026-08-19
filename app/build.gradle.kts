@@ -1,6 +1,16 @@
+import java.text.SimpleDateFormat
+import java.util.Date
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+}
+
+fun Project.gitHash(): String = try {
+    providers.exec { commandLine("git", "rev-parse", "--short=7", "HEAD") }
+        .standardOutput.asText.get().trim()
+} catch (_: Exception) {
+    SimpleDateFormat("MMddHHmm").format(Date())
 }
 
 android {
@@ -17,7 +27,7 @@ android {
         //noinspection OldTargetApi
         targetSdk = 36
         versionCode = 260046
-        versionName = "26.8.19"
+        versionName = "26.8.19-${gitHash()}"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -78,6 +88,13 @@ android {
         compose = true
         aidl = true
     }
+
+    bundle {
+        language {
+            // 关闭语言拆包：所有语言打包进基础 APK，保证切换语言实时生效不回退
+            enableSplit = false
+        }
+    }
 }
 
 dependencies {
@@ -92,6 +109,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.appcompat)
 
     debugImplementation(libs.androidx.compose.ui.tooling.preview)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
