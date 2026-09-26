@@ -89,6 +89,7 @@ android {
         aidl = true
     }
 
+    @Suppress("UnstableApiUsage")
     bundle {
         language {
             // 关闭语言拆包：所有语言打包进基础 APK，保证切换语言实时生效不回退
