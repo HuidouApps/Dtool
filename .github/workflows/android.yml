@@ -16,90 +16,58 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-app:
-    name: Build App Module
+  build:
+    name: Build App & Aqq Modules
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
       with:
         # 获取完整历史，支持强制推送检测
         fetch-depth: 0
-    
+
     - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:
         java-version: '17'
         distribution: 'temurin'
-    
+
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v4
-    
+
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    
+
     - name: Decode Keystore
-      run: echo "${{ secrets.DEBUG_STORE }}" | base64 --decode > app/debug.keystore
-    
-    - name: Build Debug APK (app)
+      run: echo "${{ secrets.DEBUG_STORE }}" | base64 --decode > debug.keystore
+
+    # app 模块的 assemble 已依赖 aqq / database，一次构建即可产出全部 APK
+    - name: Build Debug APKs (app + aqq)
       run: |
-        ./gradlew :app:assembleDebug \
-          -Pandroid.injected.signing.store.file=$(pwd)/app/debug.keystore \
+        ./gradlew :app:assembleDebug :aqq:assembleDebug \
+          -Pandroid.injected.signing.store.file=$(pwd)/debug.keystore \
           -Pandroid.injected.signing.store.password=${{ secrets.DEBUG_PASSD }} \
           -Pandroid.injected.signing.key.alias=${{ secrets.DEBUG_ALIAS }} \
           -Pandroid.injected.signing.key.password=${{ secrets.DEBUG_PASSD }}
-    
-    - name: Rename APK to DBTool-Debug.apk
-      run: mv app/build/outputs/apk/debug/*.apk app/build/outputs/apk/debug/DBTool-Debug.apk
-    
+
+    - name: Rename APKs
+      run: |
+        mv build/app/outputs/apk/debug/*.apk build/app/outputs/apk/debug/DBTool-Debug.apk
+        mv build/aqq/outputs/apk/debug/*.apk build/aqq/outputs/apk/debug/DataBase-Debug.apk
+
     - name: Upload app debug APK
       uses: actions/upload-artifact@v4
       with:
         name: DBTool-Debug.apk
-        path: app/build/outputs/apk/debug/DBTool-Debug.apk
+        path: build/app/outputs/apk/debug/DBTool-Debug.apk
+        if-no-files-found: error
         retention-days: 7
 
-  build-aqq:
-    name: Build Aqq Module
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        # 获取完整历史，支持强制推送检测
-        fetch-depth: 0
-    
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-    
-    - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@v4
-    
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-    
-    - name: Decode Keystore
-      run: echo "${{ secrets.DEBUG_STORE }}" | base64 --decode > aqq/debug.keystore
-    
-    - name: Build Debug APK (aqq)
-      run: |
-        ./gradlew :aqq:assembleDebug \
-          -Pandroid.injected.signing.store.file=$(pwd)/aqq/debug.keystore \
-          -Pandroid.injected.signing.store.password=${{ secrets.DEBUG_PASSD }} \
-          -Pandroid.injected.signing.key.alias=${{ secrets.DEBUG_ALIAS }} \
-          -Pandroid.injected.signing.key.password=${{ secrets.DEBUG_PASSD }}
-    
-    - name: Rename APK to DataBase-Debug.apk
-      run: mv aqq/build/outputs/apk/debug/*.apk aqq/build/outputs/apk/debug/DataBase-Debug.apk
-    
     - name: Upload aqq debug APK
       uses: actions/upload-artifact@v4
       with:
         name: DataBase-Debug.apk
-        path: aqq/build/outputs/apk/debug/DataBase-Debug.apk
+        path: build/aqq/outputs/apk/debug/DataBase-Debug.apk
+        if-no-files-found: error
         retention-days: 7
