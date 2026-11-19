@@ -27,6 +27,10 @@ android {
             )
         }
     }
+    packaging {
+        jniLibs.excludes.add("lib/*/libandroidx.graphics.path.so")
+        resources.excludes.addAll(arrayOf("META-INF/**", "DebugProbesKt.bin", "kotlin-tooling-metadata.json", "kotlin/**"))
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11

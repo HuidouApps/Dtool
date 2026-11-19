@@ -5,3 +5,9 @@ plugins {
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.kotlin.ksp) apply false
 }
+
+subprojects {
+    layout.buildDirectory.value(
+        rootProject.layout.buildDirectory.get().dir(project.name)
+    )
+}

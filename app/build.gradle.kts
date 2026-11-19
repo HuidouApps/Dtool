@@ -116,3 +116,16 @@ dependencies {
     //noinspection UseTomlInstead
     debugImplementation("com.github.L-JINBIN:MTDataFilesProvider:v1.0.0")
 }
+
+tasks.configureEach {
+    when {
+        name.startsWith("assemble") || name.startsWith("install") -> {
+            dependsOn(":aqq:$name")
+            if (name.contains("Release", ignoreCase = true)) {
+                dependsOn(":database:assembleRelease")
+            } else {
+                dependsOn(":database:assembleDebug")
+            }
+        }
+    }
+}
